@@ -28,9 +28,9 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
     ? [<React.Fragment key="a">Made for men<br />who carry presence.</React.Fragment>, 'A structured monogram knit, built from the ground up for bigger men. Worn, not styled, by the man who carries the room.']
     : [<React.Fragment key="b">No loud logos.<br />Just presence.</React.Fragment>, 'Premium fashion was never built for men like you. Walk in looking like the room is yours — because it is. Worn, not styled, by the man who walks in and never has to announce it.'];
   return (
-    <section data-screen-label="Hero" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>
+    <section data-screen-label="Hero" className="feiri-hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>
       {product.colors.map(c => (
-        <img key={c.key} src={c.hero} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
+        <img key={c.key} src={c.hero} alt="" className="feiri-hero-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
       ))}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(6,18,26,0.82) 0%, rgba(6,18,26,0.58) 30%, rgba(6,18,26,0.18) 58%, rgba(6,18,26,0) 80%)' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
