@@ -37,8 +37,7 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
       <div style={{ position: 'relative', maxWidth: 1240, width: '100%', margin: '0 auto', padding: 'clamp(48px,7vw,96px) var(--gutter)' }}>
         <div style={{ maxWidth: 600 }}>
           <Eyebrow color="var(--gold)">{product.line} · Only 300 made</Eyebrow>
-          <h1 style={{ ...sc('clamp(2.8rem,6vw,5rem)', 'var(--cream)'), margin: '22px 0 0', lineHeight: 1.02, textWrap: 'balance' }}>{lines[0]}</h1>
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, marginTop: 36 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, marginTop: 28 }}>
             <Btn variant="cream" size="lg" onClick={onBuy}>Claim Your Limited Piece</Btn>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <Stars value={5} size={16} />
