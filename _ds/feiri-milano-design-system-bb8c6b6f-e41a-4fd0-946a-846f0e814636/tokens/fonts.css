@@ -1,0 +1,52 @@
+/* ============================================================
+   FEIRI — WEBFONTS
+
+   PRIMARY (brand CI): "Griffon" — a retro-influenced titling serif with true
+   small caps, weights ExtraLight / Light / Regular / SemiBold. Designed by
+   Tumelo Matabola (Pistis Creative Design). Used for ALL header copy.
+   Griffon is a commercial typeface and is NOT a webfont yet — the licensed
+   files have not been supplied, so the @font-face block below is scaffolded
+   and COMMENTED OUT. Drop the files into assets/fonts/ and uncomment to make
+   Griffon live everywhere instantly (the family already leads every heading
+   font stack, so it takes over automatically).
+
+   SUBSTITUTES (active until Griffon files arrive — flagged in readme.md):
+   • Headlines / display : Cormorant Garamond (high-contrast serif, true small
+                           caps — closest free match to Griffon's headline look)
+   • Lockup / hero caps  : Cinzel (engraved Roman caps)
+   • UI / body           : Jost (clean geometric grotesque)
+   The FEIRI wordmark always ships as a vector/image asset, so the mark itself
+   is pixel-accurate regardless of the running-text font.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+/* ---- GRIFFON (primary) — uncomment once the licensed files are in assets/fonts/ ----
+@font-face {
+  font-family: 'Griffon';
+  font-weight: 200;            
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Griffon-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Griffon';
+  font-weight: 300;            
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Griffon-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Griffon';
+  font-weight: 400;            
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Griffon-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Griffon';
+  font-weight: 600;            
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Griffon-SemiBold.woff2') format('woff2');
+}
+-------------------------------------------------------------------------------------- */

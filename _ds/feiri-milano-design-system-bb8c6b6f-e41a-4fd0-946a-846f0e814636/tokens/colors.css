@@ -1,0 +1,109 @@
+/* ============================================================
+   FEIRI MILANO — COLOR TOKENS
+   Soft, high-depth palette taken from the live FEIRI storefront.
+   PRIMARY  : deep marine navy-teal (dark sections, footer, headings)
+   ACCENT   : cobalt / royal blue (the FF monogram knit, collars, links)
+   PAPER    : warm cream / ivory (the default light ground)
+   LIMITED  : deep crimson (urgency only — "ONLY 300 MADE")
+   GOLD     : sparing premium hairline accent
+   TRICOLORE: reserved for the FEIRI MILANO logo lockup only
+   ============================================================ */
+:root {
+  /* --- Marine navy-teal (PRIMARY brand) --- */
+  --navy-950: #061E2A;
+  --navy-900: #0A2E40;
+  --navy-800: #0D3D56; /* core brand navy — footer, dark sections, CTAs */
+  --navy-700: #134E6B;
+  --navy-600: #1C6383;
+  --navy-100: #D2E0E7;
+  --navy-50:  #EDF3F6;
+
+  /* --- Cobalt / royal blue (ACCENT — monogram knit, collars, links) --- */
+  --cobalt-900: #15265E;
+  --cobalt-800: #1C3486;
+  --cobalt-700: #2444AC;
+  --cobalt-600: #2C53C9; /* core accent — the royal blue monogram */
+  --cobalt-500: #3D67DA;
+  --cobalt-300: #93AAE8;
+  --cobalt-100: #DCE4F8;
+  --cobalt-50:  #EEF2FC;
+
+  /* --- Cream / ivory (paper & light surfaces) --- */
+  --cream-50:  #FFFDF8;
+  --cream-100: #FCF6E8;
+  --cream-200: #FAF0D6; /* core brand cream — soft section grounds */
+  --cream-300: #F3E7C9;
+  --cream-400: #E8D9B4;
+
+  /* --- Warm neutrals (text, borders, muted surfaces) --- */
+  --ink-900:   #15140F; /* near-black, primary text on cream/white */
+  --ink-800:   #28261F;
+  --stone-700: #43403A;
+  --stone-600: #635E56;
+  --stone-500: #857F75;
+  --stone-400: #ABA597;
+  --stone-300: #CEC8BB;
+  --stone-200: #E5DFD3;
+  --stone-100: #F2EDE2;
+
+  /* --- Crimson (LIMITED / urgency badges only) --- */
+  --crimson-900: #5C0F18;
+  --crimson-800: #7A1420; /* "ONLY 300 MADE" */
+  --crimson-700: #951826;
+  --crimson-100: #F3D9DC;
+
+  /* --- Champagne gold (sparing premium accent) --- */
+  --gold-600: #A9863F;
+  --gold-500: #C9A24B;
+  --gold-300: #E2C988;
+  --gold-100: #F4E6C4;
+
+  /* --- Italian tricolore (logo lockup only) --- */
+  --tricolore-red:   #CE2B37;
+  --tricolore-white: #FFFFFF;
+  --tricolore-green: #1B8A4B;
+
+  /* --- Semantic status --- */
+  --success: #1E7A47;
+  --warning: #B4791A;
+  --danger:  #B12025;
+  --info:    var(--navy-700);
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+  /* Surfaces */
+  --surface-page:    var(--cream-200);
+  --surface-raised:  var(--cream-50);
+  --surface-card:    #FFFFFF;
+  --surface-inverse: var(--navy-800);
+  --surface-navy:    var(--navy-800);
+  --surface-cobalt:  var(--cobalt-600);
+  --surface-muted:   var(--stone-100);
+
+  /* Text */
+  --text-strong:  var(--ink-900);
+  --text-body:    var(--stone-700);
+  --text-muted:   var(--stone-500);
+  --text-inverse: var(--cream-200);
+  --text-on-navy: var(--cream-200);
+  --text-accent:  var(--navy-800);
+  --text-link:    var(--cobalt-600);
+
+  /* Lines & borders */
+  --border-soft:   var(--stone-200);
+  --border-strong: var(--stone-300);
+  --border-accent: var(--navy-800);
+
+  /* Brand & interactive */
+  --brand:           var(--navy-800);
+  --brand-hover:     var(--navy-700);
+  --brand-active:    var(--navy-900);
+  --brand-secondary: var(--cobalt-600);
+  --accent:          var(--cobalt-600);
+  --accent-hover:    var(--cobalt-700);
+  --limited:         var(--crimson-800);
+
+  /* Focus ring */
+  --focus-ring: var(--cobalt-600);
+}

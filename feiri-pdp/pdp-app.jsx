@@ -1,0 +1,182 @@
+/* global React, ReactDOM */
+// FEIRI PDP — app shell, chrome, state, tweaks, assembly.
+const { sc, sans, Icon, Mono, money } = window;
+const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle, TweakColor } = window;
+const D = window.PDP_DATA;
+const PRODUCT_URL = 'https://feiri.co.za/products/feiri-signature-monogram-tee-khaki-blue';
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "mood": "midnight",
+  "accent": "#2C53C9",
+  "scarcity": true,
+  "heroLine": "No loud logos"
+}/*EDITMODE-END*/;
+
+const MOODS = {
+  midnight: { '--ink-black': '#080F14', '--navy-deep': '#0C2330', '--panel': '#10293659', '--panel-2': '#0A1A24' },
+  marine:   { '--ink-black': '#0C2A3B', '--navy-deep': '#103A52', '--panel': '#17455f80', '--panel-2': '#0E3146' },
+};
+
+function Header({ bag, onBuy }) {
+  return (
+    <header style={{ position: 'sticky', top: 0, zIndex: 50 }}>
+      <div style={{ background: 'var(--navy-deep)', borderBottom: '1px solid var(--hair)', textAlign: 'center', padding: '9px 16px' }}>
+        <span style={{ ...sans(12, 'var(--gold)'), letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 600 }}>Founders Edition · Only 300 made · Free nationwide shipping</span>
+      </div>
+      <div style={{ background: 'var(--ink-black)', borderBottom: '1px solid var(--hair)', backdropFilter: 'blur(8px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto', padding: '16px var(--gutter)', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 20 }}>
+          <nav className="feiri-nav" style={{ display: 'flex', gap: 26 }}>
+            {['Shop', 'The Fit', 'Founders Edition'].map(l => (
+              <a key={l} href="#buy" onClick={(e) => { e.preventDefault(); onBuy(); }} style={{ ...sans(13, 'var(--cream-dim)'), letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', cursor: 'pointer' }}>{l}</a>
+            ))}
+          </nav>
+          <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'flex', justifyContent: 'center' }}>
+            <img src="feiri-pdp/assets/lockup-cream.svg" alt="FEIRI Milano" style={{ height: 40 }} />
+          </a>
+          <div className="feiri-nav-icons" style={{ display: 'flex', gap: 20, justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Icon name="search" size={19} color="var(--cream)" />
+            <Icon name="user" size={19} color="var(--cream)" />
+            <button onClick={onBuy} style={{ position: 'relative', background: 'transparent', border: 0, cursor: 'pointer', color: 'var(--cream)', display: 'inline-flex' }}>
+              <Icon name="shopping-bag" size={20} color="var(--cream)" />
+              {bag > 0 && <span style={{ position: 'absolute', top: -7, right: -9, minWidth: 17, height: 17, padding: '0 4px', borderRadius: 999, background: 'var(--cobalt)', color: '#fff', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-sans)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{bag}</span>}
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  const cols = [
+    ['Shop', ['The Signature Knit', 'Blue & Cream', 'Black & Sand', 'Size 3XL–6XL']],
+    ['The House', ['Our standard', 'The FEIRI fit', 'Founders Edition', 'Crafted in SA']],
+    ['Support', ['Size guide', 'Shipping & returns', 'Presence Guarantee', 'WhatsApp us']],
+  ];
+  return (
+    <footer style={{ background: '#05101699', borderTop: '1px solid var(--hair)' }}>
+      <div style={{ maxWidth: 1240, margin: '0 auto', padding: 'clamp(56px,7vw,88px) var(--gutter) 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 40 }} className="feiri-foot">
+          <div>
+            <img src="feiri-pdp/assets/lockup-cream.svg" alt="FEIRI Milano" style={{ height: 48, marginBottom: 18 }} />
+            <p style={{ ...sans(14, 'var(--cream-dim)'), lineHeight: 1.6, maxWidth: 300 }}>Premium monogram knitwear, built from the ground up for bigger men. Proudly South African.</p>
+            <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
+              <Icon name="instagram" size={20} color="var(--cream)" />
+            </div>
+          </div>
+          {cols.map(([h, items]) => (
+            <div key={h}>
+              <h4 style={{ ...sans(12, 'var(--gold)'), letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 18 }}>{h}</h4>
+              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {items.map(it => <li key={it}><a href="#" onClick={e => e.preventDefault()} style={{ ...sans(14, 'var(--cream-dim)'), textDecoration: 'none' }}>{it}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{ borderTop: '1px solid var(--hair)', marginTop: 48, paddingTop: 26, display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ ...sans(12.5, 'var(--muted)') }}>© {new Date().getFullYear()} FEIRI Milano · feiri.co.za · Built &amp; powered by V8 Media</span>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {['VISA', 'MC', 'AMEX', ' Pay', 'G Pay'].map(p => (
+              <span key={p} style={{ ...sans(11, 'var(--cream-dim)'), fontWeight: 600, padding: '5px 10px', border: '1px solid var(--hair)', borderRadius: 5 }}>{p}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function WhatsApp() {
+  return (
+    <a href="https://wa.me/27000000000" target="_blank" rel="noreferrer" className="feiri-wa" style={{ position: 'fixed', right: 22, bottom: 22, zIndex: 60, display: 'inline-flex', alignItems: 'center', gap: 10, padding: '13px 20px 13px 16px', borderRadius: 999, background: '#25D366', color: '#06351A', textDecoration: 'none', boxShadow: '0 12px 32px rgba(0,0,0,0.45)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14 }}>
+      <Icon name="message-circle" size={22} color="#06351A" sw={2} /> Contact us
+    </a>
+  );
+}
+
+function Toast({ show, label }) {
+  return (
+    <div style={{ position: 'fixed', left: '50%', bottom: 30, transform: `translateX(-50%) translateY(${show ? '0' : '24px'})`, opacity: show ? 1 : 0, transition: 'all .35s ease', zIndex: 70, pointerEvents: 'none', background: 'var(--cream)', color: 'var(--navy-deep)', padding: '14px 22px', borderRadius: 8, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 10 }}>
+      <Icon name="check-circle" size={18} color="#1F8A5B" /> {label}
+    </div>
+  );
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [color, setColor] = React.useState(D.product.colors[0]);
+  const [size, setSize] = React.useState(null);
+  const [bag, setBag] = React.useState(0);
+  const [toast, setToast] = React.useState(false);
+  const buyRef = React.useRef(null);
+  const renderKey = `${color.key}-${size}-${t.mood}-${t.scarcity}-${bag}`;
+
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+
+  const scrollToBuy = () => {
+    const el = document.getElementById('buy');
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    return;
+  };
+  const goToProduct = () => { window.open(PRODUCT_URL, '_blank', 'noopener'); };
+  const onAdd = () => {
+    if (!size) { scrollToBuy(); return; }
+    goToProduct();
+  };
+
+  const heroLine = t.heroLine;
+  const rootStyle = { ...MOODS[t.mood || 'midnight'], '--cobalt': t.accent || '#2C53C9' };
+
+  return (
+    <div data-theme="dark" style={rootStyle}>
+      <Header bag={bag} onBuy={goToProduct} />
+      <main>
+        <window.HeroSection product={D.product} color={color} onBuy={goToProduct} scarcity={t.scarcity} heroLine={heroLine} />
+        <window.OwnersSection />
+        <window.TrustSection />
+        <window.LookbookSection />
+        <window.FeaturesSection features={D.features} />
+        <window.StandardSection standard={D.standard} />
+        <window.CompareSection compare={D.compare} />
+        <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
+        <window.UrgencySection product={D.product} color={color} scarcity={t.scarcity} />
+        <window.BuySection product={D.product} color={color} setColor={setColor} size={size} setSize={setSize} onAdd={onAdd} buyRef={buyRef} scarcity={t.scarcity} />
+        <window.TrustRowSection trust={D.trust} />
+        <window.GuaranteeSection />
+        <window.FAQSection faq={D.faq} />
+        <window.CrossSellSection product={D.product} color={color} setColor={setColor} onBuy={goToProduct} />
+      </main>
+      <Footer />
+      <WhatsApp />
+      <Toast show={toast} label={`Added — ${color.name}, ${size || ''}`} />
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Mood" />
+        <TweakRadio label="Register" value={t.mood} options={['midnight', 'marine']} onChange={v => setTweak('mood', v)} />
+        <TweakColor label="Accent" value={t.accent} options={['#2C53C9', '#22409B', '#0D3D56']} onChange={v => setTweak('accent', v)} />
+        <TweakSection label="Conversion" />
+        <TweakToggle label="Scarcity cues" value={t.scarcity} onChange={v => setTweak('scarcity', v)} />
+        <TweakSection label="Hero copy" />
+        <TweakRadio label="Headline" value={t.heroLine} options={['No loud logos', 'Carry presence']} onChange={v => setTweak('heroLine', v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+// Mount defensively: the standalone-bundle runtime can re-inject and
+// re-execute this script a second time (to swap in embedded assets), so make
+// the root reusable and gate the first render on every dependency actually
+// being registered on window — avoids a transient "Element type is invalid"
+// throw if this pass fires before a later IIFE in the combined script runs.
+(function mountWhenReady() {
+  const required = [
+    'Section', 'HeroSection', 'OwnersSection', 'TrustSection', 'LookbookSection',
+    'FeaturesSection', 'StandardSection', 'CompareSection', 'TestimonialsSection',
+    'UrgencySection', 'BuySection', 'TrustRowSection', 'GuaranteeSection',
+    'FAQSection', 'CrossSellSection', 'PDP_DATA', 'useTweaks', 'TweaksPanel',
+  ];
+  const ready = required.every(k => typeof window[k] !== 'undefined');
+  if (!ready) { requestAnimationFrame(mountWhenReady); return; }
+  window.__feiriRoot = window.__feiriRoot || ReactDOM.createRoot(document.getElementById('root'));
+  window.__feiriRoot.render(<App />);
+})();

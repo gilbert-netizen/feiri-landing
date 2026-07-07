@@ -1,0 +1,42 @@
+/* ============================================================
+   FEIRI MILANO — EFFECTS: RADII, SHADOWS, BORDERS, MOTION
+   Quiet luxury: small radii, soft warm-toned shadows, no neon.
+   ============================================================ */
+:root {
+  /* Corner radii — restrained. Buttons & inputs are nearly square. */
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   16px;
+  --radius-pill: 999px;
+
+  /* Shadows — warm, low-spread, "soft high depth". Tinted toward ink, not pure black. */
+  --shadow-xs:  0 1px 2px rgba(26, 20, 16, 0.06);
+  --shadow-sm:  0 2px 6px rgba(26, 20, 16, 0.07);
+  --shadow-md:  0 8px 24px rgba(26, 20, 16, 0.10);
+  --shadow-lg:  0 18px 48px rgba(26, 20, 16, 0.14);
+  --shadow-xl:  0 32px 80px rgba(26, 20, 16, 0.18);
+  /* Bordeaux-tinted glow for inverse surfaces */
+  --shadow-brand: 0 16px 40px rgba(124, 1, 3, 0.28);
+
+  /* Hairline borders */
+  --border-hair: 1px solid var(--border-soft);
+  --border-line: 1px solid var(--border-strong);
+
+  /* Motion — calm, no bounce. Editorial fades and gentle ease. */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);  /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);      /* @kind other */
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);     /* @kind other */
+  --duration-fast:   140ms; /* @kind other */
+  --duration-normal: 240ms; /* @kind other */
+  --duration-slow:   420ms; /* @kind other */
+
+  /* Z layers */
+  --z-base: 0;       /* @kind other */
+  --z-raised: 10;    /* @kind other */
+  --z-sticky: 100;   /* @kind other */
+  --z-overlay: 1000; /* @kind other */
+  --z-modal: 1100;   /* @kind other */
+  --z-toast: 1200;   /* @kind other */
+}
