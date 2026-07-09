@@ -16,36 +16,6 @@ const MOODS = {
   marine:   { '--ink-black': '#FBFAF7', '--navy-deep': '#EFF3F5', '--panel': '#EAF1F480', '--panel-2': '#E6EEF2' },
 };
 
-function Header({ bag, onBuy }) {
-  return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 50 }}>
-      <div style={{ background: 'var(--navy-deep)', borderBottom: '1px solid var(--hair)', textAlign: 'center', padding: '9px 16px' }}>
-        <span style={{ ...sans(12, 'var(--gold)'), letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 600 }}>Founders Edition · Only 300 made · Free nationwide shipping</span>
-      </div>
-      <div style={{ background: 'var(--ink-black)', borderBottom: '1px solid var(--hair)', backdropFilter: 'blur(8px)' }}>
-        <div style={{ maxWidth: 1240, margin: '0 auto', padding: '16px var(--gutter)', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 20 }}>
-          <nav className="feiri-nav" style={{ display: 'flex', gap: 26 }}>
-            {['Shop', 'The Fit', 'Founders Edition'].map(l => (
-              <a key={l} href="#buy" onClick={(e) => { e.preventDefault(); onBuy(); }} style={{ ...sans(13, 'var(--cream-dim)'), letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', cursor: 'pointer' }}>{l}</a>
-            ))}
-          </nav>
-          <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'flex', justifyContent: 'center' }}>
-            <img src="feiri-pdp/assets/lockup-navy.svg" alt="FEIRI Milano" style={{ height: 40 }} />
-          </a>
-          <div className="feiri-nav-icons" style={{ display: 'flex', gap: 20, justifyContent: 'flex-end', alignItems: 'center' }}>
-            <Icon name="search" size={19} color="var(--cream)" />
-            <Icon name="user" size={19} color="var(--cream)" />
-            <button onClick={onBuy} style={{ position: 'relative', background: 'transparent', border: 0, cursor: 'pointer', color: 'var(--cream)', display: 'inline-flex' }}>
-              <Icon name="shopping-bag" size={20} color="var(--cream)" />
-              {bag > 0 && <span style={{ position: 'absolute', top: -7, right: -9, minWidth: 17, height: 17, padding: '0 4px', borderRadius: 999, background: 'var(--cobalt)', color: '#fff', fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-sans)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{bag}</span>}
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 function Footer() {
   const cols = [
     ['Shop', ['The Signature Knit', 'Blue & Cream', 'Black & Sand', 'Size 3XL–6XL']],
@@ -128,7 +98,6 @@ function App() {
 
   return (
     <div data-theme="dark" style={rootStyle}>
-      <Header bag={bag} onBuy={goToProduct} />
       <main>
         <window.HeroSection product={D.product} color={color} onBuy={goToProduct} scarcity={t.scarcity} heroLine={heroLine} />
         <window.OwnersSection />
