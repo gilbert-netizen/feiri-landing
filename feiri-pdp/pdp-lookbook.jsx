@@ -79,7 +79,7 @@ window.LookbookSection = function LookbookSection() {
 
       {/* Closing line */}
       <div className="lb-close">
-        <span style={{ ...sans(12.5, 'var(--muted)'), letterSpacing: '0.14em' }}>Made for men who carry presence — proudly South African.</span>
+        <span style={{ ...sans(15, 'var(--muted)'), letterSpacing: '0.14em' }}>Made for men who carry presence — proudly South African.</span>
       </div>
     </window.Section>
   );
