@@ -34,7 +34,7 @@ const A = 'feiri-pdp/assets/lookbook/';
 window.LookbookSection = function LookbookSection() {
   return (
     <window.Section ground="var(--ink-black)" label="Lookbook">
-      <h2 className="lb-masthead" style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), lineHeight: 1.1 }}>Fashion Lookbook</h2>
+      <h2 className="lb-masthead" style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), lineHeight: 1.1, textAlign: 'center', marginInline: 'auto' }}>Fashion Lookbook</h2>
       <div className="feiri-lookbook">
         <Chapter label="Chapter One" colour="Black &amp; Sand" />
 
