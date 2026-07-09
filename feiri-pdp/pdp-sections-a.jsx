@@ -68,7 +68,7 @@ window.OwnersSection = function OwnersSection() {
   ];
   return (
     <Section ground="var(--ink-black)" label="Owners">
-      <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 56px' }}>
+      <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 32px' }}>
         <Eyebrow center color="var(--gold)">Worn by the FEIRI man</Eyebrow>
         <h2 style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.1 }}>The SA man making moves &amp; in his element</h2>
         <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.6, marginTop: 18, maxWidth: 520, marginInline: 'auto' }}>
