@@ -204,7 +204,7 @@ window.CrossSellSection = function CrossSellSection({ product, color, setColor, 
             Same structured knit, same intentional fit — a darker, dressed-up register for the nights that call for it. Limited Founders Edition stock.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
-            <Btn2 variant="cream" size="lg" onClick={() => { setColor(other); onBuy(); }}>Shop {other.name} — {_money(product.price)}</Btn2>
+            <Btn2 variant="cream" size="lg" onClick={() => { setColor(other); onBuy(other); }}>Shop {other.name} — {_money(product.price)}</Btn2>
           </div>
         </div>
       </div>

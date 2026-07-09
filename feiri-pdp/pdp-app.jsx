@@ -3,7 +3,6 @@
 const { sc, sans, Icon, Mono, money } = window;
 const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle, TweakColor } = window;
 const D = window.PDP_DATA;
-const PRODUCT_URL = 'https://feiri.co.za/products/feiri-signature-monogram-tee-khaki-blue';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "mood": "midnight",
@@ -118,7 +117,7 @@ function App() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
-  const goToProduct = () => { window.open(PRODUCT_URL, '_blank', 'noopener'); };
+  const goToProduct = (c) => { window.open((c || color).url, '_blank', 'noopener'); };
   const onAdd = () => {
     if (!size) { scrollToBuy(); return; }
     goToProduct();

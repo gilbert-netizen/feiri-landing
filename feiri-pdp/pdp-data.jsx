@@ -13,9 +13,11 @@ window.PDP_DATA = {
     colors: [
       { key: 'blue',  name: 'Blue & Cream', dot: 'var(--cobalt-600)',
         hero: 'feiri-pdp/assets/hero-couch-blue.jpg',
+        url: 'https://feiri.co.za/products/feiri-signature-monogram-tee-khaki-blue',
         gallery: ['feiri-pdp/assets/front-blue.jpg','feiri-pdp/assets/detail-blue.jpg','feiri-pdp/assets/seated-blue.jpg','feiri-pdp/assets/side-blue.jpg','feiri-pdp/assets/flat-blue.jpg'] },
       { key: 'black', name: 'Black & Sand', dot: '#1A1814',
         hero: 'feiri-pdp/assets/hero-black.jpg',
+        url: 'https://feiri.co.za/products/feiri-signature-monogram-tee-black-sand',
         gallery: ['feiri-pdp/assets/profile-black.jpg','feiri-pdp/assets/flat-black.jpg','feiri-pdp/assets/hero-black.jpg','feiri-pdp/assets/duo.jpg'] },
     ],
     stockInSize: 27,
