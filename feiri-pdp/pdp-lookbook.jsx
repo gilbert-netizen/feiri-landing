@@ -22,8 +22,8 @@ function Chapter({ label, colour }) {
   return (
     <div className="lb-chapter">
       <span className="lb-rule" />
-      <span style={{ ...sans(12, 'var(--cream-dim)'), letterSpacing: '0.22em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{label}</span>
-      <span style={{ ...sans(12, 'var(--gold)'), letterSpacing: '0.16em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{colour}</span>
+      <span style={{ ...sans(14, 'var(--cream-dim)'), letterSpacing: '0.22em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{label}</span>
+      <span style={{ ...sans(14, 'var(--gold)'), letterSpacing: '0.16em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{colour}</span>
       <span className="lb-rule" />
     </div>
   );
