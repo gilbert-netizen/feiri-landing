@@ -36,12 +36,12 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
       <div style={{ position: 'relative', maxWidth: 1240, width: '100%', margin: '0 auto', padding: 'clamp(48px,7vw,96px) var(--gutter)' }}>
         <div style={{ maxWidth: 600 }}>
-          <Eyebrow color="var(--gold)">{product.line} · Only 300 made</Eyebrow>
+          <Eyebrow color="#C9A24B">{product.line} · Only 300 made</Eyebrow>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, marginTop: 28 }}>
-            <Btn variant="cream" size="lg" onClick={onBuy}>Claim Your Limited Piece</Btn>
+            <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>Claim Your Limited Piece</Btn>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <Stars value={5} size={16} />
-              <span style={{ ...sans(13, 'var(--cream-dim)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
+              <Stars value={5} size={16} color="#C9A24B" />
+              <span style={{ ...sans(13, 'rgba(250,240,214,0.82)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
             </div>
           </div>
           {scarcity && (
@@ -83,7 +83,7 @@ window.OwnersSection = function OwnersSection() {
             </div>
             <figcaption style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '34px 14px 12px', background: 'linear-gradient(to top, rgba(6,18,26,0.86), rgba(6,18,26,0))', display: 'flex', alignItems: 'center', gap: 7 }}>
               <img src="feiri-pdp/assets/monogram.svg" alt="" style={{ height: 13, opacity: 0.7, filter: 'brightness(0) invert(1)' }} />
-              <span style={{ ...sans(11.5, 'var(--cream)'), letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 500, opacity: 0.92 }}>{o.tag}</span>
+              <span style={{ ...sans(11.5, '#FAF0D6'), letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 500, opacity: 0.92 }}>{o.tag}</span>
             </figcaption>
           </figure>
         ))}

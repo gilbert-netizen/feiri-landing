@@ -13,8 +13,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 const MOODS = {
-  midnight: { '--ink-black': '#080F14', '--navy-deep': '#0C2330', '--panel': '#10293659', '--panel-2': '#0A1A24' },
-  marine:   { '--ink-black': '#0C2A3B', '--navy-deep': '#103A52', '--panel': '#17455f80', '--panel-2': '#0E3146' },
+  midnight: { '--ink-black': '#FFFFFF', '--navy-deep': '#F4EFE6', '--panel': '#F7F3EA99', '--panel-2': '#F1ECE1' },
+  marine:   { '--ink-black': '#FBFAF7', '--navy-deep': '#EFF3F5', '--panel': '#EAF1F480', '--panel-2': '#E6EEF2' },
 };
 
 function Header({ bag, onBuy }) {
@@ -31,7 +31,7 @@ function Header({ bag, onBuy }) {
             ))}
           </nav>
           <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'flex', justifyContent: 'center' }}>
-            <img src="feiri-pdp/assets/lockup-cream.svg" alt="FEIRI Milano" style={{ height: 40 }} />
+            <img src="feiri-pdp/assets/lockup-navy.svg" alt="FEIRI Milano" style={{ height: 40 }} />
           </a>
           <div className="feiri-nav-icons" style={{ display: 'flex', gap: 20, justifyContent: 'flex-end', alignItems: 'center' }}>
             <Icon name="search" size={19} color="var(--cream)" />
@@ -54,11 +54,11 @@ function Footer() {
     ['Support', ['Size guide', 'Shipping & returns', 'Presence Guarantee', 'WhatsApp us']],
   ];
   return (
-    <footer style={{ background: '#05101699', borderTop: '1px solid var(--hair)' }}>
+    <footer style={{ background: 'var(--panel-2)', borderTop: '1px solid var(--hair)' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: 'clamp(56px,7vw,88px) var(--gutter) 40px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 40 }} className="feiri-foot">
           <div>
-            <img src="feiri-pdp/assets/lockup-cream.svg" alt="FEIRI Milano" style={{ height: 48, marginBottom: 18 }} />
+            <img src="feiri-pdp/assets/lockup-navy.svg" alt="FEIRI Milano" style={{ height: 48, marginBottom: 18 }} />
             <p style={{ ...sans(14, 'var(--cream-dim)'), lineHeight: 1.6, maxWidth: 300 }}>Premium monogram knitwear, built from the ground up for bigger men. Proudly South African.</p>
             <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
               <Icon name="instagram" size={20} color="var(--cream)" />
