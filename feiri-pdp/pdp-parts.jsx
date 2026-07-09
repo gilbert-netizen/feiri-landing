@@ -59,7 +59,7 @@ window.Mono = function Mono({ size = 22, opacity = 1, style }) {
 };
 
 // Section wrapper — controls ground colour + vertical rhythm
-window.Section = function Section({ children, ground = 'transparent', pad = 'clamp(64px,8vw,120px)', id, label, style }) {
+window.Section = function Section({ children, ground = 'transparent', pad = 'clamp(40px,5vw,72px)', id, label, style }) {
   return (
     <section id={id} data-screen-label={label} style={{ background: ground, padding: `${typeof pad === 'number' ? pad + 'px' : pad} var(--gutter)`, position: 'relative', ...style }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', position: 'relative' }}>{children}</div>
