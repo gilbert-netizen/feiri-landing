@@ -55,14 +55,6 @@ function Footer() {
   );
 }
 
-function WhatsApp() {
-  return (
-    <a href="https://wa.me/27000000000" target="_blank" rel="noreferrer" className="feiri-wa" style={{ position: 'fixed', right: 22, bottom: 22, zIndex: 60, display: 'inline-flex', alignItems: 'center', gap: 10, padding: '13px 20px 13px 16px', borderRadius: 999, background: '#25D366', color: '#06351A', textDecoration: 'none', boxShadow: '0 12px 32px rgba(0,0,0,0.45)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14 }}>
-      <Icon name="message-circle" size={22} color="#06351A" sw={2} /> Contact us
-    </a>
-  );
-}
-
 function Toast({ show, label }) {
   return (
     <div style={{ position: 'fixed', left: '50%', bottom: 30, transform: `translateX(-50%) translateY(${show ? '0' : '24px'})`, opacity: show ? 1 : 0, transition: 'all .35s ease', zIndex: 70, pointerEvents: 'none', background: 'var(--cream)', color: 'var(--navy-deep)', padding: '14px 22px', borderRadius: 8, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -125,7 +117,6 @@ function App() {
         <window.CrossSellSection product={D.product} color={color} setColor={setColor} onBuy={goToProduct} />
       </main>
       <Footer />
-      <WhatsApp />
       <Toast show={toast} label={`Added — ${color.name}, ${size || ''}`} />
 
       <TweaksPanel title="Tweaks">
