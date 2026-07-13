@@ -55,6 +55,16 @@ function Footer() {
   );
 }
 
+function AnnouncementBar() {
+  return (
+    <div style={{ background: '#FDFBF6', borderBottom: '1px solid rgba(20,24,28,0.1)', padding: '10px var(--gutter)', textAlign: 'center' }}>
+      <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#14181C' }}>
+        FEIRI Founders Edition — Only 300 Made
+      </span>
+    </div>
+  );
+}
+
 function Toast({ show, label }) {
   return (
     <div style={{ position: 'fixed', left: '50%', bottom: 30, transform: `translateX(-50%) translateY(${show ? '0' : '24px'})`, opacity: show ? 1 : 0, transition: 'all .35s ease', zIndex: 70, pointerEvents: 'none', background: 'var(--cream)', color: 'var(--navy-deep)', padding: '14px 22px', borderRadius: 8, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -105,6 +115,7 @@ function App() {
 
   return (
     <div data-theme="dark" style={rootStyle}>
+      <AnnouncementBar />
       <main>
         <window.HeroSection product={D.product} color={color} onBuy={scrollToLookbook} scarcity={t.scarcity} heroLine={heroLine} />
         <window.OwnersSection />
