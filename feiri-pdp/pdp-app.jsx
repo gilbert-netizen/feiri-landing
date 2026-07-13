@@ -79,6 +79,11 @@ function App() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
+  const scrollToLookbook = () => {
+    const el = document.getElementById('lookbook');
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    return;
+  };
   const goToProduct = (c) => { window.open((c || color).url, '_blank', 'noopener'); };
   const onAdd = () => {
     if (!size) { scrollToBuy(); return; }
@@ -101,7 +106,7 @@ function App() {
   return (
     <div data-theme="dark" style={rootStyle}>
       <main>
-        <window.HeroSection product={D.product} color={color} onBuy={goToProduct} scarcity={t.scarcity} heroLine={heroLine} />
+        <window.HeroSection product={D.product} color={color} onBuy={scrollToLookbook} scarcity={t.scarcity} heroLine={heroLine} />
         <window.OwnersSection />
         <window.TrustSection />
         <window.LookbookSection />
