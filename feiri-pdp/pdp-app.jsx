@@ -17,30 +17,15 @@ const MOODS = {
 };
 
 function Footer() {
-  const cols = [
-    ['Shop', ['The Signature Knit', 'Blue & Cream', 'Black & Sand', 'Size 3XL–6XL']],
-    ['The House', ['Our standard', 'The FEIRI fit', 'Founders Edition', 'Crafted in SA']],
-    ['Support', ['Size guide', 'Shipping & returns', 'Presence Guarantee', 'WhatsApp us']],
-  ];
   return (
     <footer style={{ background: 'var(--panel-2)', borderTop: '1px solid var(--hair)' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: 'clamp(56px,7vw,88px) var(--gutter) 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 40 }} className="feiri-foot">
-          <div>
-            <img src="feiri-pdp/assets/lockup-navy.svg" alt="FEIRI Milano" style={{ height: 48, marginBottom: 18 }} />
-            <p style={{ ...sans(14, 'var(--cream-dim)'), lineHeight: 1.6, maxWidth: 300 }}>Premium monogram knitwear, built from the ground up for bigger men. Proudly South African.</p>
-            <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
-              <Icon name="instagram" size={20} color="var(--cream)" />
-            </div>
+        <div>
+          <img src="feiri-pdp/assets/lockup-navy.svg" alt="FEIRI Milano" style={{ height: 48, marginBottom: 18 }} />
+          <p style={{ ...sans(14, 'var(--cream-dim)'), lineHeight: 1.6, maxWidth: 300 }}>Premium monogram knitwear, built from the ground up for bigger men. Proudly South African.</p>
+          <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
+            <Icon name="instagram" size={20} color="var(--cream)" />
           </div>
-          {cols.map(([h, items]) => (
-            <div key={h}>
-              <h4 style={{ ...sans(12, 'var(--gold)'), letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 18 }}>{h}</h4>
-              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {items.map(it => <li key={it}><a href="#" onClick={e => e.preventDefault()} style={{ ...sans(14, 'var(--cream-dim)'), textDecoration: 'none' }}>{it}</a></li>)}
-              </ul>
-            </div>
-          ))}
         </div>
         <div style={{ borderTop: '1px solid var(--hair)', marginTop: 48, paddingTop: 26, display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ ...sans(12.5, 'var(--muted)') }}>© {new Date().getFullYear()} FEIRI Milano · feiri.co.za · Built &amp; powered by V8 Media</span>
