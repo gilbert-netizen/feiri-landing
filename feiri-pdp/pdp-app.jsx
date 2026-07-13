@@ -90,6 +90,16 @@ function App() {
   const goToProduct = (c) => { window.open((c || color).url, '_blank', 'noopener'); };
   const onAdd = () => {
     if (!size) { scrollToBuy(); return; }
+    if (window.fbq) {
+      window.fbq('track', 'AddToCart', {
+        content_name: D.product.name,
+        content_ids: [color.key],
+        content_type: 'product',
+        contents: [{ id: color.key, quantity: 1 }],
+        value: D.product.price,
+        currency: 'ZAR',
+      });
+    }
     goToProduct();
   };
 
