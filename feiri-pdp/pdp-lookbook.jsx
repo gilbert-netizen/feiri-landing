@@ -38,29 +38,25 @@ window.LookbookSection = function LookbookSection() {
       <div className="feiri-lookbook">
         <Chapter label="Chapter One" colour="Black &amp; Sand" />
 
-        {/* Feature: tall portrait + stacked still lifes */}
-        <div className="lb-row-feat">
-          <Plate src={A + 'chey-4.png'} n="Nº 01" place="At Altitude" tag="Black &amp; Sand" />
-          <div className="lb-stack">
-            <Plate src={A + 'creative-6.png'} ratio="1 / 1" n="Nº 02" place="Off-Duty" tag="Black &amp; Sand" />
-            <Plate src={A + 'creative-10.png'} ratio="1 / 1" n="Nº 03" place="Still Life" tag="Black &amp; Sand" />
-          </div>
+        {/* Trio: uniform cards */}
+        <div className="lb-row-trio">
+          <Plate src={A + 'chey-4.png'} ratio="4 / 5" n="Nº 01" place="At Altitude" tag="Black &amp; Sand" />
+          <Plate src={A + 'off-duty-redcarpet.png'} ratio="4 / 5" n="Nº 02" place="The Arrival" tag="Black &amp; Sand" />
+          <Plate src={A + 'creative-10.png'} ratio="4 / 5" n="Nº 03" place="Still Life" tag="Black &amp; Sand" />
         </div>
 
         {/* Portrait + still life */}
         <div className="lb-row-duo">
           <Plate src={A + 'chey-1.png'} n="Nº 04" place="The Long Game" tag="Black &amp; Sand" />
-          <Plate src={A + 'creative-14.png'} ratio="4 / 5" n="Nº 05" place="Sunday Morning" tag="Black &amp; Sand" />
+          <Plate src={A + 'car-ocean.png'} ratio="4 / 5" n="Nº 05" place="Sea Air" tag="Black &amp; Sand" />
         </div>
 
         <Chapter label="Chapter Two" colour="Blue &amp; Cream" />
 
-        {/* Feature (mirrored): stacked still lifes + portrait */}
-        <div className="lb-row-feat lb-row-feat--rev">
-          <div className="lb-stack">
-            <Plate src={A + 'creative-2.png'} ratio="1 / 1" n="Nº 06" place="Folded" tag="Blue &amp; Cream" />
-            <Plate src={A + 'creative-11.png'} ratio="1 / 1" n="Nº 07" place="The Table" tag="Blue &amp; Cream" />
-          </div>
+        {/* Trio: uniform cards */}
+        <div className="lb-row-trio">
+          <Plate src={A + 'gala-interview.png'} ratio="4 / 5" n="Nº 06" place="On Camera" tag="Blue &amp; Cream" />
+          <Plate src={A + 'golf-blue.png'} ratio="4 / 5" n="Nº 07" place="The Course" tag="Blue &amp; Cream" />
           <Plate src={A + 'chey-9.png'} ratio="4 / 5" n="Nº 08" place="The House" tag="Blue &amp; Cream" />
         </div>
 
