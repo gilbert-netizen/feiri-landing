@@ -37,7 +37,7 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
       <div style={{ position: 'relative', maxWidth: 1240, width: '100%', margin: '0 auto', padding: 'clamp(48px,7vw,96px) var(--gutter)' }}>
         <div style={{ maxWidth: 600 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
-            <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>Claim Your Limited Piece</Btn>
+            <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <Stars value={5} size={16} color="#C9A24B" />
               <span style={{ ...sans(13, 'rgba(250,240,214,0.82)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
