@@ -30,7 +30,7 @@ function Footer() {
         <div style={{ borderTop: '1px solid var(--hair)', marginTop: 48, paddingTop: 26, display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ ...sans(12.5, 'var(--muted)') }}>© {new Date().getFullYear()} FEIRI Milano · feiri.co.za · Built &amp; powered by V8 Media</span>
           <div style={{ display: 'flex', gap: 8 }}>
-            {['VISA', 'MC', 'AMEX', ' Pay', 'G Pay'].map(p => (
+            {['VISA', 'MC', 'AMEX', 'A Pay', 'G Pay'].map(p => (
               <span key={p} style={{ ...sans(11, 'var(--cream-dim)'), fontWeight: 600, padding: '5px 10px', border: '1px solid var(--hair)', borderRadius: 5 }}>{p}</span>
             ))}
           </div>
