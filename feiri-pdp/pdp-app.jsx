@@ -105,6 +105,7 @@ function App() {
         <window.HeroSection product={D.product} color={color} onBuy={scrollToLookbook} scarcity={t.scarcity} heroLine={heroLine} />
         <window.OwnersSection />
         <window.TrustSection />
+        <window.VideoSection />
         <window.LookbookSection />
         <window.FeaturesSection features={D.features} />
         <window.StandardSection standard={D.standard} />
@@ -140,7 +141,7 @@ function App() {
 // throw if this pass fires before a later IIFE in the combined script runs.
 (function mountWhenReady() {
   const required = [
-    'Section', 'HeroSection', 'OwnersSection', 'TrustSection', 'LookbookSection',
+    'Section', 'HeroSection', 'OwnersSection', 'TrustSection', 'VideoSection', 'LookbookSection',
     'FeaturesSection', 'StandardSection', 'CompareSection', 'TestimonialsSection',
     'UrgencySection', 'BuySection', 'TrustRowSection', 'GuaranteeSection',
     'FAQSection', 'CrossSellSection', 'PDP_DATA', 'useTweaks', 'TweaksPanel',

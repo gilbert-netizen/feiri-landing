@@ -98,6 +98,39 @@ window.TrustSection = function TrustSection() {
 
 /* 3 — EDITORIAL / "in motion" — replaced by LookbookSection (pdp-lookbook.jsx) */
 
+/* 3.5 — VIDEO (full-bleed, plays while in view, pauses when scrolled away) */
+window.VideoSection = function VideoSection() {
+  const videoRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      });
+    }, { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section style={{ position: 'relative', width: '100%', height: 'clamp(360px, 62vw, 720px)', overflow: 'hidden', background: '#000' }}>
+      <video
+        ref={videoRef}
+        src="feiri-pdp/assets/feiri-drinks.mp4"
+        poster="feiri-pdp/assets/feiri-drinks-poster.jpg"
+        muted
+        loop
+        playsInline
+        preload="none"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+    </section>
+  );
+};
+
 /* 4 — FEATURES */
 window.FeaturesSection = function FeaturesSection({ features }) {
   return (
