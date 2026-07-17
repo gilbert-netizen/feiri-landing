@@ -56,6 +56,29 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
 };
 
 /* 2 — OWNERS (real owners in place of logos) */
+
+// Fades + rises each `.feiri-reveal` child into place once as it scrolls into view.
+// One-shot (unobserves after reveal) so there's no ongoing scroll-linked cost.
+function useRevealOnScroll() {
+  const containerRef = React.useRef(null);
+  React.useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+    const items = root.querySelectorAll('.feiri-reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+    items.forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  return containerRef;
+}
+
 window.OwnersSection = function OwnersSection() {
   const owners = [
     { src: 'feiri-pdp/assets/owners/o1.jpg', tag: 'The Ivy Luxe' },
@@ -65,6 +88,7 @@ window.OwnersSection = function OwnersSection() {
     { src: 'feiri-pdp/assets/owners/o4.jpg', tag: 'Sunday best' },
     { src: 'feiri-pdp/assets/owners/o6.jpg', tag: 'Date night' },
   ];
+  const gridRef = useRevealOnScroll();
   return (
     <Section ground="var(--ink-black)" label="Owners" style={{ paddingTop: 'clamp(28px,3vw,48px)', paddingBottom: 'clamp(28px,3vw,48px)' }}>
       <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 32px' }}>
@@ -74,9 +98,9 @@ window.OwnersSection = function OwnersSection() {
           No paid models. No borrowed logos. Just the men who already own the room — and now own the knit.
         </p>
       </div>
-      <div className="feiri-owners-grid">
+      <div className="feiri-owners-grid" ref={gridRef}>
         {owners.map((o, i) => (
-          <figure key={i} className="feiri-owner-card" style={{ margin: 0, position: 'relative', borderRadius: 11, overflow: 'hidden', border: '1px solid var(--hair)', background: '#000', boxShadow: '0 18px 44px rgba(0,0,0,0.45)' }}>
+          <figure key={i} className="feiri-owner-card feiri-reveal" style={{ margin: 0, position: 'relative', borderRadius: 11, overflow: 'hidden', border: '1px solid var(--hair)', background: '#000', boxShadow: '0 18px 44px rgba(0,0,0,0.45)', transitionDelay: `${(i % 3) * 90}ms` }}>
             <div style={{ aspectRatio: '3 / 4', overflow: 'hidden' }}>
               <img src={o.src} alt="FEIRI owner" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block', transition: 'transform .6s ease' }} />
             </div>
