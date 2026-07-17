@@ -119,7 +119,7 @@ window.OwnersSection = function OwnersSection() {
 
 /* 3 — TRUST MARQUEE */
 window.TrustSection = function TrustSection() {
-  return <Marquee items={['Proudly Local, Internationally Inspired.', 'Limited to 300 pieces', 'Built for 3XL–6XL', 'Free nationwide shipping', 'Monogram knitted, never printed', 'Worn, not styled']} />;
+  return <Marquee items={['Proudly Local, Internationally Inspired.', 'Limited to 300 pieces', 'Built for 3XL–6XL', 'Monogram knitted, never printed', 'Designed for presence and confidence']} />;
 };
 
 /* 3 — EDITORIAL / "in motion" — replaced by LookbookSection (pdp-lookbook.jsx) */
