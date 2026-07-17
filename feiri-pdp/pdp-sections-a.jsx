@@ -101,6 +101,9 @@ window.TrustSection = function TrustSection() {
 /* 3.5 — VIDEO (full-bleed, plays while in view, pauses when scrolled away) */
 window.VideoSection = function VideoSection() {
   const videoRef = React.useRef(null);
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 720px)').matches;
+  const src = isMobile ? 'feiri-pdp/assets/feiri-drinks-mobile.mp4' : 'feiri-pdp/assets/feiri-drinks.mp4';
+  const poster = isMobile ? 'feiri-pdp/assets/feiri-drinks-mobile-poster.jpg' : 'feiri-pdp/assets/feiri-drinks-poster.jpg';
 
   React.useEffect(() => {
     const el = videoRef.current;
@@ -119,8 +122,8 @@ window.VideoSection = function VideoSection() {
     <section style={{ position: 'relative', width: '100%', height: 'clamp(360px, 62vw, 720px)', overflow: 'hidden', background: '#000' }}>
       <video
         ref={videoRef}
-        src="feiri-pdp/assets/feiri-drinks.mp4"
-        poster="feiri-pdp/assets/feiri-drinks-poster.jpg"
+        src={src}
+        poster={poster}
         muted
         loop
         playsInline
