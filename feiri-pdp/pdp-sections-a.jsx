@@ -36,19 +36,21 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
       <div style={{ position: 'relative', maxWidth: 1240, width: '100%', margin: '0 auto', padding: 'clamp(48px,7vw,96px) var(--gutter)' }}>
         <div style={{ maxWidth: 600 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
-            <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <Stars value={5} size={16} color="#C9A24B" />
-              <span style={{ ...sans(13, 'rgba(250,240,214,0.82)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
+          <div className="feiri-hero-actions">
+            <div className="feiri-hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+              <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
+              <div className="feiri-hero-rating" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <Stars value={5} size={16} color="#C9A24B" />
+                <span style={{ ...sans(13, 'rgba(250,240,214,0.82)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
+              </div>
             </div>
+            {scarcity && (
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, marginTop: 30, padding: '9px 16px', borderRadius: 999, background: 'rgba(122,20,32,0.22)', border: '1px solid rgba(201,80,90,0.4)' }}>
+                <span style={{ width: 7, height: 7, borderRadius: 999, background: '#E06A74', boxShadow: '0 0 8px #E06A74' }}></span>
+                <span style={{ ...sans(12.5, '#F0C9CC'), fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Founders Edition — selling through fast</span>
+              </div>
+            )}
           </div>
-          {scarcity && (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, marginTop: 30, padding: '9px 16px', borderRadius: 999, background: 'rgba(122,20,32,0.22)', border: '1px solid rgba(201,80,90,0.4)' }}>
-              <span style={{ width: 7, height: 7, borderRadius: 999, background: '#E06A74', boxShadow: '0 0 8px #E06A74' }}></span>
-              <span style={{ ...sans(12.5, '#F0C9CC'), fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Founders Edition — selling through fast</span>
-            </div>
-          )}
         </div>
       </div>
     </section>
