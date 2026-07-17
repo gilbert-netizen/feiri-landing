@@ -243,7 +243,7 @@ window.CompareSection = function CompareSection({ compare }) {
               <Icon name="check" size={22} color="var(--gold)" sw={2.2} />
             </div>
             <div style={{ padding: '18px 12px', textAlign: 'center' }}>
-              <Icon name="x" size={20} color="rgba(250,240,214,0.32)" sw={2} />
+              <Icon name="x" size={20} color="rgba(20,24,28,0.4)" sw={2} />
             </div>
           </div>
         ))}

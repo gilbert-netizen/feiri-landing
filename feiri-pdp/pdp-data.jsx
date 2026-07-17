@@ -47,7 +47,7 @@ window.PDP_DATA = {
     ['Length engineered for 3XL–6XL', true, false],
     ['Monogram knitted in, not printed on', true, false],
     ['Limited to 300 — never mass-produced', true, false],
-    ['Proudly South African', true, false],
+    ['Understands SA men', true, false],
   ],
 
   // 7 — Testimonials
