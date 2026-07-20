@@ -44,12 +44,6 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
                 <span style={{ ...sans(13, 'rgba(250,240,214,0.82)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
               </div>
             </div>
-            {scarcity && (
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, marginTop: 30, padding: '9px 16px', borderRadius: 999, background: 'rgba(122,20,32,0.22)', border: '1px solid rgba(201,80,90,0.4)' }}>
-                <span style={{ width: 7, height: 7, borderRadius: 999, background: '#E06A74', boxShadow: '0 0 8px #E06A74' }}></span>
-                <span style={{ ...sans(12.5, '#F0C9CC'), fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Founders Edition — selling through fast</span>
-              </div>
-            )}
           </div>
         </div>
       </div>
