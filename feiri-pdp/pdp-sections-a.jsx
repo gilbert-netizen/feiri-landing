@@ -3,7 +3,7 @@
 const { sc, sans, Icon, Stars, Eyebrow, Mono, Section, Marquee, money } = window;
 
 // Shared CTA button (token-styled to sit on dark grounds)
-window.Btn = function Btn({ children, variant = 'accent', size = 'md', full, onClick, style }) {
+window.Btn = function Btn({ children, variant = 'accent', size = 'md', full, onClick, style, className }) {
   const sizes = { md: { padding: '14px 28px', fontSize: 14 }, lg: { padding: '18px 38px', fontSize: 15 } };
   const variants = {
     accent: { background: 'var(--cobalt)', color: '#fff', border: '1px solid var(--cobalt)' },
@@ -11,7 +11,7 @@ window.Btn = function Btn({ children, variant = 'accent', size = 'md', full, onC
     ghost:  { background: 'transparent', color: 'var(--ink)', border: '1px solid var(--hair-strong)' },
   };
   return (
-    <button className="feiri-btn" onClick={onClick} style={{
+    <button className={`feiri-btn${className ? ' ' + className : ''}`} onClick={onClick} style={{
       ...sizes[size], ...variants[variant], width: full ? '100%' : 'auto',
       fontFamily: 'var(--font-sans)', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
       borderRadius: 5, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10,
@@ -35,10 +35,10 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(6,18,26,0.82) 0%, rgba(6,18,26,0.58) 30%, rgba(6,18,26,0.18) 58%, rgba(6,18,26,0) 80%)' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
       <div style={{ position: 'relative', maxWidth: 1240, width: '100%', margin: '0 auto', padding: 'clamp(48px,7vw,96px) var(--gutter)' }}>
-        <div style={{ maxWidth: 600 }}>
+        <div style={{ maxWidth: 600, margin: '0 auto' }}>
           <div className="feiri-hero-actions">
-            <div className="feiri-hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
-              <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
+            <div className="feiri-hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+              <Btn variant="cream" size="lg" onClick={onBuy} className="feiri-cta-3d" style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
             </div>
           </div>
         </div>
