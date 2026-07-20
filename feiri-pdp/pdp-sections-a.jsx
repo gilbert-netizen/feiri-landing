@@ -39,10 +39,6 @@ window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, her
           <div className="feiri-hero-actions">
             <div className="feiri-hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
               <Btn variant="cream" size="lg" onClick={onBuy} style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
-              <div className="feiri-hero-rating" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <Stars value={5} size={16} color="#C9A24B" />
-                <span style={{ ...sans(13, 'rgba(250,240,214,0.82)'), letterSpacing: '0.04em' }}>Rated 5/5 by Verified Owners</span>
-              </div>
             </div>
           </div>
         </div>
