@@ -213,7 +213,7 @@ window.HeritageSection = function HeritageSection() {
     <Section ground="var(--ink-black)" label="Heritage">
       <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto' }}>
         <Eyebrow center color="var(--gold)">Where FEIRI comes from</Eyebrow>
-        <h2 style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.15 }}>Milanese Discipline.<br />Born in South Africa.</h2>
+        <h2 style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.15 }}>Inspired from Milan,<br />Reborn for South Africa.</h2>
         <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 26 }}>
           FEIRI takes its name — and its standards — from Milanese tailoring: structured shoulders, precision seams, fabric built to hold its shape.
         </p>
