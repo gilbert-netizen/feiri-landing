@@ -53,7 +53,7 @@ window.Eyebrow = function Eyebrow({ children, color = 'var(--gold)', center }) {
   );
 };
 
-// FF monogram mark (svg file)
+// FEIRI monogram mark (svg file)
 window.Mono = function Mono({ size = 22, opacity = 1, style }) {
   return <img src="feiri-pdp/assets/monogram.svg" alt="" style={{ height: size, width: 'auto', opacity, display: 'block', ...style }} />;
 };

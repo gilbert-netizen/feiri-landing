@@ -30,7 +30,7 @@ window.PDP_DATA = {
     { img: 'feiri-pdp/assets/side-blue.jpg', title: 'Length that stays where it should',
       body: 'Engineered for 3XL–6XL proportions, so it never rides up when you sit, reach, or lean in. No tugging. No re-adjusting. Just ease.' },
     { img: 'feiri-pdp/assets/blue-5.jpg', title: 'Knit, not printed',
-      body: 'The FF monogram is jacquard-knitted into the cloth itself — depth you can feel. It does not crack, fade, or peel after the wash.' },
+      body: 'The FEIRI monogram is jacquard-knitted into the cloth itself — depth you can feel. It does not crack, fade, or peel after the wash.' },
   ],
 
   // 5 — The standard (maker / philosophy)
@@ -72,7 +72,7 @@ window.PDP_DATA = {
   faq: [
     { q: 'Will it actually fit a bigger man properly?', a: 'Yes. FEIRI is designed from the ground up for 3XL–6XL — the chest and midsection sit balanced, the shoulders are built for a larger frame, and the length is engineered so nothing rides up. Never tight, never sloppy.' },
     { q: 'How do I choose my size?', a: 'Most men take their usual size — the cut is intentional, not slim. If you are between sizes, size down for a cleaner line or up for more ease. Message us on WhatsApp and we will size you in two minutes.' },
-    { q: 'Is the monogram printed?', a: 'No. The FF monogram is jacquard-knitted into the fabric, so it has real depth and will not crack, peel, or fade in the wash.' },
+    { q: 'Is the monogram printed?', a: 'No. The FEIRI monogram is jacquard-knitted into the fabric, so it has real depth and will not crack, peel, or fade in the wash.' },
     { q: 'What does “Founders Edition” mean?', a: 'This run is limited to 300 pieces across all sizes. When a size sells out in this colourway, it is gone. We restock rarely and never in the same form.' },
     { q: 'Shipping and returns?', a: 'Free shipping nationwide. If the piece does not carry the way we promised, return it within 14 days for a full refund — our Presence Guarantee.' },
   ],
