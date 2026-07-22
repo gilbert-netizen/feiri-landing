@@ -207,6 +207,27 @@ window.StandardSection = function StandardSection({ standard }) {
   );
 };
 
+/* 5.5 — HERITAGE / ORIGIN STORY */
+window.HeritageSection = function HeritageSection() {
+  return (
+    <Section ground="var(--ink-black)" label="Heritage">
+      <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto' }}>
+        <Eyebrow center color="var(--gold)">Where FEIRI comes from</Eyebrow>
+        <h2 style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.15 }}>Milanese Discipline.<br />Born in South Africa.</h2>
+        <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 26 }}>
+          FEIRI takes its name — and its standards — from Milanese tailoring: structured shoulders, precision seams, fabric built to hold its shape.
+        </p>
+        <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 18 }}>
+          But FEIRI itself was born here — out of a gap nobody else was closing. For men who carried presence and couldn't find a single label built for their frame. Not scaled up. Not squeezed in. Built from 3XL, from the ground up.
+        </p>
+        <p style={{ ...sc(21, 'var(--cream)'), marginTop: 30 }}>
+          Because power deserves precision.<br />And presence deserves style.
+        </p>
+      </div>
+    </Section>
+  );
+};
+
 /* 6 — US vs THEM */
 window.CompareSection = function CompareSection({ compare }) {
   return (

@@ -109,6 +109,7 @@ function App() {
         <window.LookbookSection />
         <window.FeaturesSection features={D.features} />
         <window.StandardSection standard={D.standard} />
+        <window.HeritageSection />
         <window.CompareSection compare={D.compare} />
         <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
         <window.UrgencySection product={D.product} color={color} scarcity={t.scarcity} />
@@ -142,7 +143,7 @@ function App() {
 (function mountWhenReady() {
   const required = [
     'Section', 'HeroSection', 'OwnersSection', 'TrustSection', 'VideoSection', 'LookbookSection',
-    'FeaturesSection', 'StandardSection', 'CompareSection', 'TestimonialsSection',
+    'FeaturesSection', 'StandardSection', 'HeritageSection', 'CompareSection', 'TestimonialsSection',
     'UrgencySection', 'BuySection', 'TrustRowSection', 'GuaranteeSection',
     'FAQSection', 'CrossSellSection', 'PDP_DATA', 'useTweaks', 'TweaksPanel',
   ];
