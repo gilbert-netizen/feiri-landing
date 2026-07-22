@@ -109,7 +109,6 @@ function App() {
         <window.LookbookSection />
         <window.FeaturesSection features={D.features} />
         <window.StandardSection standard={D.standard} />
-        <window.HeritageSection />
         <window.CompareSection compare={D.compare} />
         <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
         <window.UrgencySection product={D.product} color={color} scarcity={t.scarcity} />
@@ -118,6 +117,7 @@ function App() {
         <window.GuaranteeSection />
         <window.FAQSection faq={D.faq} />
         <window.CrossSellSection product={D.product} color={color} setColor={setColor} onBuy={goToProduct} />
+        <window.HeritageSection />
       </main>
       <Footer />
       <Toast show={toast} label={`Added — ${color.name}, ${size || ''}`} />
