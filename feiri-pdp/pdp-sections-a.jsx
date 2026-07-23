@@ -25,7 +25,7 @@ const Btn = window.Btn;
 /* 1 — HERO */
 window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, heroLine }) {
   const lines = heroLine === 'Carry presence'
-    ? [<React.Fragment key="a">Made for men<br />who carry presence.</React.Fragment>, 'A structured monogram knit, built from the ground up for bigger men. Worn, not styled, by the man who carries the room.']
+    ? [<React.Fragment key="a">Made for men<br />who carry presence.</React.Fragment>, 'Walk in like the room is already yours.']
     : [<React.Fragment key="b">No loud logos.<br />Just presence.</React.Fragment>, 'Premium fashion was never built for men like you. Walk in looking like the room is yours — because it is. Worn, not styled, by the man who walks in and never has to announce it.'];
   return (
     <section data-screen-label="Hero" className="feiri-hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>

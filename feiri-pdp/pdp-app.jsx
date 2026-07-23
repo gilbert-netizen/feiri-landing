@@ -8,7 +8,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "mood": "midnight",
   "accent": "#2C53C9",
   "scarcity": true,
-  "heroLine": "No loud logos"
+  "heroLine": "Carry presence"
 }/*EDITMODE-END*/;
 
 const MOODS = {
