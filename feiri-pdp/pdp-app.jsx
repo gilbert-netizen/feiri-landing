@@ -44,7 +44,7 @@ function AnnouncementBar() {
   return (
     <div style={{ background: '#FDFBF6', borderBottom: '1px solid rgba(20,24,28,0.1)', padding: '10px var(--gutter)', textAlign: 'center' }}>
       <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#14181C' }}>
-        FEIRI Founders Edition — Only 300 Made
+        FEIRI Founders Edition — Limited 3XL–6XL Pieces. Only 300 Made
       </span>
     </div>
   );
