@@ -6,7 +6,7 @@ window.PDP_DATA = {
   product: {
     name: 'The Signature Monogram Knit',
     line: 'FEIRI Founders Edition',
-    price: 2799,
+    price: 1899,
     rating: 5,
     reviews: 7,
     sizes: ['3XL', '4XL', '5XL', '6XL'],
