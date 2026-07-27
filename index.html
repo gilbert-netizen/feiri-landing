@@ -22,10 +22,6 @@
     src="https://www.facebook.com/tr?id=2568538996934107&ev=PageView&noscript=1"
   /></noscript>
 
-  <template id="__bundler_thumbnail">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0D3D56"/><text x="100" y="115" font-family="Georgia,serif" font-size="72" fill="#FAF0D6" text-anchor="middle">FF</text></svg>
-  </template>
-
   <!-- Design system tokens + styles -->
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/tokens/fonts.css" />
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/tokens/colors.css" />
@@ -35,8 +31,11 @@
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/tokens/base.css" />
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/styles.css" />
 
+  <!-- Hero image is the Largest Contentful Paint element on desktop -->
+  <link rel="preload" as="image" href="feiri-pdp/assets/hero-couch-blue.jpg" fetchpriority="high" />
+
   <style>
-    :root {
+:root {
       --gutter: clamp(20px, 5vw, 64px);
       --ink-black: #FFFFFF;
       --navy-deep: #F4EFE6;
@@ -163,13 +162,9 @@
     }
   </style>
 
-  <!-- React + Babel (pinned) -->
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-  <!-- Design system bundle (plain JS) -->
-  <script src="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/_ds_bundle.js"></script>
+  <!-- React 18 production (self-hosted; no third-party CDN on the critical path) -->
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
 
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -183,12 +178,7 @@
 <body>
   <div id="root"></div>
 
-  <script type="text/babel" src="feiri-pdp/tweaks-panel.jsx"></script>
-  <script type="text/babel" src="feiri-pdp/pdp-data.jsx"></script>
-  <script type="text/babel" src="feiri-pdp/pdp-parts.jsx"></script>
-  <script type="text/babel" src="feiri-pdp/pdp-sections-a.jsx"></script>
-  <script type="text/babel" src="feiri-pdp/pdp-lookbook.jsx"></script>
-  <script type="text/babel" src="feiri-pdp/pdp-sections-b.jsx"></script>
-  <script type="text/babel" src="feiri-pdp/pdp-app.jsx"></script>
+  <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
+  <script src="feiri-pdp/app.a14c35f8.js"></script>
 </body>
 </html>

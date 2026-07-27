@@ -1,0 +1,14 @@
+{
+  "name": "feiri-landing-build",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Build tooling for the FEIRI landing page. Lives in build/ (not repo root) so Vercel keeps treating the deploy as a static site.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "images": "python3 optimize-images.py"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

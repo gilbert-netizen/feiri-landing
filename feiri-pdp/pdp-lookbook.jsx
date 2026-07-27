@@ -40,36 +40,36 @@ window.LookbookSection = function LookbookSection() {
 
         {/* Trio: uniform cards */}
         <div className="lb-row-trio">
-          <Plate src={A + 'gala-interview.png'} ratio="4 / 5" n="Nº 01" place="On Camera" tag="Blue &amp; Cream" />
-          <Plate src={A + 'golf-blue.png'} ratio="4 / 5" n="Nº 02" place="The Course" tag="Blue &amp; Cream" />
-          <Plate src={A + 'chey-9.png'} ratio="4 / 5" n="Nº 03" place="The House" tag="Blue &amp; Cream" />
+          <Plate src={A + 'gala-interview.jpg'} ratio="4 / 5" n="Nº 01" place="On Camera" tag="Blue &amp; Cream" />
+          <Plate src={A + 'golf-blue.jpg'} ratio="4 / 5" n="Nº 02" place="The Course" tag="Blue &amp; Cream" />
+          <Plate src={A + 'chey-9.jpg'} ratio="4 / 5" n="Nº 03" place="The House" tag="Blue &amp; Cream" />
         </div>
 
         {/* Portrait + still life */}
         <div className="lb-row-duo">
-          <Plate src={A + 'chey-7.png'} ratio="4 / 5" n="Nº 04" place="The Drive" tag="Blue &amp; Cream" />
-          <Plate src={A + 'creative-9.png'} ratio="4 / 5" n="Nº 05" place="At Rest" tag="Blue &amp; Cream" />
+          <Plate src={A + 'chey-7.jpg'} ratio="4 / 5" n="Nº 04" place="The Drive" tag="Blue &amp; Cream" />
+          <Plate src={A + 'creative-9.jpg'} ratio="4 / 5" n="Nº 05" place="At Rest" tag="Blue &amp; Cream" />
         </div>
 
         {/* Duo of still lifes */}
         <div className="lb-row-duo">
-          <Plate src={A + 'creative-12.png'} ratio="1 / 1" n="Nº 06" place="En Route" tag="Blue &amp; Cream" />
-          <Plate src={A + 'creative-1.png'} ratio="1 / 1" n="Nº 07" place="The Rail" tag="Blue &amp; Cream" />
+          <Plate src={A + 'creative-12.jpg'} ratio="1 / 1" n="Nº 06" place="En Route" tag="Blue &amp; Cream" />
+          <Plate src={A + 'creative-1.jpg'} ratio="1 / 1" n="Nº 07" place="The Rail" tag="Blue &amp; Cream" />
         </div>
 
         <Chapter label="Chapter Two" colour="Black &amp; Sand" />
 
         {/* Trio: uniform cards */}
         <div className="lb-row-trio">
-          <Plate src={A + 'chey-4.png'} ratio="4 / 5" n="Nº 08" place="At Altitude" tag="Black &amp; Sand" />
-          <Plate src={A + 'off-duty-redcarpet.png'} ratio="4 / 5" n="Nº 09" place="The Arrival" tag="Black &amp; Sand" />
-          <Plate src={A + 'golf-black.png'} ratio="4 / 5" n="Nº 10" place="The Green" tag="Black &amp; Sand" />
+          <Plate src={A + 'chey-4.jpg'} ratio="4 / 5" n="Nº 08" place="At Altitude" tag="Black &amp; Sand" />
+          <Plate src={A + 'off-duty-redcarpet.jpg'} ratio="4 / 5" n="Nº 09" place="The Arrival" tag="Black &amp; Sand" />
+          <Plate src={A + 'golf-black.jpg'} ratio="4 / 5" n="Nº 10" place="The Green" tag="Black &amp; Sand" />
         </div>
 
         {/* Portrait + still life */}
         <div className="lb-row-duo">
-          <Plate src={A + 'chey-1.png'} n="Nº 11" place="The Long Game" tag="Black &amp; Sand" />
-          <Plate src={A + 'car-ocean.png'} ratio="4 / 5" n="Nº 12" place="Sea Air" tag="Black &amp; Sand" />
+          <Plate src={A + 'chey-1.jpg'} n="Nº 11" place="The Long Game" tag="Black &amp; Sand" />
+          <Plate src={A + 'car-ocean.jpg'} ratio="4 / 5" n="Nº 12" place="Sea Air" tag="Black &amp; Sand" />
         </div>
       </div>
 
