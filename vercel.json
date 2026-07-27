@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "feiri-landing.vercel.app" }],
+      "destination": "https://drop.feiri.co.za/:path*",
+      "permanent": false
+    }
+  ]
+}
