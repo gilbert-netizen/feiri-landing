@@ -12,7 +12,7 @@ function Plate({ src, ratio = '4 / 5', n, place, tag }) {
       <figcaption className="lb-cap">
         <span className="lb-idx" style={{ ...sc(15, 'var(--gold)') }}>{n}</span>
         <span className="lb-place" style={{ ...sc(17, 'var(--cream)') }}>{place}</span>
-        <span className="lb-tag" style={{ ...sans(10.5, 'var(--muted)') }}>{tag}</span>
+        <span className="lb-tag" style={{ ...sans(12, 'var(--muted)') }}>{tag}</span>
       </figcaption>
     </figure>
   );
@@ -33,7 +33,7 @@ const A = 'feiri-pdp/assets/lookbook/';
 
 window.LookbookSection = function LookbookSection() {
   return (
-    <window.Section ground="var(--ink-black)" label="Lookbook" id="lookbook">
+    <window.Section ground="var(--navy-deep)" label="Lookbook" id="lookbook">
       <h2 className="lb-masthead" style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), lineHeight: 1.1, textAlign: 'center', marginInline: 'auto' }}>Fashion Lookbook</h2>
       <div className="feiri-lookbook">
         <Chapter label="Chapter One" colour="Blue &amp; Cream" />
@@ -73,10 +73,9 @@ window.LookbookSection = function LookbookSection() {
         </div>
       </div>
 
-      {/* Closing line */}
-      <div className="lb-close">
-        <span style={{ ...sans(15, 'var(--muted)'), letterSpacing: '0.14em' }}>Made for men who carry presence — proudly South African.</span>
-      </div>
+      {/* Closing line removed 2026-08-12: pure atmosphere, and it broke gate 4.
+          The real upgrade for this section is size-tagged captions
+          ("Sipho, 5XL, Cream & Blue"), which is blocked on names and sizes. */}
     </window.Section>
   );
 };

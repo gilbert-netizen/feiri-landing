@@ -114,7 +114,16 @@ function renderIndexHtml({ appHref, reactHref, reactDomHref }) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FEIRI Milano — The Signature Monogram Knit</title>
+  <title>The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL</title>
+  <meta name="description" content="A cotton polo made only in sizes 3XL to 6XL. R1,899, free delivery anywhere in South Africa, and free returns for 14 days if it does not fit." />
+
+  <!-- Link preview. WhatsApp is a primary sharing channel in this market. -->
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL" />
+  <meta property="og:description" content="A cotton polo made only in sizes 3XL to 6XL. R1,899, free delivery anywhere in South Africa, and free returns for 14 days if it does not fit." />
+  <meta property="og:image" content="https://drop.feiri.co.za/feiri-pdp/assets/hero-standing-blue.jpg" />
+  <meta property="og:url" content="https://drop.feiri.co.za/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Meta Pixel -->
   <script>
@@ -143,7 +152,7 @@ function renderIndexHtml({ appHref, reactHref, reactDomHref }) {
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/styles.css" />
 
   <!-- Hero image is the Largest Contentful Paint element on desktop -->
-  <link rel="preload" as="image" href="feiri-pdp/assets/hero-couch-blue.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="feiri-pdp/assets/hero-standing-blue.jpg" fetchpriority="high" />
 
   <style>
 __INLINE_STYLE__

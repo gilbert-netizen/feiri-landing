@@ -22,27 +22,43 @@ window.Btn = function Btn({ children, variant = 'accent', size = 'md', full, onC
 };
 const Btn = window.Btn;
 
-/* 1 — HERO */
-window.HeroSection = function HeroSection({ product, color, onBuy, scarcity, heroLine }) {
-  const lines = heroLine === 'Carry presence'
-    ? [<React.Fragment key="a">Made for men<br />who carry presence.</React.Fragment>, 'Walk in like the room is already yours.']
-    : [<React.Fragment key="b">No loud logos.<br />Just presence.</React.Fragment>, 'Premium fashion was never built for men like you. Walk in looking like the room is yours — because it is. Worn, not styled, by the man who walks in and never has to announce it.'];
+/* 1 — HERO
+   The hero qualifies rather than argues. A man who wears 4XL reads the headline and
+   knows instantly this is for him; the mechanism argument lives in StandardSection so
+   the page does not make its central point twice. The four things here are not
+   cuttable: who it is for, the differentiator, the price, and risk removal.
+   Layout: image and copy are separated (stacked on mobile, two columns on desktop)
+   because the old overlay hid the garment behind the headline, and the garment sitting
+   properly on a bigger man IS the argument. */
+window.HeroSection = function HeroSection({ product, color, onBuy }) {
+  const lines = [
+    'Made only in 3XL to 6XL.',
+    'Designed for a bigger frame from the first pattern, not scaled up from a medium.',
+  ];
   return (
     <section data-screen-label="Hero" className="feiri-hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>
-      {product.colors.map(c => (
-        <img key={c.key} src={c.hero} alt="" className="feiri-hero-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
-      ))}
-      <div className="feiri-hero-scrim-bottom" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
+      <div className="feiri-hero-media">
+        {product.colors.map(c => (
+          <img key={c.key} src={c.hero} alt="" className="feiri-hero-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
+        ))}
+        <div className="feiri-hero-scrim-bottom" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
+      </div>
       <div className="feiri-hero-copy" style={{ position: 'absolute', top: 'clamp(72px,13vw,132px)', right: 'var(--gutter)', maxWidth: 420, textAlign: 'right' }}>
         <h1 className="feiri-hero-heading" style={{ ...sc('clamp(1.9rem,3vw,2.75rem)', '#14181C'), marginBottom: 14 }}>{lines[0]}</h1>
-        <p className="feiri-hero-sub" style={{ ...sans(15, 'rgba(20,24,28,0.75)'), lineHeight: 1.6 }}>{lines[1]}</p>
+        <p className="feiri-hero-sub" style={{ ...sans(16, 'rgba(20,24,28,0.75)'), lineHeight: 1.6 }}>{lines[1]}</p>
       </div>
       <div style={{ position: 'relative', maxWidth: 1240, width: '100%', margin: '0 auto', padding: 'clamp(48px,7vw,96px) var(--gutter)' }}>
         <div style={{ maxWidth: 600, margin: '0 auto' }}>
           <div className="feiri-hero-actions">
             <div className="feiri-hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-              <Btn variant="cream" size="lg" onClick={onBuy} className="feiri-cta-3d" style={{ background: '#FAF0D6', color: '#14181C', border: '1px solid #FAF0D6' }}>View 3XL–6XL Limited Pieces</Btn>
+              {/* Black on the cream panel. A cream button on a cream panel disappears.
+                  Cobalt was tried and rejected as too loud. This CTA drops the gold
+                  extruded edge for a soft shadow — a deliberate hero-only exception. */}
+              <Btn variant="cream" size="lg" onClick={onBuy} className="feiri-cta-3d" style={{ background: 'var(--cream)', color: '#FAF0D6', border: '1px solid var(--cream)' }}>See the fit and pick your size</Btn>
             </div>
+            <p style={{ ...sans(16, 'rgba(20,24,28,0.68)'), textAlign: 'center', lineHeight: 1.6, margin: '16px auto 0', maxWidth: 460 }}>
+              R1,899 · Free delivery · Free returns if it does not fit
+            </p>
           </div>
         </div>
       </div>
@@ -74,6 +90,9 @@ function useRevealOnScroll() {
   return containerRef;
 }
 
+// Sells the life rather than certifying the photographs. "The FEIRI man" is a label a
+// cold reader has never met, so the headline defines him in the same breath by the
+// thing he no longer does, and the body gives a stranger three concrete occasions.
 window.OwnersSection = function OwnersSection() {
   const owners = [
     { src: 'feiri-pdp/assets/owners/o1.jpg', tag: 'The Ivy Luxe' },
@@ -88,9 +107,9 @@ window.OwnersSection = function OwnersSection() {
     <Section ground="var(--ink-black)" label="Owners" style={{ paddingTop: 'clamp(28px,3vw,48px)', paddingBottom: 'clamp(28px,3vw,48px)' }}>
       <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 32px' }}>
         <Eyebrow center color="var(--gold)">Worn by the FEIRI man</Eyebrow>
-        <h2 style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.1 }}>Made for SA's Real Men</h2>
-        <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.6, marginTop: 18, maxWidth: 520, marginInline: 'auto' }}>
-          No paid models. No borrowed logos. Just the men who already own the room — and now own the knit.
+        <h2 style={{ ...sc('clamp(1.9rem,3.2vw,3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.12 }}>The FEIRI man does not dress down because of his size.</h2>
+        <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.6, marginTop: 18, maxWidth: 540, marginInline: 'auto' }}>
+          Golf on Saturday, dinner that night, and nothing that needs pulling straight all day.
         </p>
       </div>
       <div className="feiri-owners-grid" ref={gridRef}>
@@ -101,7 +120,7 @@ window.OwnersSection = function OwnersSection() {
             </div>
             <figcaption style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '34px 14px 12px', background: 'linear-gradient(to top, rgba(6,18,26,0.86), rgba(6,18,26,0))', display: 'flex', alignItems: 'center', gap: 7 }}>
               <img src="feiri-pdp/assets/monogram.svg" alt="" style={{ height: 13, opacity: 0.7, filter: 'brightness(0) invert(1)' }} />
-              <span style={{ ...sans(11.5, '#FAF0D6'), letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 500, opacity: 0.92 }}>{o.tag}</span>
+              <span style={{ ...sans(12, '#FAF0D6'), letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 500, opacity: 0.92 }}>{o.tag}</span>
             </figcaption>
           </figure>
         ))}
@@ -110,9 +129,9 @@ window.OwnersSection = function OwnersSection() {
   );
 };
 
-/* 3 — TRUST MARQUEE */
+/* 3 — TRUST MARQUEE. Product facts only. */
 window.TrustSection = function TrustSection() {
-  return <Marquee items={['Proudly Local, Internationally Inspired.', 'Limited to 300 pieces', 'Built for 3XL–6XL', 'Monogram knitted, never printed', 'Designed for presence and confidence']} />;
+  return <Marquee items={['Sizes 3XL to 6XL', '300 made, then never again', 'Pattern drawn at 3XL, not scaled up from a medium', 'Monogram knitted into the cloth, not printed on top', 'Free delivery and free returns anywhere in South Africa']} />;
 };
 
 /* 3 — EDITORIAL / "in motion" — replaced by LookbookSection (pdp-lookbook.jsx) */
@@ -122,7 +141,10 @@ window.VideoSection = function VideoSection() {
   const videoRef = React.useRef(null);
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 720px)').matches;
   const src = isMobile ? 'feiri-pdp/assets/feiri-drinks-mobile.mp4' : 'feiri-pdp/assets/feiri-drinks.mp4';
-  const poster = isMobile ? 'feiri-pdp/assets/feiri-drinks-mobile-poster.jpg' : 'feiri-pdp/assets/feiri-drinks-poster.jpg';
+  // Both widths use the mobile poster frame. The desktop poster is an empty studio
+  // wall, and with preload="none" the poster is all a visitor sees until playback
+  // starts. Replace with a proper 1920-wide still exported from the desktop cut.
+  const poster = 'feiri-pdp/assets/feiri-drinks-mobile-poster.jpg';
 
   React.useEffect(() => {
     const el = videoRef.current;
@@ -153,34 +175,41 @@ window.VideoSection = function VideoSection() {
   );
 };
 
-/* 4 — FEATURES */
+/* 4 — FEATURES. Four failures he has lived through, each answered with a number he
+   can check. Care instructions sit under the grid as a footnote to the fabric claim
+   rather than as a fifth card. */
 window.FeaturesSection = function FeaturesSection({ features }) {
   return (
-    <Section ground="var(--navy-deep)" label="Features">
+    <Section ground="var(--ink-black)" label="Features">
       <div style={{ textAlign: 'center', maxWidth: 640, margin: '0 auto 60px' }}>
-        <Eyebrow center color="var(--gold)">Why it carries</Eyebrow>
-        <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18 }}>Built to be noticed without trying</h2>
+        <Eyebrow center color="var(--gold)">The details</Eyebrow>
+        <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18 }}>Four things that go wrong on a big-size shirt, and what we did about each one</h2>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 28 }}>
         {features.map((f, i) => (
           <div key={i} style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: 12, overflow: 'hidden' }}>
             <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#000' }}>
-              <img src={f.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={f.img} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: f.pos || 'center' }} />
             </div>
             <div style={{ padding: '28px 26px 32px' }}>
               <span style={{ ...sans(13, 'var(--gold)'), fontWeight: 700, letterSpacing: '0.14em' }}>0{i + 1}</span>
               <h3 style={{ ...sc(24, 'var(--cream)'), margin: '12px 0 12px' }}>{f.title}</h3>
-              <p style={{ ...sans(15, 'var(--cream-dim)'), lineHeight: 1.62 }}>{f.body}</p>
+              <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.62 }}>{f.body}</p>
             </div>
           </div>
         ))}
       </div>
+      <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, textAlign: 'center', maxWidth: 660, margin: '44px auto 0' }}>
+        Cotton knit goes baggy at the hem and the elbows when it is washed hot and tumble dried. Wash this one cold on a gentle cycle, inside out, do not tumble dry, and use a cool iron on the reverse if it needs one. Done that way it keeps the shape it arrived in.
+      </p>
     </Section>
   );
 };
 
-/* 5 — THE STANDARD */
-window.StandardSection = function StandardSection({ standard }) {
+/* 5 — THE STANDARD. This is the page's problem section and the one place gate 6
+   (problem then solution) lands at full strength, which is why the hero is free to
+   qualify rather than argue. Densest copy on the page, deliberately. */
+window.StandardSection = function StandardSection() {
   return (
     <Section ground="var(--ink-black)" label="The Standard">
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,0.95fr) minmax(0,1.05fr)', gap: 'clamp(32px,5vw,72px)', alignItems: 'center' }} className="feiri-2col">
@@ -189,55 +218,42 @@ window.StandardSection = function StandardSection({ standard }) {
         </div>
         <div>
           <Eyebrow color="var(--gold)">The FEIRI standard</Eyebrow>
-          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px' }}>We don’t size up. We design from the ground up.</h2>
-          <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 34, maxWidth: 480 }}>
-            Most labels cut for a smaller man and stretch the pattern to fit. The proportions go wrong, and you feel it all day. FEIRI is engineered for your frame from the first stitch.
+          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px' }}>Most big-size shirts are small shirts stretched bigger.</h2>
+          <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 0, maxWidth: 520 }}>
+            One pattern gets drawn for a medium, then every measurement grows by the same percentage to make the big sizes. Bodies do not change shape that way. That is why the hem rides up when you sit, why the shoulder seam ends up somewhere down your arm, and why the collar goes soft after a few washes.
+            <br /><br />
+            <strong style={{ color: 'var(--cream)' }}>We do not size up. We start the pattern at 3XL</strong> and work upward from there, so the shape is right at the size you actually wear.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-            {standard.map((s, i) => (
-              <div key={i} style={{ display: 'flex', gap: 22, padding: '22px 0', borderTop: '1px solid var(--hair)' }}>
-                <span style={{ ...sc(30, 'var(--gold)'), opacity: 0.8, minWidth: 44 }}>{s.n}</span>
-                <div>
-                  <h3 style={{ ...sc(21, 'var(--cream)'), marginBottom: 7 }}>{s.title}</h3>
-                  <p style={{ ...sans(14.5, 'var(--cream-dim)'), lineHeight: 1.58 }}>{s.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </Section>
   );
 };
 
-/* 5.5 — HERITAGE / ORIGIN STORY */
+/* 5.5 — HERITAGE. Inoculation: the title says FEIRI Milano, so a cold reader asks
+   "is this actually Italian?" within two seconds. Answering it early turns a
+   suspicion into a reason to trust, which is why this sits near the top. */
 window.HeritageSection = function HeritageSection() {
   return (
-    <Section ground="var(--ink-black)" label="Heritage">
-      <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto' }}>
+    <Section ground="var(--ink-black)" label="Heritage" style={{ paddingTop: 'clamp(30px,3.6vw,52px)', paddingBottom: 'clamp(30px,3.6vw,52px)' }}>
+      <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
         <Eyebrow center color="var(--gold)">Where FEIRI comes from</Eyebrow>
-        <h2 style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.15 }}>Inspired from Milan,<br />Reborn for SA's Real Men.</h2>
-        <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 26 }}>
-          FEIRI takes its name — and its standards — from Milanese tailoring: structured shoulders, precision seams, fabric built to hold its shape.
-        </p>
-        <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 18 }}>
-          But FEIRI itself was born here — out of a gap nobody else was closing. For men who carried presence and couldn't find a single label built for their frame. Not scaled up. Not squeezed in. Built from 3XL, from the ground up.
-        </p>
-        <p style={{ ...sc(21, 'var(--cream)'), marginTop: 30 }}>
-          Because power deserves precision.<br />And presence deserves style.
+        <h2 style={{ ...sc('clamp(1.8rem,3vw,2.7rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.15 }}>The name is Italian. The brand is South African.</h2>
+        <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 22 }}>
+          FEIRI Milano is named after Milan because that is where the design references come from. The brand itself was started here, by people who could not find one good shirt in their own size. Everything we make starts at 3XL.
         </p>
       </div>
     </Section>
   );
 };
 
-/* 6 — US vs THEM */
+/* 6 — US vs THEM. Every row is something a tick can honestly sit next to. */
 window.CompareSection = function CompareSection({ compare }) {
   return (
     <Section ground="var(--navy-deep)" label="Us vs Them">
       <div style={{ textAlign: 'center', maxWidth: 620, margin: '0 auto 52px' }}>
-        <Eyebrow center color="var(--gold)">The difference</Eyebrow>
-        <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18 }}>FEIRI vs. “just size up”</h2>
+        <Eyebrow center color="var(--gold)">Side by side</Eyebrow>
+        <h2 style={{ ...sc('clamp(1.9rem,3.2vw,2.8rem)', 'var(--cream)'), marginTop: 18 }}>FEIRI compared to a shirt that was just sized up</h2>
       </div>
       <div style={{ maxWidth: 880, margin: '0 auto', border: '1px solid var(--hair)', borderRadius: 14, overflow: 'hidden', background: 'var(--panel)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 130px 130px' }} className="feiri-compare-head">
@@ -252,7 +268,7 @@ window.CompareSection = function CompareSection({ compare }) {
         </div>
         {compare.map((row, i) => (
           <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 130px 130px', borderTop: '1px solid var(--hair)', alignItems: 'center' }}>
-            <div style={{ padding: '18px 24px', ...sans(15, 'var(--cream)') }}>{row[0]}</div>
+            <div style={{ padding: '18px 24px', ...sans(16, 'var(--cream)') }}>{row[0]}</div>
             <div style={{ padding: '18px 12px', textAlign: 'center', background: 'rgba(44,83,201,0.1)' }}>
               <Icon name="check" size={22} color="var(--gold)" sw={2.2} />
             </div>
@@ -266,18 +282,19 @@ window.CompareSection = function CompareSection({ compare }) {
   );
 };
 
-/* 7 — TESTIMONIALS */
+/* 7 — TESTIMONIALS. "7 reviews so far" is more believable than a 5/5 badge and is
+   honest about a first run. */
 window.TestimonialsSection = function TestimonialsSection({ testimonials, rating, reviews }) {
   return (
     <Section ground="var(--ink-black)" label="Testimonials">
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20, marginBottom: 48 }}>
         <div>
-          <Eyebrow color="var(--gold)">Voices</Eyebrow>
-          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 16 }}>Men who carry the room</h2>
+          <Eyebrow color="var(--gold)">Reviews</Eyebrow>
+          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 16 }}>What buyers said</h2>
         </div>
         <div style={{ textAlign: 'right' }}>
           <Stars value={5} size={18} />
-          <p style={{ ...sans(14, 'var(--cream-dim)'), marginTop: 6 }}>Rated 5/5 by Verified Owners</p>
+          <p style={{ ...sans(16, 'var(--cream-dim)'), marginTop: 6 }}>{reviews} reviews so far. Average 5 out of 5.</p>
         </div>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 22 }}>
@@ -285,11 +302,11 @@ window.TestimonialsSection = function TestimonialsSection({ testimonials, rating
           <div key={i} style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: 12, padding: '28px 26px', display: 'flex', flexDirection: 'column', gap: 14 }}>
             <Stars value={5} size={14} />
             {t.title && <h3 style={{ ...sc(20, 'var(--cream)'), margin: 0 }}>{t.title}</h3>}
-            <p style={{ ...sans(15.5, 'var(--cream)'), lineHeight: 1.6, flex: 1 }}>“{t.body}”</p>
+            <p style={{ ...sans(16.5, 'var(--cream)'), lineHeight: 1.6, flex: 1 }}>“{t.body}”</p>
             <div style={{ borderTop: '1px solid var(--hair)', paddingTop: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
               <Icon name="check-circle" size={15} color="var(--gold)" />
-              <span style={{ ...sans(14, 'var(--cream)'), fontWeight: 600 }}>{t.name}</span>
-              <span style={{ ...sans(12.5, 'var(--cream-dim)') }}>· {t.size}</span>
+              <span style={{ ...sans(15, 'var(--cream)'), fontWeight: 600 }}>{t.name}</span>
+              <span style={{ ...sans(13, 'var(--cream-dim)') }}>· {t.size}</span>
             </div>
           </div>
         ))}

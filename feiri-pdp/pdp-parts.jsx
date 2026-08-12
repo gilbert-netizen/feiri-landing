@@ -73,7 +73,7 @@ window.Marquee = function Marquee({ items, ground = 'var(--navy-deep)', color = 
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 0 }}>
       {items.map((t, i) => (
         <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
-          <span style={{ ...window.sc('clamp(15px,1.6vw,20px)', color), padding: '0 26px', whiteSpace: 'nowrap', opacity: 0.92 }}>{t}</span>
+          <span style={{ ...window.sc('clamp(16px,1.6vw,20px)', color), padding: '0 26px', whiteSpace: 'nowrap', opacity: 0.92 }}>{t}</span>
           <img src="feiri-pdp/assets/monogram.svg" alt="" style={{ height: 16, opacity: 0.5, filter: 'brightness(0) invert(1)' }} />
         </span>
       ))}
@@ -88,6 +88,8 @@ window.Marquee = function Marquee({ items, ground = 'var(--navy-deep)', color = 
   );
 };
 
-window.money = (n) => 'R\u00a0' + Number(n).toLocaleString('en-ZA', { minimumFractionDigits: 2 });
+// en-US grouping on purpose: the store and every hardcoded line on the page write
+// R1,899. en-ZA renders 'R 1 899', which disagreed with the rest of the page.
+window.money = (n) => 'R' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
 
 Object.assign(window, { _F });

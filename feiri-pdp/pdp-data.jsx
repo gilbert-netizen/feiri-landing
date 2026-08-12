@@ -1,18 +1,23 @@
 /* global React */
 // FEIRI Milano — Inverted PDP. Data + copy + shared helpers.
-// Avatar: the Status & Social Man (28–42). "No loud logos. Just authority."
+// Copy standard: the Copy Law (one test, nine gates, no em dashes).
+// Deck: Web CRO/internal/feiri/05-copy/2026-08-10-drop-lp-copy-deck.md
+// Buyer: a man who wears 3XL to 6XL and has spent years in shirts that ride up.
+// Ladder to Life Force 3 (freedom from discomfort), not #6 (superiority).
 
 window.PDP_DATA = {
   product: {
-    name: 'The Signature Monogram Knit',
-    line: 'FEIRI Founders Edition',
+    name: 'The Signature Monogram Polo',
+    line: '300 made. Sizes 3XL to 6XL',
     price: 1899,
     rating: 5,
     reviews: 7,
     sizes: ['3XL', '4XL', '5XL', '6XL'],
     colors: [
-      { key: 'blue',  name: 'Blue & Cream', dot: 'var(--cobalt-600)',
-        hero: 'feiri-pdp/assets/hero-couch-blue.jpg',
+      // Colour names must match the Shopify product titles exactly. The store is
+      // where he checks out, and it says "Cream & Blue", not "Blue & Cream".
+      { key: 'blue',  name: 'Cream & Blue', dot: 'var(--cobalt-600)',
+        hero: 'feiri-pdp/assets/hero-standing-blue.jpg',
         url: 'https://feiri.co.za/products/feiri-signature-monogram-tee-khaki-blue',
         gallery: ['feiri-pdp/assets/front-blue.jpg','feiri-pdp/assets/detail-blue.jpg','feiri-pdp/assets/seated-blue.jpg','feiri-pdp/assets/side-blue.jpg','feiri-pdp/assets/flat-blue.jpg'] },
       { key: 'black', name: 'Black & Sand', dot: '#1A1814',
@@ -20,37 +25,40 @@ window.PDP_DATA = {
         url: 'https://feiri.co.za/products/feiri-signature-monogram-tee-black-sand',
         gallery: ['feiri-pdp/assets/profile-black.jpg','feiri-pdp/assets/flat-black.jpg','feiri-pdp/assets/hero-black.jpg','feiri-pdp/assets/duo.jpg'] },
     ],
-    stockInSize: 27,
+    // stockInSize removed 2026-08-12. It was hardcoded to 27 and shown for every
+    // size and both colours, which is fabricated scarcity. Any counter must read
+    // live inventory. 6XL is the only genuinely scarce size (15 per colourway).
   },
 
-  // 4 — Features / benefits
+  // 4 — Features. Each block opens on the failure he has already lived through,
+  // then gives a number he can check with a tape measure. `pos` reframes the 4:3
+  // crop when the centre of the photo is not the part that proves the claim.
   features: [
-    { img: 'feiri-pdp/assets/detail-blue.jpg', title: 'A collar that holds the room',
-      body: 'Structured, weighted, built to stand — never the collapsed, curling collar that quietly ages a man. It sits the way it should, all night.' },
-    { img: 'feiri-pdp/assets/side-blue.jpg', title: 'Length that stays where it should',
-      body: 'Engineered for 3XL–6XL proportions, so it never rides up when you sit, reach, or lean in. No tugging. No re-adjusting. Just ease.' },
-    { img: 'feiri-pdp/assets/blue-5.jpg', title: 'Knit, not printed',
-      body: 'The FEIRI monogram is jacquard-knitted into the cloth itself — depth you can feel. It does not crack, fade, or peel after the wash.' },
+    { img: 'feiri-pdp/assets/detail-blue.jpg', title: 'The collar does not go soft and curl',
+      body: 'A cheap polo collar loses its shape after a few washes. The points start to curl, and the shirt starts looking old long before it is worn out. This collar is a knitted rib 9cm deep, built to sit flat on the fortieth wear the way it did on the first.' },
+    { img: 'feiri-pdp/assets/seated-hem-blue.jpg', title: 'It stays down when you sit',
+      body: 'Shirts cut for smaller men are too short in the body, so the hem climbs the moment you sit down or reach across a table. Then you spend the evening pulling it back into place. A 4XL FEIRI measures 93cm from the top of the shoulder straight down to the hem, laid flat. Go and measure the polo you wear most, the same way. If it is shorter than 93cm, that is why it rides up.' },
+    { img: 'feiri-pdp/assets/monogram-knit-blue.jpg', title: 'The monogram is knitted in, not printed on top',
+      body: 'Printed logos crack, then peel, usually within a few months of normal washing. Ours is jacquard knitted, which means the pattern is made out of the yarn itself while the fabric is being knitted. You can feel the texture of it with your hand. There is nothing sitting on the surface, so there is nothing that can lift off.' },
+    { img: 'feiri-pdp/assets/profile-black.jpg', title: 'The shoulders are cut for a broader frame',
+      body: 'When a pattern has been stretched, the shoulder seam ends up somewhere down your arm and the sleeve drags every time you move. A 4XL FEIRI is 57cm across the shoulders and 25cm through the armhole, so the seam sits where your shoulder actually is and the sleeve is not tight around your arm.' },
   ],
 
-  // 5 — The standard (maker / philosophy)
-  standard: [
-    { n: '01', title: 'Designed from the ground up', body: 'Most labels design for smaller men and simply “size up.” We start with your proportions and build the garment outward.' },
-    { n: '02', title: 'Shoulders built for strength', body: 'A cut that frames a bigger frame with intention — balanced through the chest and midsection. Never tight. Never sloppy.' },
-    { n: '03', title: 'Fabric that earns its keep', body: 'A premium cotton knit selected for structure and drape — it holds its shape after every wash, season after season.' },
-  ],
+  // 5 — The standard array was deleted 2026-08-12. StandardSection now carries the
+  // mechanism argument on its own, and the three items repeated the feature blocks.
 
-  // 6 — Us vs Them
+  // 6 — Us vs Them. Every row must be something a tick can honestly sit next to.
   compare: [
-    ['Designed from the ground up for bigger men', true, false],
-    ['Structured collar that holds its shape', true, false],
-    ['Length engineered for 3XL–6XL', true, false],
-    ['Monogram knitted in, not printed on', true, false],
-    ['Limited to 300 — never mass-produced', true, false],
-    ['Understands SA men', true, false],
+    ['Pattern drawn at 3XL, not scaled up from a medium', true, false],
+    ['Body length 93cm on a 4XL, so it stays down when you sit', true, false],
+    ['Collar keeps its shape after washing', true, false],
+    ['Monogram knitted into the fabric, so it cannot peel', true, false],
+    ['300 made, then never again', true, false],
   ],
 
-  // 7 — Testimonials
+  // 7 — Testimonials. VERBATIM customer words. Do not edit these to satisfy the
+  // no-em-dash rule; that rule governs copy we write, and gate 7 (facts right)
+  // outranks it. Getting real names and cities is an open item.
   testimonials: [
     { name: 'Anonymous', body: 'I’m not exaggerating — the confidence this top brings out of you is crazy. I’ve never had a better fitment in all my life. The quality goes crazy, you feel it instantly when you pick it up. As a fellow big guy, we deserve to be stylish too.', size: 'South Africa', title: 'Out of this world' },
     { name: 'Kabelo S.', body: 'I’ve never felt this confident in clothes before.', size: 'Johannesburg', title: '' },
@@ -60,20 +68,22 @@ window.PDP_DATA = {
     { name: 'Jacob', body: 'Very nice and premium quality. Comfortable fit.', size: 'Verified buyer', title: 'Marvelous!' },
   ],
 
-  // 10 — trust row
+  // 10 — trust row. Delivery figures are the store's own.
   trust: [
-    { icon: 'truck', label: 'Free nationwide shipping' },
-    { icon: 'shield-check', label: 'Secure checkout' },
-    { icon: 'scissors', label: 'Crafted for SA’s real men' },
-    { icon: 'rotate-ccw', label: '14-day Presence Guarantee' },
+    { icon: 'truck', label: 'Free delivery anywhere in South Africa' },
+    { icon: 'check-circle', label: 'Major cities 2 to 4 working days' },
+    { icon: 'rotate-ccw', label: 'Free returns for 14 days' },
+    { icon: 'scissors', label: 'Sizes 3XL to 6XL' },
   ],
 
-  // 12 — FAQ
+  // 12 — FAQ. Returns wording commits to the COST, never to the mechanism.
   faq: [
-    { q: 'Will it actually fit a bigger man properly?', a: 'Yes. FEIRI is designed from the ground up for 3XL–6XL — the chest and midsection sit balanced, the shoulders are built for a larger frame, and the length is engineered so nothing rides up. Never tight, never sloppy.' },
-    { q: 'How do I choose my size?', a: 'Most men take their usual size — the cut is intentional, not slim. If you are between sizes, size down for a cleaner line or up for more ease. Message us on WhatsApp and we will size you in two minutes.' },
-    { q: 'Is the monogram printed?', a: 'No. The FEIRI monogram is jacquard-knitted into the fabric, so it has real depth and will not crack, peel, or fade in the wash.' },
-    { q: 'What does “Founders Edition” mean?', a: 'This run is limited to 300 pieces across all sizes. When a size sells out in this colourway, it is gone. We restock rarely and never in the same form.' },
-    { q: 'Shipping and returns?', a: 'Free shipping nationwide. If the piece does not carry the way we promised, return it within 14 days for a full refund — our Presence Guarantee.' },
+    { q: 'Will it fit properly if I am a bigger build?', a: 'That is the whole reason it exists. The pattern is drawn at 3XL and worked upward to 6XL, instead of being scaled up from a medium. The shoulder seam sits where your shoulder actually is, the armhole is not tight, and the body is long enough to stay down when you sit. Every measurement for every size is in the table above.' },
+    { q: 'How do I choose my size?', a: 'Most men take the size they normally wear, because this is not a slim cut. If you are between two sizes, take the smaller one for a closer fit or the bigger one for more room. The surest way is to lay a polo you already own and like flat on a bed, measure it from the top of the shoulder seam down to the hem, and compare it to the table above.',
+      link: { label: 'Or send us a WhatsApp and we will do it with you in two minutes', href: 'https://wa.me/message/RBOA6UZAMVSWC1' } },
+    { q: 'Is the monogram printed on?', a: 'No. It is jacquard knitted, which means the pattern is made from the yarn while the fabric is being knitted. It is part of the cloth rather than a layer sitting on top of it, so there is nothing that can crack, peel or fade in the wash.' },
+    { q: 'Why only 300?', a: 'This is the final release of this piece. We made 300 in total, across both colours and all four sizes. When a size sells out, we are not making it again in that colour or that pattern.' },
+    { q: 'How long does delivery take, and what if I want to send it back?', a: 'Delivery is free anywhere in South Africa. Major cities take 2 to 4 working days and outlying areas 3 to 6, and you get a tracking number as soon as it ships. If it is not right, tell us within 14 days of delivery and we sort the return out with you, at no cost to you. Once it reaches us we refund you in full within 7 to 14 days.' },
+    { q: 'How do I wash it?', a: 'Cold gentle wash, inside out. Do not tumble dry. Cool iron on the reverse if it needs it. The fabric is built to hold its shape, and washing it cool is what keeps it that way.' },
   ],
 };

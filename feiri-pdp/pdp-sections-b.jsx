@@ -3,34 +3,49 @@
 const { sc: _sc, sans: _sans, Icon: _Icon, Stars: _Stars, Eyebrow: _Eyebrow, Mono: _Mono, Section: _Section, money: _money } = window;
 const Btn2 = window.Btn;
 
-/* 8 — URGENCY STRIP */
-window.UrgencySection = function UrgencySection({ product, color, scarcity }) {
+// Measured flat, in centimetres, 1cm to 2cm tolerance. Source: the FEIRI size guide
+// on the Shopify PDP, verified 2026-08-10. These five decide the purchase; the full
+// guide (armhole, bicep, cuff, neck) stays on the store.
+const MEASURE = [
+  ['Chest, flat', 76, 80, 84, 88],
+  ['Body length', 91, 93, 95, 97],
+  ['Shoulder', 54, 57, 60, 63],
+  ['Sleeve length', 26, 27, 28, 29],
+  ['Hem, flat', 70, 74, 78, 82],
+];
+
+/* 8 — FINAL RELEASE. Installs the last rung (my size is the one that runs out)
+   immediately before the buy box. No counter: the old one was hardcoded to 27 for
+   every size and both colours. Any number here must read live inventory. */
+window.UrgencySection = function UrgencySection() {
   return (
     <div style={{ background: 'var(--navy-deep)', borderTop: '1px solid var(--hair)', borderBottom: '1px solid var(--hair)' }}>
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '22px var(--gutter)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: 'clamp(16px,4vw,48px)', textAlign: 'center' }}>
-        <span style={{ ..._sans(13, 'var(--gold)'), fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Founders Edition</span>
-        <span style={{ width: 5, height: 5, borderRadius: 9, background: 'var(--hair-strong)' }}></span>
-        <span style={{ ..._sans(13, 'var(--cream)'), fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>Only 300 made — ever</span>
-        {scarcity && <React.Fragment>
-          <span style={{ width: 5, height: 5, borderRadius: 9, background: 'var(--hair-strong)' }}></span>
-          <span style={{ ..._sans(13, '#F0C9CC'), fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ width: 7, height: 7, borderRadius: 9, background: '#E06A74', boxShadow: '0 0 8px #E06A74' }}></span>
-            {product.stockInSize} left in {color.name}
-          </span>
-        </React.Fragment>}
+      <div style={{ maxWidth: 720, margin: '0 auto', padding: 'clamp(34px,4.5vw,56px) var(--gutter)', textAlign: 'center' }}>
+        <h2 style={{ ..._sc('clamp(1.7rem,2.8vw,2.4rem)', 'var(--cream)'), margin: '0 0 16px' }}>This is the final release of this piece</h2>
+        <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>
+          We made 300 in total, across both colours and all four sizes. When a size sells out, we are not making it again. Not in this colour, and not in this pattern.
+        </p>
       </div>
     </div>
   );
 };
 
-/* 9 — BUY BOX */
-window.BuySection = function BuySection({ product, color, setColor, size, setSize, onAdd, buyRef, scarcity }) {
+/* 9 — BUY BOX. Measurements are shown here rather than hidden behind a link: the
+   single most persuasive device on this account is telling him to go and measure a
+   polo he already owns, and that only works if the numbers are in front of him. */
+window.BuySection = function BuySection({ product, color, setColor, size, setSize, onAdd, buyRef }) {
   const [active, setActive] = React.useState(0);
   const [openFit, setOpenFit] = React.useState(true);
   React.useEffect(() => { setActive(0); }, [color.key]);
   const gallery = color.gallery;
-  const detailHead = { ..._sans(11, 'var(--muted)'), letterSpacing: '0.18em', textTransform: 'uppercase', margin: '0 0 12px' };
-  const fit = ['100% premium cotton knit', 'Structured collar that doesn’t collapse', 'Length engineered for 3XL–6XL proportions', 'Monogram jacquard-knitted, never printed', 'Holds its shape after every wash', 'Crafted for SA’s real men'];
+  const detailHead = { ..._sans(12, 'var(--muted)'), letterSpacing: '0.18em', textTransform: 'uppercase', margin: '0 0 12px' };
+  // Commit to the cost, never to the mechanism. Returns are handled case by case,
+  // so naming a courier risks a promise FEIRI cannot always keep.
+  const reassurance = [
+    ['truck', 'Free delivery anywhere in South Africa. Major cities 2 to 4 working days, outlying areas 3 to 6. You get a tracking number as soon as it ships.'],
+    ['rotate-ccw', 'If it does not fit, tell us within 14 days and we sort the return out with you. It does not cost you anything, and you get a full refund.'],
+    ['check-circle', 'Or pay it off. Stitch Pay Later splits R1,899 into interest-free instalments from R316.50.'],
+  ];
   return (
     <Section ground="var(--panel-2)" label="Buy" id="buy">
       <div ref={buyRef} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.05fr) minmax(0,0.95fr)', gap: 'clamp(28px,4vw,60px)', alignItems: 'start' }} className="feiri-2col">
@@ -55,23 +70,25 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             <span style={{ ..._sc(30, 'var(--cream)'), flexShrink: 0 }}>{_money(product.price)}</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}><_Stars value={5} size={14} /><span style={{ ..._sans(13, 'var(--muted)') }}>{product.reviews} reviews</span></span>
           </div>
-          <p style={{ ..._sans(15.5, 'var(--cream-dim)'), lineHeight: 1.6, marginBottom: 28 }}>
-            A structured monogram knit polo, built from the ground up for bigger men. The collar holds, the length stays put, and the fit sits balanced — never tight, never sloppy.
+          <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.6, marginBottom: 28 }}>
+            A cotton polo made only in sizes 3XL to 6XL. The collar holds its shape, the body is cut long enough to stay down when you sit, and the monogram is knitted into the fabric so it cannot peel.
           </p>
 
-          <p style={detailHead}>Colourway — {color.name}</p>
+          <p style={detailHead}>Colourway: {color.name}</p>
           <div style={{ display: 'flex', gap: 12, marginBottom: 26 }}>
             {product.colors.map(c => (
               <button key={c.key} onClick={() => setColor(c)} title={c.name} style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '8px 14px 8px 8px', borderRadius: 999, cursor: 'pointer', background: c.key === color.key ? 'rgba(250,240,214,0.08)' : 'transparent', border: c.key === color.key ? '1px solid var(--gold)' : '1px solid var(--hair)' }}>
                 <span style={{ width: 22, height: 22, borderRadius: 999, background: c.dot, border: '1px solid var(--hair-strong)' }}></span>
-                <span style={{ ..._sans(13.5, 'var(--cream)') }}>{c.name}</span>
+                <span style={{ ..._sans(15, 'var(--cream)') }}>{c.name}</span>
               </button>
             ))}
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
             <p style={{ ...detailHead, margin: 0 }}>Select size</p>
-            <span style={{ ..._sans(12.5, 'var(--gold)'), cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3 }}>Size guide</span>
+            {/* Not a link. The measurements are inline below, and a fake link next to
+                the size selector is a dead click. */}
+            <span style={{ ..._sans(13, 'var(--muted)') }}>Measurements below</span>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 28 }}>
             {product.sizes.map(s => (
@@ -80,30 +97,53 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             ))}
           </div>
 
-          <Btn2 variant="accent" size="lg" full onClick={() => onAdd()} style={{ marginBottom: 14 }}>
-            {size ? `Add to bag — ${_money(product.price)}` : 'Select your size'}
+          <Btn2 variant="accent" size="lg" full onClick={() => onAdd()} style={{ marginBottom: 18 }}>
+            {size ? `Add to bag. ${_money(product.price)}` : 'Select your size'}
           </Btn2>
-          {scarcity && <p style={{ ..._sans(13, '#E89aa0'), textAlign: 'center', marginBottom: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7 }}>
-            <span style={{ width: 6, height: 6, borderRadius: 9, background: '#E06A74' }}></span>
-            Only {product.stockInSize} left in {color.name}
-          </p>}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, ..._sans(13, 'var(--muted)'), marginBottom: 8 }}>
-            <_Icon name="truck" size={16} color="var(--gold)" /> Free nationwide shipping · Crafted for SA’s real men
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {reassurance.map(([ic, txt]) => (
+              <div key={ic} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55 }}>
+                <_Icon name={ic} size={16} color="var(--gold)" style={{ marginTop: 3, flexShrink: 0 }} />
+                {txt}
+              </div>
+            ))}
           </div>
+          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55, margin: '14px 0 0' }}>
+            Not sure which size? <a href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" style={{ color: 'var(--gold)', fontWeight: 600 }}>Send us a WhatsApp</a> and we will work it out with you in two minutes.
+          </p>
 
-          <div style={{ marginTop: 20, borderTop: '1px solid var(--hair)' }}>
-            <button onClick={() => setOpenFit(!openFit)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 0', background: 'transparent', border: 0, cursor: 'pointer', ..._sans(13, 'var(--cream)'), fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              The FEIRI fit <_Icon name={openFit ? 'minus' : 'plus'} size={17} color="var(--gold)" />
+          <div style={{ marginTop: 24, borderTop: '1px solid var(--hair)' }}>
+            <button onClick={() => setOpenFit(!openFit)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, padding: '20px 0', background: 'transparent', border: 0, cursor: 'pointer', textAlign: 'left', ..._sans(13, 'var(--cream)'), fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+              Measurements, taken flat, in centimetres
+              <_Icon name={openFit ? 'minus' : 'plus'} size={17} color="var(--gold)" />
             </button>
             {openFit && (
-              <ul style={{ margin: '0 0 22px', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
-                {fit.map(d => (
-                  <li key={d} style={{ display: 'flex', gap: 11, ..._sans(14.5, 'var(--cream-dim)'), lineHeight: 1.5 }}>
-                    <_Icon name="check" size={16} color="var(--gold)" style={{ marginTop: 2, flexShrink: 0 }} /> {d}
-                  </li>
-                ))}
-              </ul>
+              <React.Fragment>
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                      <tr>
+                        {['', '3XL', '4XL', '5XL', '6XL'].map((h, i) => (
+                          <th key={i} style={{ textAlign: i ? 'center' : 'left', padding: '8px 6px', borderBottom: '1px solid var(--hair)', ..._sans(12, 'var(--muted)'), fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {MEASURE.map(r => (
+                        <tr key={r[0]}>
+                          {r.map((c, i) => (
+                            <td key={i} style={{ textAlign: i ? 'center' : 'left', padding: '11px 6px', borderBottom: '1px solid var(--hair)', whiteSpace: 'nowrap', ..._sans(16, i ? 'var(--cream)' : 'var(--cream-dim)') }}>{c}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.6, margin: '14px 0 22px' }}>
+                  Allow 1cm to 2cm either way. These are measured by hand. The surest way to pick your size is to lay a polo you already like flat on a bed and measure it the same way.
+                </p>
+              </React.Fragment>
             )}
           </div>
         </div>
@@ -120,7 +160,7 @@ window.TrustRowSection = function TrustRowSection({ trust }) {
         {trust.map((t, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center' }}>
             <_Icon name={t.icon} size={26} color="var(--gold)" sw={1.5} />
-            <span style={{ ..._sans(14.5, 'var(--cream)'), fontWeight: 500 }}>{t.label}</span>
+            <span style={{ ..._sans(16, 'var(--cream)'), fontWeight: 500 }}>{t.label}</span>
           </div>
         ))}
       </div>
@@ -128,7 +168,9 @@ window.TrustRowSection = function TrustRowSection({ trust }) {
   );
 };
 
-/* 11 — GUARANTEE */
+/* 11 — GUARANTEE. With returns free, this stops being a list of conditions and
+   becomes a reason to act, so the heading states the reader's benefit. The terms
+   commit to the COST and never to the mechanism. */
 window.GuaranteeSection = function GuaranteeSection() {
   return (
     <_Section ground="var(--navy-deep)" label="Guarantee">
@@ -138,13 +180,13 @@ window.GuaranteeSection = function GuaranteeSection() {
         </div>
         <div>
           <Eyebrow color="var(--gold)">No risk</Eyebrow>
-          <h2 style={{ ..._sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 18px' }}>The Presence Guarantee</h2>
-          <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, marginBottom: 24, maxWidth: 460 }}>
-            Wear it. Sit in it. Walk into a room in it. If the Signature Knit doesn’t carry the way we promised — the collar, the length, the presence — send it back within 14 days for a full refund.
+          <h2 style={{ ..._sc('clamp(1.7rem,2.6vw,2.4rem)', 'var(--cream)'), margin: '18px 0 18px', lineHeight: 1.18 }}>Try it on at home. If it does not fit, sending it back will not cost you.</h2>
+          <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, marginBottom: 24, maxWidth: 480 }}>
+            Wear it around the house. Sit down in it. Check the length against the shirt you measured. If it is not right, tell us within 14 days of the day it arrives and we will sort the return out with you. You will not be out of pocket for it. Your refund lands 7 to 14 days after the shirt reaches us.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {['14-day no-questions returns', 'Arrives in signature FEIRI Milano packaging', 'Free shipping, both ways'].map(t => (
-              <div key={t} style={{ display: 'flex', gap: 12, alignItems: 'center', ..._sans(15, 'var(--cream)') }}>
+            {['14 days from the day it arrives to tell us', 'We sort the return out with you, at no cost to you', 'A full refund of what you paid, not a credit note', 'Your refund lands 7 to 14 days after it reaches us', 'Arrives in FEIRI Milano packaging'].map(t => (
+              <div key={t} style={{ display: 'flex', gap: 12, alignItems: 'center', ..._sans(16, 'var(--cream)') }}>
                 <_Icon name="shield-check" size={20} color="var(--gold)" /> {t}
               </div>
             ))}
@@ -172,7 +214,12 @@ window.FAQSection = function FAQSection({ faq }) {
                 <span style={{ ..._sc(21, 'var(--cream)') }}>{f.q}</span>
                 <_Icon name={open === i ? 'minus' : 'plus'} size={20} color="var(--gold)" style={{ flexShrink: 0 }} />
               </button>
-              {open === i && <p style={{ ..._sans(15.5, 'var(--cream-dim)'), lineHeight: 1.66, padding: '0 4px 26px', maxWidth: 680 }}>{f.a}</p>}
+              {open === i && (
+                <div style={{ padding: '0 4px 26px', maxWidth: 680 }}>
+                  <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>{f.a}</p>
+                  {f.link && <a href={f.link.href} target="_blank" rel="noopener" style={{ ..._sans(16, 'var(--gold)'), display: 'inline-block', marginTop: 12, fontWeight: 600 }}>{f.link.label}</a>}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -187,8 +234,8 @@ window.CrossSellSection = function CrossSellSection({ product, color, setColor, 
   return (
     <_Section ground="var(--panel-2)" label="Cross-sell">
       <div style={{ textAlign: 'center', marginBottom: 48 }}>
-        <Eyebrow center color="var(--gold)">Complete the set</Eyebrow>
-        <h2 style={{ ..._sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18 }}>The other colourway</h2>
+        <Eyebrow center color="var(--gold)">Also available</Eyebrow>
+        <h2 style={{ ..._sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18 }}>The other colour</h2>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 'clamp(28px,4vw,56px)', alignItems: 'center', maxWidth: 1000, margin: '0 auto' }} className="feiri-2col">
         <div style={{ borderRadius: 14, overflow: 'hidden', background: '#000', aspectRatio: '4/5' }}>
@@ -201,10 +248,10 @@ window.CrossSellSection = function CrossSellSection({ product, color, setColor, 
           </span>
           <h3 style={{ ..._sc('clamp(1.8rem,2.8vw,2.4rem)', 'var(--cream)'), marginBottom: 14 }}>{product.name}</h3>
           <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.64, marginBottom: 22, maxWidth: 420 }}>
-            Same structured knit, same intentional fit — a darker, dressed-up register for the nights that call for it. Limited Founders Edition stock.
+            The same shirt and the same fit, in a darker colour. Also part of the 300.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
-            <Btn2 variant="cream" size="lg" onClick={() => { setColor(other); onBuy(other); }}>Shop {other.name} — {_money(product.price)}</Btn2>
+            <Btn2 variant="cream" size="lg" onClick={() => { setColor(other); onBuy(other); }}>Shop {other.name}. {_money(product.price)}</Btn2>
           </div>
         </div>
       </div>

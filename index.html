@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FEIRI Milano — The Signature Monogram Knit</title>
+  <title>The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL</title>
+  <meta name="description" content="A cotton polo made only in sizes 3XL to 6XL. R1,899, free delivery anywhere in South Africa, and free returns for 14 days if it does not fit." />
+
+  <!-- Link preview. WhatsApp is a primary sharing channel in this market. -->
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL" />
+  <meta property="og:description" content="A cotton polo made only in sizes 3XL to 6XL. R1,899, free delivery anywhere in South Africa, and free returns for 14 days if it does not fit." />
+  <meta property="og:image" content="https://drop.feiri.co.za/feiri-pdp/assets/hero-standing-blue.jpg" />
+  <meta property="og:url" content="https://drop.feiri.co.za/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Meta Pixel -->
   <script>
@@ -32,7 +41,7 @@
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/styles.css" />
 
   <!-- Hero image is the Largest Contentful Paint element on desktop -->
-  <link rel="preload" as="image" href="feiri-pdp/assets/hero-couch-blue.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="feiri-pdp/assets/hero-standing-blue.jpg" fetchpriority="high" />
 
   <style>
 :root {
@@ -125,8 +134,15 @@
       .feiri-hero-rating { align-items: center; text-align: center; }
       .feiri-hero-img { object-position: 35% 25% !important; }
     }
-    @media (max-width: 520px) {
-      .feiri-compare-head, .feiri-compare-head ~ div { font-size: 13px; }
+    /* Compare table: the 130px tick columns starve the label column on a phone.
+       Shrink the ticks instead of shrinking the text below 16px. */
+    @media (max-width: 620px) {
+      .feiri-compare-head,
+      .feiri-compare-head ~ div { grid-template-columns: 1fr 66px 66px !important; }
+      .feiri-compare-head > div { padding-left: 4px !important; padding-right: 4px !important; }
+      .feiri-compare-head > div span { letter-spacing: 0.04em !important; }
+      .feiri-compare-head ~ div > div:first-child { padding: 16px 12px 16px 14px !important; }
+      .feiri-compare-head ~ div > div:not(:first-child) { padding-left: 4px !important; padding-right: 4px !important; }
     }
     @media (prefers-reduced-motion: reduce) {
       .feiri-marquee { animation: none; }
@@ -160,6 +176,53 @@
     @media (max-width: 620px) {
       .lb-row-duo, .lb-row-trio { grid-template-columns: 1fr; }
     }
+
+    /* --- v2 hero: stacked on mobile so copy never covers the garment --- */
+    .feiri-hero-media { position: absolute; inset: 0; }
+    @media (max-width: 720px) {
+      .feiri-hero-section { display: block !important; min-height: 0 !important; }
+      .feiri-hero-media { position: relative; height: 58vh; background: #fff; }
+      .feiri-hero-img { object-position: 50% 10% !important; }
+      .feiri-hero-scrim-bottom { display: none !important; }
+      .feiri-hero-copy {
+        position: static !important; inset: auto !important; max-width: none !important;
+        text-align: left !important; background: var(--navy-deep);
+        padding: 26px var(--gutter) 0 !important;
+      }
+      .feiri-hero-heading { font-size: 2rem !important; line-height: 1.15 !important; color: var(--cream) !important; }
+      .feiri-hero-sub { color: var(--cream-dim) !important; font-size: 16px !important; }
+      .feiri-hero-section > div:last-child { background: var(--navy-deep); padding: 18px var(--gutter) 34px !important; }
+      .feiri-hero-actions { display: block !important; }
+      .feiri-hero-cta-row { justify-content: stretch !important; }
+      .feiri-hero-cta-row .feiri-btn { width: 100% !important; }
+      .feiri-hero-actions > p { text-align: left !important; margin-left: 0 !important; }
+    }
+
+    /* --- v2 hero: two columns on desktop, portrait image needs its own column --- */
+    @media (min-width: 721px) {
+      .feiri-hero-section { display: grid !important; grid-template-columns: 1.02fr 0.98fr; min-height: 92vh; background: var(--navy-deep) !important; }
+      .feiri-hero-media { position: relative !important; inset: auto !important; grid-column: 1; grid-row: 1 / span 2; align-self: stretch; height: 92vh; background: #fff; }
+      .feiri-hero-img { object-position: 50% 12% !important; }
+      .feiri-hero-scrim-bottom { display: none !important; }
+      .feiri-hero-copy {
+        position: static !important; inset: auto !important; grid-column: 2; grid-row: 1;
+        align-self: end; max-width: 560px !important; text-align: left !important;
+        padding: 0 clamp(28px,4vw,64px) !important;
+      }
+      .feiri-hero-heading { color: var(--cream) !important; font-size: clamp(2.2rem,3.2vw,3.4rem) !important; line-height: 1.1 !important; }
+      .feiri-hero-sub { color: var(--cream-dim) !important; }
+      .feiri-hero-section > div:last-child {
+        grid-column: 2; grid-row: 2; align-self: start; max-width: 560px !important;
+        margin: 0 !important; padding: 24px clamp(28px,4vw,64px) 0 !important;
+      }
+      .feiri-hero-section > div:last-child > div { max-width: none !important; margin: 0 !important; }
+      .feiri-hero-actions { display: block !important; }
+      .feiri-hero-cta-row { justify-content: flex-start !important; }
+      .feiri-hero-actions > p { text-align: left !important; margin-left: 0 !important; }
+    }
+    .feiri-hero-cta-row .feiri-cta-3d { box-shadow: 0 10px 26px rgba(20,24,28,0.20) !important; }
+    .feiri-hero-cta-row .feiri-cta-3d:hover { box-shadow: 0 14px 32px rgba(20,24,28,0.26) !important; }
+    .feiri-hero-cta-row .feiri-cta-3d:active { box-shadow: 0 5px 14px rgba(20,24,28,0.18) !important; }
   </style>
 
   <!-- React 18 production (self-hosted; no third-party CDN on the critical path) -->
@@ -179,6 +242,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.a14c35f8.js"></script>
+  <script src="feiri-pdp/app.87ef9b39.js"></script>
 </body>
 </html>
