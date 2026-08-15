@@ -40,7 +40,11 @@ window.PDP_DATA = {
       body: 'Shirts cut for smaller men are too short in the body, so the hem climbs the moment you sit down or reach across a table. Then you spend the evening pulling it back into place. A 4XL FEIRI measures 93cm from the top of the shoulder straight down to the hem, laid flat. Go and measure the polo you wear most, the same way. If it is shorter than 93cm, that is why it rides up.' },
     { img: 'feiri-pdp/assets/monogram-knit-blue.jpg', title: 'The monogram is knitted in, not printed on top',
       body: 'Printed logos crack, then peel, usually within a few months of normal washing. Ours is jacquard knitted, which means the pattern is made out of the yarn itself while the fabric is being knitted. You can feel the texture of it with your hand. There is nothing sitting on the surface, so there is nothing that can lift off.' },
-    { img: 'feiri-pdp/assets/profile-black.jpg', title: 'The shoulders are cut for a broader frame',
+    // Swapped 2026-08-15 from profile-black.jpg. That was a full-body side
+    // profile, so at 4:3 the shoulder was a small part of the frame and the
+    // photograph was not proving the claim the block makes. This one is shot
+    // close on the shoulder, the sleeve head and the armhole.
+    { img: 'feiri-pdp/assets/shoulder-black.jpg', title: 'The shoulders are cut for a broader frame',
       body: 'When a pattern has been stretched, the shoulder seam ends up somewhere down your arm and the sleeve drags every time you move. A 4XL FEIRI is 57cm across the shoulders and 25cm through the armhole, so the seam sits where your shoulder actually is and the sleeve is not tight around your arm.' },
   ],
 
