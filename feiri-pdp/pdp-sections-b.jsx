@@ -42,7 +42,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
   // Commit to the cost, never to the mechanism. Returns are handled case by case,
   // so naming a courier risks a promise FEIRI cannot always keep.
   const reassurance = [
-    ['truck', 'Free delivery anywhere in South Africa. Major cities 2 to 4 working days, outlying areas 3 to 6. You get a tracking number as soon as it ships.'],
+    ['truck', 'Free delivery anywhere in South Africa. Major cities 1 to 3 working days, outlying areas 2 to 5. You get a tracking number as soon as it ships.'],
     ['rotate-ccw', 'If it does not fit, tell us within 14 days and we sort the return out with you. It does not cost you anything, and you get a full refund.'],
     ['check-circle', 'Or pay it off. Stitch Pay Later splits R1,899 into interest-free instalments from R316.50.'],
   ];
@@ -98,8 +98,15 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
           </div>
 
           <Btn2 variant="accent" size="lg" full onClick={() => onAdd()} style={{ marginBottom: 18 }}>
-            {size ? `Add to bag. ${_money(product.price)}` : 'Select your size'}
+            {size ? `Buy your ${size}. ${_money(product.price)}` : 'Select your size'}
           </Btn2>
+
+          {/* Added 2026-08-24. The button leaves this page for the store, and a
+              domain he did not expect is a trust hit in this market. Telling him
+              where he lands, and that his size travels with him, costs one line. */}
+          <p style={{ ..._sans(14, 'var(--muted)'), lineHeight: 1.5, margin: '-6px 0 18px' }}>
+            You finish on feiri.co.za, our store, with your size already selected.
+          </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {reassurance.map(([ic, txt]) => (
@@ -110,7 +117,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             ))}
           </div>
           <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55, margin: '14px 0 0' }}>
-            Not sure which size? <a href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" style={{ color: 'var(--gold)', fontWeight: 600 }}>Send us a WhatsApp</a> and we will work it out with you in two minutes.
+            Not sure which size? <a href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" style={{ color: 'var(--gold)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 6, verticalAlign: '-0.18em' }}><_Icon name="whatsapp" size={17} color="currentColor" />Send us a WhatsApp</a> and we will work it out with you in two minutes.
           </p>
 
           <div style={{ marginTop: 24, borderTop: '1px solid var(--hair)' }}>
@@ -217,7 +224,7 @@ window.FAQSection = function FAQSection({ faq }) {
               {open === i && (
                 <div style={{ padding: '0 4px 26px', maxWidth: 680 }}>
                   <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>{f.a}</p>
-                  {f.link && <a href={f.link.href} target="_blank" rel="noopener" style={{ ..._sans(16, 'var(--gold)'), display: 'inline-block', marginTop: 12, fontWeight: 600 }}>{f.link.label}</a>}
+                  {f.link && <a href={f.link.href} target="_blank" rel="noopener" style={{ ..._sans(16, 'var(--gold)'), display: 'inline-flex', alignItems: 'flex-start', gap: 8, marginTop: 12, fontWeight: 600 }}>{f.link.icon && <_Icon name={f.link.icon} size={17} color="currentColor" style={{ marginTop: 4 }} />}{f.link.label}</a>}
                 </div>
               )}
             </div>

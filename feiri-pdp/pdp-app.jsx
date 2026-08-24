@@ -53,6 +53,43 @@ function AnnouncementBar() {
   );
 }
 
+// Floating WhatsApp. The one recorded returns problem on this brand is men who
+// wear 3XL buying 5XL, so a human one tap away at any scroll position is a
+// size-doubt fix, not a support widget. Icon only and no label: the page already
+// carries the words in the buy block and in FAQ 2, and a green pill reading
+// "Contact us" would compete with the primary CTA it sits next to.
+// Sits under the toast (z 70) and over everything else.
+// It hides while the hero or the buy block is on screen, and that is the whole
+// point rather than a nicety. QC 2026-08-24 measured it covering 10.2% of the
+// 390px buy button, with elementFromPoint returning this anchor instead of the
+// button: a thumb on the right of "Add to bag" opened WhatsApp. It is also
+// redundant in both places — the hero states the offer and the buy block already
+// carries a WhatsApp link directly under the button. So it earns its place in the
+// middle of the page, where a man is deciding, and gets out of the way at the two
+// points where he is acting.
+function WhatsAppFab() {
+  // Starts hidden: the hero is on screen at load, so anything else is a flash.
+  const [hidden, setHidden] = React.useState(true);
+
+  React.useEffect(() => {
+    const targets = [document.getElementById('buy'), document.querySelector('.feiri-hero-section')].filter(Boolean);
+    if (!targets.length || typeof IntersectionObserver === 'undefined') { setHidden(false); return; }
+    const onScreen = new Map();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => onScreen.set(e.target, e.isIntersecting));
+      setHidden([...onScreen.values()].some(Boolean));
+    }, { threshold: 0 });
+    targets.forEach(t => io.observe(t));
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <a className={'feiri-wa-fab' + (hidden ? ' is-hidden' : '')} href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" aria-label="Message FEIRI Milano on WhatsApp" aria-hidden={hidden} tabIndex={hidden ? -1 : 0}>
+      <Icon name="whatsapp" size={27} color="#FFFFFF" />
+    </a>
+  );
+}
+
 function Toast({ show, label }) {
   return (
     <div style={{ position: 'fixed', left: '50%', bottom: 30, transform: `translateX(-50%) translateY(${show ? '0' : '24px'})`, opacity: show ? 1 : 0, transition: 'all .35s ease', zIndex: 70, pointerEvents: 'none', background: 'var(--cream)', color: 'var(--navy-deep)', padding: '14px 22px', borderRadius: 8, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -81,7 +118,15 @@ function App() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
-  const goToProduct = (c) => { window.open((c || color).url, '_blank', 'noopener'); };
+  // Carries the chosen size to the store. Without the variant id the store opens
+  // on its own default size, which is how a man who picked 5XL here could check out
+  // in 3XL. Cross-sell passes the other colourway explicitly and the size travels
+  // with him, because the size is his, not the colour's.
+  const goToProduct = (c) => {
+    const col = c || color;
+    const vid = size && col.variants ? col.variants[size] : null;
+    window.open(vid ? `${col.url}?variant=${vid}` : col.url, '_blank', 'noopener');
+  };
   const onAdd = () => {
     if (!size) { scrollToBuy(); return; }
     if (window.fbq) {
@@ -129,6 +174,7 @@ function App() {
         <window.CrossSellSection product={D.product} color={color} setColor={setColor} onBuy={goToProduct} />
       </main>
       <Footer />
+      <WhatsAppFab />
       <Toast show={toast} label={`Added. ${color.name}, ${size || ''}`} />
     </div>
   );

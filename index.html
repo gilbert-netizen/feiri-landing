@@ -223,6 +223,32 @@
     .feiri-hero-cta-row .feiri-cta-3d { box-shadow: 0 10px 26px rgba(20,24,28,0.20) !important; }
     .feiri-hero-cta-row .feiri-cta-3d:hover { box-shadow: 0 14px 32px rgba(20,24,28,0.26) !important; }
     .feiri-hero-cta-row .feiri-cta-3d:active { box-shadow: 0 5px 14px rgba(20,24,28,0.18) !important; }
+
+    /* --- Floating WhatsApp button --- */
+    .feiri-wa-fab {
+      position: fixed; right: 16px; bottom: 16px; z-index: 60;
+      width: 54px; height: 54px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #25D366; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(20,24,28,0.28);
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease, visibility .18s ease;
+    }
+    .feiri-wa-fab:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(20,24,28,0.34); }
+    .feiri-wa-fab:active { transform: translateY(0); box-shadow: 0 5px 14px rgba(20,24,28,0.24); }
+    .feiri-wa-fab:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    /* Stood down over the hero and the buy block. visibility also takes it out of
+       the tab order; pointer-events takes it out of hit-testing. */
+    .feiri-wa-fab.is-hidden {
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transform: translateY(10px) scale(0.92);
+    }
+    @media (min-width: 721px) {
+      .feiri-wa-fab { right: 22px; bottom: 22px; width: 58px; height: 58px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .feiri-wa-fab { transition: none; }
+      .feiri-wa-fab:hover, .feiri-wa-fab:active { transform: none; }
+    }
   </style>
 
   <!-- React 18 production (self-hosted; no third-party CDN on the critical path) -->
@@ -242,6 +268,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.20148dfa.js"></script>
+  <script src="feiri-pdp/app.9779dfa4.js"></script>
 </body>
 </html>

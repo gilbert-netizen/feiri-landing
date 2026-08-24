@@ -19,12 +19,20 @@ window.PDP_DATA = {
       { key: 'blue',  name: 'Cream & Blue', dot: 'var(--cobalt-600)',
         hero: 'feiri-pdp/assets/hero-standing-blue.jpg',
         url: 'https://feiri.co.za/products/feiri-signature-monogram-tee-khaki-blue',
+        variants: { '3XL': 45253144740019, '4XL': 45253144772787, '5XL': 45253144805555, '6XL': 45253144838323 },
         gallery: ['feiri-pdp/assets/front-blue.jpg','feiri-pdp/assets/detail-blue.jpg','feiri-pdp/assets/seated-blue.jpg','feiri-pdp/assets/side-blue.jpg','feiri-pdp/assets/flat-blue.jpg'] },
       { key: 'black', name: 'Black & Sand', dot: '#1A1814',
         hero: 'feiri-pdp/assets/hero-black.jpg',
         url: 'https://feiri.co.za/products/feiri-signature-monogram-tee-black-sand',
+        variants: { '3XL': 45211456045235, '4XL': 45211456078003, '5XL': 45211456110771, '6XL': 45211456143539 },
         gallery: ['feiri-pdp/assets/profile-black.jpg','feiri-pdp/assets/flat-black.jpg','feiri-pdp/assets/hero-black.jpg','feiri-pdp/assets/duo.jpg'] },
     ],
+    // Variant ids read live from `feiri.co.za/products/<handle>.js` on 2026-08-24,
+    // both colourways, all four sizes, all available. They are what carries the
+    // chosen size across the handoff. **Re-read them if either product is ever
+    // deleted and recreated in Shopify** — a stale id sends the buyer to an empty
+    // cart, which is the failure this map exists to prevent.
+    //
     // stockInSize removed 2026-08-12. It was hardcoded to 27 and shown for every
     // size and both colours, which is fabricated scarcity. Any counter must read
     // live inventory. 6XL is the only genuinely scarce size (15 per colourway).
@@ -64,18 +72,24 @@ window.PDP_DATA = {
   // no-em-dash rule; that rule governs copy we write, and gate 7 (facts right)
   // outranks it. Getting real names and cities is an open item.
   testimonials: [
-    { name: 'Anonymous', body: 'I’m not exaggerating — the confidence this top brings out of you is crazy. I’ve never had a better fitment in all my life. The quality goes crazy, you feel it instantly when you pick it up. As a fellow big guy, we deserve to be stylish too.', size: 'South Africa', title: 'Out of this world' },
+    { name: 'Anonymous', body: 'I’m not exaggerating, the confidence this top brings out of you is crazy. I’ve never had a better fitment in all my life. The quality goes crazy, you feel it instantly when you pick it up. As a fellow big guy, we deserve to be stylish too.', size: 'South Africa', title: 'Out of this world' },
     { name: 'Kabelo S.', body: 'I’ve never felt this confident in clothes before.', size: 'Johannesburg', title: '' },
     { name: 'Thabo K.', body: 'Luxury clothing that actually fits my body properly.', size: 'Durban', title: '' },
     { name: 'Sipho M.', body: 'Finally a brand that understands bigger guys. The fit is perfect.', size: 'Cape Town', title: '' },
     { name: 'Anonymous', body: 'Now this is comfort for the big boys.', size: 'South Africa', title: 'The fabric on point' },
     { name: 'Jacob', body: 'Very nice and premium quality. Comfortable fit.', size: 'Verified buyer', title: 'Marvelous!' },
+    // The seventh. Added 2026-08-24: the page claimed 7 reviews and rendered 6, and
+    // 7 is the true combined Fera count (3 on Cream & Blue, 4 on Black & Sand, read
+    // live 2026-08-24). Left exactly as he wrote it, typos and all. The Copy Law
+    // governs our words, not a customer's, and an unpolished review reads truer than
+    // a tidied one.
+    { name: 'Big Jim', body: 'Im sooooo in love with my Shirt! Definately recommend.', size: 'Verified buyer', title: '' },
   ],
 
   // 10 — trust row. Delivery figures are the store's own.
   trust: [
     { icon: 'truck', label: 'Free delivery anywhere in South Africa' },
-    { icon: 'check-circle', label: 'Major cities 2 to 4 working days' },
+    { icon: 'check-circle', label: 'Major cities 1 to 3 working days' },
     { icon: 'rotate-ccw', label: 'Free returns for 14 days' },
     { icon: 'scissors', label: 'Sizes 3XL to 6XL' },
   ],
@@ -84,10 +98,10 @@ window.PDP_DATA = {
   faq: [
     { q: 'Will it fit properly if I am a bigger build?', a: 'That is the whole reason it exists. The pattern is drawn at 3XL and worked upward to 6XL, instead of being scaled up from a medium. The shoulder seam sits where your shoulder actually is, the armhole is not tight, and the body is long enough to stay down when you sit. Every measurement for every size is in the table above.' },
     { q: 'How do I choose my size?', a: 'Most men take the size they normally wear, because this is not a slim cut. If you are between two sizes, take the smaller one for a closer fit or the bigger one for more room. The surest way is to lay a polo you already own and like flat on a bed, measure it from the top of the shoulder seam down to the hem, and compare it to the table above.',
-      link: { label: 'Or send us a WhatsApp and we will do it with you in two minutes', href: 'https://wa.me/message/RBOA6UZAMVSWC1' } },
+      link: { icon: 'whatsapp', label: 'Or send us a WhatsApp and we will do it with you in two minutes', href: 'https://wa.me/message/RBOA6UZAMVSWC1' } },
     { q: 'Is the monogram printed on?', a: 'No. It is jacquard knitted, which means the pattern is made from the yarn while the fabric is being knitted. It is part of the cloth rather than a layer sitting on top of it, so there is nothing that can crack, peel or fade in the wash.' },
     { q: 'Why only 300?', a: 'This is the final release of this piece. We made 300 in total, across both colours and all four sizes. When a size sells out, we are not making it again in that colour or that pattern.' },
-    { q: 'How long does delivery take, and what if I want to send it back?', a: 'Delivery is free anywhere in South Africa. Major cities take 2 to 4 working days and outlying areas 3 to 6, and you get a tracking number as soon as it ships. If it is not right, tell us within 14 days of delivery and we sort the return out with you, at no cost to you. Once it reaches us we refund you in full within 7 to 14 days.' },
+    { q: 'How long does delivery take, and what if I want to send it back?', a: 'Delivery is free anywhere in South Africa. Major cities take 1 to 3 working days and outlying areas 2 to 5, and you get a tracking number as soon as it ships. If it is not right, tell us within 14 days of delivery and we sort the return out with you, at no cost to you. Once it reaches us we refund you in full within 7 to 14 days.' },
     { q: 'How do I wash it?', a: 'Cold gentle wash, inside out. Do not tumble dry. Cool iron on the reverse if it needs it. The fabric is built to hold its shape, and washing it cool is what keeps it that way.' },
   ],
 };
