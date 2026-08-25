@@ -54,7 +54,7 @@ window.HeroSection = function HeroSection({ product, color, onBuy }) {
               {/* Black on the cream panel. A cream button on a cream panel disappears.
                   Cobalt was tried and rejected as too loud. This CTA drops the gold
                   extruded edge for a soft shadow — a deliberate hero-only exception. */}
-              <Btn variant="cream" size="lg" onClick={onBuy} className="feiri-cta-3d" style={{ background: 'var(--cream)', color: '#FAF0D6', border: '1px solid var(--cream)' }}>See the fit and pick your size</Btn>
+              <Btn variant="cream" size="lg" onClick={onBuy} className="feiri-cta-3d" style={{ background: 'var(--cream)', color: '#FAF0D6', border: '1px solid var(--cream)' }}>See how it fits</Btn>
             </div>
             <p style={{ ...sans(16, 'rgba(20,24,28,0.68)'), textAlign: 'center', lineHeight: 1.6, margin: '16px auto 0', maxWidth: 460 }}>
               R1,899 · Free delivery · Free returns if it does not fit
