@@ -108,7 +108,7 @@ window.OwnersSection = function OwnersSection() {
       <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 32px' }}>
         <Eyebrow center color="var(--gold)">Worn by the FEIRI man</Eyebrow>
         <h2 style={{ ...sc('clamp(1.9rem,3.2vw,3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.12 }}>The FEIRI man does not dress down because of his size.</h2>
-        <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.6, marginTop: 18, maxWidth: 540, marginInline: 'auto' }}>
+        <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.6, marginTop: 18, maxWidth: 540, marginInline: 'auto' }}>
           Golf on Saturday, dinner that night, and nothing that needs pulling straight all day.
         </p>
       </div>
@@ -194,12 +194,12 @@ window.FeaturesSection = function FeaturesSection({ features }) {
             <div style={{ padding: '28px 26px 32px' }}>
               <span style={{ ...sans(13, 'var(--gold)'), fontWeight: 700, letterSpacing: '0.14em' }}>0{i + 1}</span>
               <h3 style={{ ...sc(24, 'var(--cream)'), margin: '12px 0 12px' }}>{f.title}</h3>
-              <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.62 }}>{f.body}</p>
+              <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.62 }}>{f.body}</p>
             </div>
           </div>
         ))}
       </div>
-      <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, textAlign: 'center', maxWidth: 660, margin: '44px auto 0' }}>
+      <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.66, textAlign: 'center', maxWidth: 660, margin: '44px auto 0' }}>
         Cotton knit goes baggy at the hem and the elbows when it is washed hot and tumble dried. Wash this one cold on a gentle cycle, inside out, do not tumble dry, and use a cool iron on the reverse if it needs one. Done that way it keeps the shape it arrived in.
       </p>
     </Section>
@@ -219,7 +219,7 @@ window.StandardSection = function StandardSection() {
         <div>
           <Eyebrow color="var(--gold)">The FEIRI standard</Eyebrow>
           <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px' }}>Most big-size shirts are small shirts stretched bigger.</h2>
-          <p style={{ ...sans(16, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 0, maxWidth: 520 }}>
+          <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 0, maxWidth: 520 }}>
             One pattern gets drawn for a medium, then every measurement grows by the same percentage to make the big sizes. Bodies do not change shape that way. That is why the hem rides up when you sit, why the shoulder seam ends up somewhere down your arm, and why the collar goes soft after a few washes.
             <br /><br />
             <strong style={{ color: 'var(--cream)' }}>We do not size up. We start the pattern at 3XL</strong> and work upward from there, so the shape is right at the size you actually wear.
@@ -239,7 +239,7 @@ window.HeritageSection = function HeritageSection() {
       <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
         <Eyebrow center color="var(--gold)">Where FEIRI comes from</Eyebrow>
         <h2 style={{ ...sc('clamp(1.8rem,3vw,2.7rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.15 }}>The name is Italian. The brand is South African.</h2>
-        <p style={{ ...sans(16.5, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 22 }}>
+        <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.7, marginTop: 22 }}>
           FEIRI Milano is named after Milan because that is where the design references come from. The brand itself was started here, by people who could not find one good shirt in their own size. Everything we make starts at 3XL.
         </p>
       </div>
@@ -302,7 +302,7 @@ window.TestimonialsSection = function TestimonialsSection({ testimonials, rating
           <div key={i} style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: 12, padding: '28px 26px', display: 'flex', flexDirection: 'column', gap: 14 }}>
             <Stars value={5} size={14} />
             {t.title && <h3 style={{ ...sc(20, 'var(--cream)'), margin: 0 }}>{t.title}</h3>}
-            <p style={{ ...sans(16.5, 'var(--cream)'), lineHeight: 1.6, flex: 1 }}>“{t.body}”</p>
+            <p style={{ ...sans(17, 'var(--cream)'), lineHeight: 1.6, flex: 1 }}>“{t.body}”</p>
             <div style={{ borderTop: '1px solid var(--hair)', paddingTop: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
               <Icon name="check-circle" size={15} color="var(--gold)" />
               <span style={{ ...sans(15, 'var(--cream)'), fontWeight: 600 }}>{t.name}</span>

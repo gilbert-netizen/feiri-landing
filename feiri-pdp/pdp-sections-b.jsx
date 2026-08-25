@@ -22,7 +22,7 @@ window.UrgencySection = function UrgencySection() {
     <div style={{ background: 'var(--navy-deep)', borderTop: '1px solid var(--hair)', borderBottom: '1px solid var(--hair)' }}>
       <div style={{ maxWidth: 720, margin: '0 auto', padding: 'clamp(34px,4.5vw,56px) var(--gutter)', textAlign: 'center' }}>
         <h2 style={{ ..._sc('clamp(1.7rem,2.8vw,2.4rem)', 'var(--cream)'), margin: '0 0 16px' }}>This is the final release of this piece</h2>
-        <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>
+        <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>
           We made 300 in total, across both colours and all four sizes. When a size sells out, we are not making it again. Not in this colour, and not in this pattern.
         </p>
       </div>
@@ -70,7 +70,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             <span style={{ ..._sc(30, 'var(--cream)'), flexShrink: 0 }}>{_money(product.price)}</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}><_Stars value={5} size={14} /><span style={{ ..._sans(13, 'var(--muted)') }}>{product.reviews} reviews</span></span>
           </div>
-          <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.6, marginBottom: 28 }}>
+          <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.6, marginBottom: 28 }}>
             A cotton polo made only in sizes 3XL to 6XL. The collar holds its shape, the body is cut long enough to stay down when you sit, and the monogram is knitted into the fabric so it cannot peel.
           </p>
 
@@ -104,7 +104,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
           {/* Added 2026-08-24. The button leaves this page for the store, and a
               domain he did not expect is a trust hit in this market. Telling him
               where he lands, and that his size travels with him, costs one line. */}
-          <p style={{ ..._sans(14, 'var(--muted)'), lineHeight: 1.5, margin: '-6px 0 18px' }}>
+          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.5, margin: '-6px 0 18px' }}>
             You finish on feiri.co.za, our store, with your size already selected.
           </p>
 
@@ -147,7 +147,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
                     </tbody>
                   </table>
                 </div>
-                <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.6, margin: '14px 0 22px' }}>
+                <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.6, margin: '14px 0 22px' }}>
                   Allow 1cm to 2cm either way. These are measured by hand. The surest way to pick your size is to lay a polo you already like flat on a bed and measure it the same way.
                 </p>
               </React.Fragment>
@@ -188,7 +188,7 @@ window.GuaranteeSection = function GuaranteeSection() {
         <div>
           <Eyebrow color="var(--gold)">No risk</Eyebrow>
           <h2 style={{ ..._sc('clamp(1.7rem,2.6vw,2.4rem)', 'var(--cream)'), margin: '18px 0 18px', lineHeight: 1.18 }}>Try it on at home. If it does not fit, sending it back will not cost you.</h2>
-          <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, marginBottom: 24, maxWidth: 480 }}>
+          <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.66, marginBottom: 24, maxWidth: 480 }}>
             Wear it around the house. Sit down in it. Check the length against the shirt you measured. If it is not right, tell us within 14 days of the day it arrives and we will sort the return out with you. You will not be out of pocket for it. Your refund lands 7 to 14 days after the shirt reaches us.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -223,8 +223,8 @@ window.FAQSection = function FAQSection({ faq }) {
               </button>
               {open === i && (
                 <div style={{ padding: '0 4px 26px', maxWidth: 680 }}>
-                  <p style={{ ..._sans(16.5, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>{f.a}</p>
-                  {f.link && <a href={f.link.href} target="_blank" rel="noopener" style={{ ..._sans(16, 'var(--gold)'), display: 'inline-flex', alignItems: 'flex-start', gap: 8, marginTop: 12, fontWeight: 600 }}>{f.link.icon && <_Icon name={f.link.icon} size={17} color="currentColor" style={{ marginTop: 4 }} />}{f.link.label}</a>}
+                  <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.66, margin: 0 }}>{f.a}</p>
+                  {f.link && <a href={f.link.href} target="_blank" rel="noopener" style={{ ..._sans(17, 'var(--gold)'), display: 'inline-flex', alignItems: 'flex-start', gap: 8, marginTop: 12, fontWeight: 600 }}>{f.link.icon && <_Icon name={f.link.icon} size={17} color="currentColor" style={{ marginTop: 4 }} />}{f.link.label}</a>}
                 </div>
               )}
             </div>
@@ -254,7 +254,7 @@ window.CrossSellSection = function CrossSellSection({ product, color, setColor, 
             <span style={{ ..._sans(14, 'var(--gold)'), letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600 }}>{other.name}</span>
           </span>
           <h3 style={{ ..._sc('clamp(1.8rem,2.8vw,2.4rem)', 'var(--cream)'), marginBottom: 14 }}>{product.name}</h3>
-          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.64, marginBottom: 22, maxWidth: 420 }}>
+          <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.64, marginBottom: 22, maxWidth: 420 }}>
             The same shirt and the same fit, in a darker colour. Also part of the 300.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
