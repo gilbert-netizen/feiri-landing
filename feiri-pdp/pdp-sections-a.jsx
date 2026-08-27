@@ -23,17 +23,43 @@ window.Btn = function Btn({ children, variant = 'accent', size = 'md', full, onC
 const Btn = window.Btn;
 
 /* 1 — HERO
-   The hero qualifies rather than argues. A man who wears 4XL reads the headline and
-   knows instantly this is for him; the mechanism argument lives in StandardSection so
-   the page does not make its central point twice. The four things here are not
-   cuttable: who it is for, the differentiator, the price, and risk removal.
+   The headline still qualifies: a man who wears 4XL reads it and knows instantly this is
+   for him. The subhead now promises two outcomes instead of restating the mechanism
+   (2026-08-27, Gilbert's call). The mechanism argument stays where it was, in
+   StandardSection, so the page still does not make its central point twice; what changed
+   is that the first screen now says what changes for the reader, not just who it is for.
+   Both outcomes are evidenced elsewhere on this page: 93cm body length on a 4XL, and
+   57cm across the shoulders with a 25cm armhole. Each has a feature block, a row in the
+   measurement table and a row in the comparison table.
+
+   🚩 Sizing guidance stays OUT of the hero. A draft read "you don't need a size up
+   anymore". On 2026-08-19 this account traced real returns (3XL men buying 5XL) to one
+   line of store copy that told buyers to take the larger size, and returns are paid both
+   ways here. The page's sizing method is "measure your own polo against the table", which
+   lives in the fit section where a tape measure is in his hand. The hero does not
+   instruct on size. See the learning ledger in 04-tests/experiment-log.md.
+
+   Wording notes. `polo` is named because the copy never said what the product was.
+   `ride up` is used instead of `hem`: every one of the seven uses of `hem` on this page
+   is taught by the sentence around it or by the measurement table, and the hero teaches
+   nothing, so the plainer word goes here and `hem` stays where a tape measure makes it
+   obvious.
+
+   🚩 The product noun must stay OUT of the H1, and this was measured, not reasoned.
+   At 390x844 the H1 box is 350px and fits ONE line at clamp(1.9rem,3vw,2.75rem). Any
+   added noun ("This polo is made only in...") wraps it to two lines, costs 37px, and
+   pushes the price and risk-removal line from 785-836 to 821-872, i.e. off the fold on
+   an iPhone 12, where the control cleared it by 8px. The subhead has slack and the H1
+   has none: the sub box holds ~104 characters in its two lines either way. So the noun
+   lives in the sub. The four things here are not cuttable: who it is for, the
+   differentiator, the price, and risk removal.
    Layout: image and copy are separated (stacked on mobile, two columns on desktop)
    because the old overlay hid the garment behind the headline, and the garment sitting
    properly on a bigger man IS the argument. */
 window.HeroSection = function HeroSection({ product, color, onBuy }) {
   const lines = [
     'Made only in 3XL to 6XL.',
-    'Designed for a bigger frame from the first pattern, not scaled up from a medium.',
+    'A polo that does not ride up when you sit and a seam that sits on your shoulder, not down your arm.',
   ];
   return (
     <section data-screen-label="Hero" className="feiri-hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>
