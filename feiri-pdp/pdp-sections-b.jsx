@@ -56,13 +56,18 @@ function FitDiagram() {
         <path d="M146 72 L146 97 M154 72 L154 97" strokeWidth="2.2" />
       </g>
       <g fill="var(--cream)" opacity="0.75"><circle cx="150" cy="80" r="2.2" /><circle cx="150" cy="92" r="2.2" /></g>
-      {/* Arrows stay gold: at 4.14:1 on this ground they clear WCAG 1.4.11's 3:1 floor
+      {/* Type is 20 SVG units, not 14. The svg renders 250px wide from a 300-unit
+          viewBox, so units scale by 0.833 and a 14 would land on screen at 11.67px,
+          under the page's own 12px minimum and well under the 16px reading floor set
+          on 2026-08-25. 20 units renders at 16.7px. Measure the RENDERED size, never
+          the specified one, on anything inside a scaled viewBox.
+          Arrows stay gold: at 4.14:1 on this ground they clear WCAG 1.4.11's 3:1 floor
           for non-text graphics. The two TEXT labels do not, so they take --cream and
           measure 15.14:1. Same class of defect the 2026-08-25 pass caught at 3.26:1. */}
-      <g stroke="var(--gold)" strokeWidth="2" fill="var(--gold)" style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600 }}>
+      <g stroke="var(--gold)" strokeWidth="2" fill="var(--gold)" style={{ fontFamily: 'var(--font-sans)', fontSize: 20, fontWeight: 600 }}>
         <line x1="92" y1="118" x2="208" y2="118" />
         <path d="M92 118 l9 -5 v10 z" /><path d="M208 118 l-9 -5 v10 z" />
-        <text x="150" y="137" textAnchor="middle" stroke="none" fill="var(--cream)">Chest, flat</text>
+        <text x="150" y="143" textAnchor="middle" stroke="none" fill="var(--cream)">Chest, flat</text>
         <line x1="28" y1="56" x2="28" y2="202" />
         <path d="M28 56 l-5 9 h10 z" /><path d="M28 202 l-5 -9 h10 z" />
         <text transform="translate(21,129) rotate(-90)" textAnchor="middle" stroke="none" fill="var(--cream)">Body length</text>
