@@ -30,6 +30,83 @@ window.UrgencySection = function UrgencySection() {
   );
 };
 
+/* 8.5 — THE FIT METHOD. Sits inside the buy box, directly above the size picker.
+
+   Why it exists: `Chest, flat` is 76cm on a 3XL, while a man that size measures
+   roughly 140cm to 150cm around. If he measures himself instead of measuring the
+   shirt, he gets a number with no home in the table, and the word `flat` was
+   carrying that whole distinction alone. Two arrows remove the ambiguity.
+
+   The drawing is inline SVG, not an image. Three Defects are open on this page
+   (D1 undersized masters, D3 missing alt text, D6 LCP 3.38s) and a raster would
+   make all three worse. This adds no request, takes the theme tokens so it is
+   correct on the dark ground, and carries its own <title>.
+
+   It is drawn, not photographed, and deliberately not the FEIRI polo: the
+   instruction is about a polo he ALREADY OWNS, so a photograph of the garment he
+   does not have yet would teach the wrong object. */
+function FitDiagram() {
+  return (
+    <svg viewBox="0 0 300 224" role="img" aria-labelledby="feiri-fit-dia" style={{ width: 250, maxWidth: '100%' }}>
+      <title id="feiri-fit-dia">A polo laid flat, showing where to measure. The chest is measured straight across the shirt just below the sleeves. The body length is measured from the top of the shoulder straight down to the hem.</title>
+      <g fill="none" stroke="var(--cream)" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round" opacity="0.9">
+        <path d="M130 44 L88 56 L52 82 L66 106 L92 92 L88 202 L212 202 L208 92 L234 106 L248 82 L212 56 L170 44" />
+        <path d="M132 46 Q150 57 168 46" opacity="0.65" />
+        <path d="M127 39 L146 72 L150 53 L154 72 L173 39" />
+        <path d="M146 72 L146 97 M154 72 L154 97" strokeWidth="2.2" />
+      </g>
+      <g fill="var(--cream)" opacity="0.75"><circle cx="150" cy="80" r="2.2" /><circle cx="150" cy="92" r="2.2" /></g>
+      {/* Arrows stay gold: at 4.14:1 on this ground they clear WCAG 1.4.11's 3:1 floor
+          for non-text graphics. The two TEXT labels do not, so they take --cream and
+          measure 15.14:1. Same class of defect the 2026-08-25 pass caught at 3.26:1. */}
+      <g stroke="var(--gold)" strokeWidth="2" fill="var(--gold)" style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600 }}>
+        <line x1="92" y1="118" x2="208" y2="118" />
+        <path d="M92 118 l9 -5 v10 z" /><path d="M208 118 l-9 -5 v10 z" />
+        <text x="150" y="137" textAnchor="middle" stroke="none" fill="var(--cream)">Chest, flat</text>
+        <line x1="28" y1="56" x2="28" y2="202" />
+        <path d="M28 56 l-5 9 h10 z" /><path d="M28 202 l-5 -9 h10 z" />
+        <text transform="translate(21,129) rotate(-90)" textAnchor="middle" stroke="none" fill="var(--cream)">Body length</text>
+        <g strokeDasharray="3 4" strokeWidth="1.4" opacity="0.5">
+          <line x1="28" y1="56" x2="86" y2="56" /><line x1="28" y1="202" x2="88" y2="202" />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+/* The header deliberately does NOT reuse the store's "do not size up". That exact
+   phrase already appears on this page in StandardSection, where "We do not size
+   up" describes FEIRI's patternmaking, not the buyer's ordering. One phrase, two
+   meanings, 14,000px apart, would be worse than no parity.
+
+   The arithmetic is checkable in the table directly below: every step in the
+   MEASURE array adds exactly +2 length, +4 chest, +3 shoulder. */
+const FIT_STEPS = [
+  'Lay a polo you already own flat on a bed.',
+  'Measure the chest, then the body length.',
+  'Match the chest to the table below. That is your size.',
+];
+
+function FitMethod() {
+  return (
+    <div style={{ marginBottom: 26 }}>
+      <h3 style={{ ..._sc(22, 'var(--cream)'), margin: '0 0 10px' }}>Take the size you already wear.</h3>
+      <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.6, margin: '0 0 16px' }}>
+        If a polo fits your chest but rides up when you sit, it is too short in the body. Going one size bigger does add 2cm of length, but it adds 4cm at the chest and 3cm across the shoulders at the same time. Then nothing sits right.
+      </p>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0 16px' }}><FitDiagram /></div>
+      <ol style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+        {FIT_STEPS.map((t, i) => (
+          <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', marginBottom: 10, ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.5 }}>
+            <span aria-hidden="true" style={{ flexShrink: 0, width: 22, height: 22, marginTop: 2, borderRadius: 999, border: '1px solid var(--gold)', color: 'var(--cream)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</span>
+            <span>{t}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 /* 9 — BUY BOX. Measurements are shown here rather than hidden behind a link: the
    single most persuasive device on this account is telling him to go and measure a
    polo he already owns, and that only works if the numbers are in front of him. */
@@ -84,6 +161,15 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             ))}
           </div>
 
+          {/* Added 2026-08-28. Scope: 06-builds/2026-08-28-scope-fit-method-buy-box.md.
+              The method used to live 888px BELOW the size buttons and 812px below the Buy
+              button, as the last line of the measurements accordion, so a man could pick a
+              size and check out having been told nothing about how to pick one. The store
+              fixed exactly this on 2026-08-19 after Gilbert's return data traced 3XL men
+              buying 5XL to the sizing copy; this page never got the same fix. It goes above
+              the picker because an instruction after the decision is not an instruction. */}
+          <FitMethod />
+
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
             <p style={{ ...detailHead, margin: 0 }}>Select size</p>
             {/* Not a link. The measurements are inline below, and a fake link next to
@@ -97,30 +183,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             ))}
           </div>
 
-          <Btn2 variant="accent" size="lg" full onClick={() => onAdd()} style={{ marginBottom: 18 }}>
-            {size ? `Buy your ${size}. ${_money(product.price)}` : 'Select your size'}
-          </Btn2>
-
-          {/* Added 2026-08-24. The button leaves this page for the store, and a
-              domain he did not expect is a trust hit in this market. Telling him
-              where he lands, and that his size travels with him, costs one line. */}
-          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.5, margin: '-6px 0 18px' }}>
-            You finish on feiri.co.za, our store, with your size already selected.
-          </p>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {reassurance.map(([ic, txt]) => (
-              <div key={ic} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55 }}>
-                <_Icon name={ic} size={16} color="var(--gold)" style={{ marginTop: 3, flexShrink: 0 }} />
-                {txt}
-              </div>
-            ))}
-          </div>
-          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55, margin: '14px 0 0' }}>
-            Not sure which size? <a href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" style={{ color: 'var(--gold)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 6, verticalAlign: '-0.18em' }}><_Icon name="whatsapp" size={17} color="currentColor" />Send us a WhatsApp</a> and we will work it out with you in two minutes.
-          </p>
-
-          <div style={{ marginTop: 24, borderTop: '1px solid var(--hair)' }}>
+          <div style={{ margin: '0 0 26px', borderTop: '1px solid var(--hair)' }}>
             <button onClick={() => setOpenFit(!openFit)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, padding: '20px 0', background: 'transparent', border: 0, cursor: 'pointer', textAlign: 'left', ..._sans(13, 'var(--cream)'), fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               Measurements, taken flat, in centimetres
               <_Icon name={openFit ? 'minus' : 'plus'} size={17} color="var(--gold)" />
@@ -148,11 +211,35 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
                   </table>
                 </div>
                 <p style={{ ..._sans(17, 'var(--cream-dim)'), lineHeight: 1.6, margin: '14px 0 22px' }}>
-                  Allow 1cm to 2cm either way. These are measured by hand. The surest way to pick your size is to lay a polo you already like flat on a bed and measure it the same way.
+                  Allow 1cm to 2cm either way. These are measured by hand. The surest way to pick your size is to lay a polo you already like flat on a bed and measure it the same way. The chest measurement picks your size. The body length is what tells you why your old polo rides up.
                 </p>
               </React.Fragment>
             )}
           </div>
+
+          <Btn2 variant="accent" size="lg" full onClick={() => onAdd()} style={{ marginBottom: 18 }}>
+            {size ? `Buy your ${size}. ${_money(product.price)}` : 'Select your size'}
+          </Btn2>
+
+          {/* Added 2026-08-24. The button leaves this page for the store, and a
+              domain he did not expect is a trust hit in this market. Telling him
+              where he lands, and that his size travels with him, costs one line. */}
+          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.5, margin: '-6px 0 18px' }}>
+            You finish on feiri.co.za, our store, with your size already selected.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {reassurance.map(([ic, txt]) => (
+              <div key={ic} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55 }}>
+                <_Icon name={ic} size={16} color="var(--gold)" style={{ marginTop: 3, flexShrink: 0 }} />
+                {txt}
+              </div>
+            ))}
+          </div>
+          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55, margin: '14px 0 0' }}>
+            Not sure which size? <a href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" style={{ color: 'var(--gold)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 6, verticalAlign: '-0.18em' }}><_Icon name="whatsapp" size={17} color="currentColor" />Send us a WhatsApp</a> and we will work it out with you in two minutes.
+          </p>
+
         </div>
       </div>
     </Section>
