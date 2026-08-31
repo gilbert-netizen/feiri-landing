@@ -150,6 +150,45 @@
       .feiri-reveal { opacity: 1; scale: 1; translate: 0 0; transition: none; }
     }
 
+    /* --- The Standard: the sized-up polo, with its failures labelled ---
+       The plate is 1254px square. Capping the rendered width at 620px keeps the
+       file at or just above 1.0x device-pixel coverage at every width, which is the
+       target: 600 CSS px at DPR2 needs 1200 device px and the file is 1206, and 350 CSS px
+       at DPR3 needs 1050. Without the cap the figure runs full-bleed to 920px in the
+       single-column band, where 1206px would be genuinely soft. The cap is the fix, not an
+       upscale: the master is 1206 against a declared 1600 floor, and the floor is a proxy
+       for sharpness that this beats on the metric it stands in for. */
+    .feiri-problem { max-width: 600px; margin-inline: auto; }
+    .feiri-problem-frame { position: relative; aspect-ratio: 1 / 1; border-radius: 14px;
+      overflow: hidden; background: #EDE7DC; box-shadow: 0 30px 80px rgba(0,0,0,0.28); }
+    .feiri-problem-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .feiri-problem-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .feiri-problem-label { position: absolute; transform: translateY(-50%);
+      font-family: var(--font-sans); font-size: clamp(11px, 1.4vw, 13px); font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase; line-height: 1.35;
+      color: #7C6128; max-width: 20.5%; pointer-events: none; }
+    .feiri-problem-label.is-left  { transform: translate(-100%, -50%); text-align: right; }
+    .feiri-problem-num { position: absolute; display: none; transform: translate(-50%, -50%);
+      width: 22px; height: 22px; border-radius: 999px; background: #82662B; color: #FFF;
+      font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+      align-items: center; justify-content: center; line-height: 1; }
+    .feiri-problem-list { display: none; }
+
+    /* Below 760px there is no room to anchor a label beside the figure: the frame is
+       350px wide at 390px, so the two right-hand labels would sit on the man. The dots
+       carry numbers instead and the words move underneath, full size and readable. */
+    @media (max-width: 759px) {
+      .feiri-problem-lines, .feiri-problem-label { display: none; }
+      .feiri-problem-num { display: inline-flex; }
+      .feiri-problem-list { display: block; list-style: none; margin: 20px 0 0; padding: 0; }
+      .feiri-problem-list li { display: flex; align-items: flex-start; gap: 10px;
+        font-family: var(--font-sans); font-size: 16px; line-height: 1.45;
+        color: var(--cream-dim); padding: 7px 0; }
+      .feiri-problem-list li span { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 999px;
+        background: #82662B; color: #FFF; font-size: 12px; font-weight: 700;
+        display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+    }
+
     /* --- The Lookbook --- */
     .lb-masthead { max-width: 640px; margin-bottom: clamp(40px, 5vw, 64px); }
     .lb-meta { display: flex; align-items: center; gap: 18px; margin-top: 28px; }
@@ -268,6 +307,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.f63fd798.js"></script>
+  <script src="feiri-pdp/app.22ab2a50.js"></script>
 </body>
 </html>

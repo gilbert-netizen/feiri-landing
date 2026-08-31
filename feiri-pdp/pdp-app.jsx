@@ -113,8 +113,13 @@ function App() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
-  const scrollToLookbook = () => {
-    const el = document.getElementById('lookbook');
+  // The hero button says "See how it fits", and until 2026-08-31 it scrolled to the
+  // Lookbook because the Lookbook was the next gallery down. The resequence moved the
+  // Lookbook below Compare, five sections deeper, so the same button would now jump a
+  // cold visitor clean over the entire fit argument. It points at Features instead,
+  // which is the section that actually answers the promise on the button.
+  const scrollToFeatures = () => {
+    const el = document.getElementById('features');
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
@@ -144,32 +149,43 @@ function App() {
 
   const rootStyle = { ...MOODS[t.mood || 'midnight'], '--cobalt': t.accent || '#2C53C9' };
 
-  // Order notes:
-  // - Heritage sits at 4. The title says FEIRI Milano, so "is this actually Italian?"
-  //   is asked within two seconds and is answered before the page argues anything.
-  // - Standard sits ahead of the Lookbook. The page used to reach its central
-  //   argument only after a video and twelve images, which asks a cold visitor to
-  //   want the garment before he believes it comes in his size.
-  // - Grounds alternate: white, cream, white, black(video), white, cream, white,
-  //   cream, white, cream, panel-2, white, cream, white, panel-2.
+  // Order notes — resequenced 2026-08-31 on Gilbert's brief. The page now leads with
+  // the pain and the answer to it, and the aspiration follows instead of opening.
+  // - Standard is at 2. It is the problem section, and it is the first thing after
+  //   the hero. The page previously opened on six lifestyle tiles, which sells the
+  //   life to a man who does not yet believe the shirt comes in his size.
+  // - Features is at 3, directly under the problem it answers. Problem, then fix.
+  // - Reviews at 4 and the comparison at 5, moved there 2026-08-31 on Gilbert's brief.
+  //   Problem, then the fix, then other men saying it worked, then the side by side.
+  // - Heritage sits immediately before the FAQ, set there by Gilbert 2026-08-31. It was
+  //   at 4, then briefly after the comparison. Its job changes with the position: high on
+  //   the page it inoculated against "is FEIRI Milano actually Italian?" before the
+  //   argument ran; here it answers the same question for a man already at the questions
+  //   block, still deciding. That is a real job, and it is the last thing he reads before
+  //   the objections are handled.
+  // - Owners and Lookbook are one gallery block at 6 and 7. Owners keeps the only
+  //   headline on the page that names who this is for; the Lookbook masthead is
+  //   demoted to an eyebrow so the block carries one heading, not two.
+  // - Reviews, then marquee, then video, at 8 to 10. Proof in words before proof in
+  //   pictures. The marquee and video used to sit at 3 and 5, above the argument.
   return (
     <div data-theme="dark" style={rootStyle}>
       <AnnouncementBar />
       <main>
-        <window.HeroSection product={D.product} color={color} onBuy={scrollToLookbook} />
-        <window.OwnersSection />
-        <window.TrustSection />
-        <window.HeritageSection />
-        <window.VideoSection />
+        <window.HeroSection product={D.product} color={color} onBuy={scrollToFeatures} />
         <window.StandardSection />
-        <window.LookbookSection />
         <window.FeaturesSection features={D.features} />
-        <window.CompareSection compare={D.compare} />
         <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
+        <window.CompareSection compare={D.compare} />
+        <window.OwnersSection />
+        <window.LookbookSection />
+        <window.TrustSection />
+        <window.VideoSection />
         <window.UrgencySection />
         <window.BuySection product={D.product} color={color} setColor={setColor} size={size} setSize={setSize} onAdd={onAdd} buyRef={buyRef} />
         <window.TrustRowSection trust={D.trust} />
         <window.GuaranteeSection />
+        <window.HeritageSection />
         <window.FAQSection faq={D.faq} />
         <window.CrossSellSection product={D.product} color={color} setColor={setColor} onBuy={goToProduct} />
       </main>

@@ -102,6 +102,9 @@ window.PDP_DATA = {
     { q: 'Is the monogram printed on?', a: 'No. It is jacquard knitted, which means the pattern is made from the yarn while the fabric is being knitted. It is part of the cloth rather than a layer sitting on top of it, so there is nothing that can crack, peel or fade in the wash.' },
     { q: 'Why only 300?', a: 'This is the final release of this piece. We made 300 in total, across both colours and all four sizes. When a size sells out, we are not making it again in that colour or that pattern.' },
     { q: 'How long does delivery take, and what if I want to send it back?', a: 'Delivery is free anywhere in South Africa. Major cities take 1 to 3 working days and outlying areas 2 to 5, and you get a tracking number as soon as it ships. If it is not right, tell us within 14 days of delivery and we sort the return out with you, at no cost to you. Once it reaches us we refund you in full within 7 to 14 days.' },
-    { q: 'How do I wash it?', a: 'Cold gentle wash, inside out. Do not tumble dry. Cool iron on the reverse if it needs it. The fabric is built to hold its shape, and washing it cool is what keeps it that way.' },
+    // The opening sentence moved here 2026-08-31 from the care footnote under the
+    // Features grid, which was deleted. It is the only part of that paragraph the FAQ
+    // did not already say, and it is the why behind the instruction that follows it.
+    { q: 'How do I wash it?', a: 'Cotton knit goes baggy at the hem and the elbows when it is washed hot and tumble dried. Cold gentle wash, inside out. Do not tumble dry. Cool iron on the reverse if it needs it. The fabric is built to hold its shape, and washing it cool is what keeps it that way.' },
   ],
 };

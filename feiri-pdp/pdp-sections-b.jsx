@@ -240,17 +240,15 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
             {size ? `Buy your ${size}. ${_money(product.price)}` : 'Select your size'}
           </Btn2>
 
-          {/* Added 2026-08-24. The button leaves this page for the store, and a
-              domain he did not expect is a trust hit in this market. Telling him
-              where he lands, and that his size travels with him, costs one line. */}
-          <p style={{ ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.5, margin: '-6px 0 18px' }}>
-            You finish on feiri.co.za, our store, with your size already selected.
-          </p>
-
+          {/* The handoff sentence that stood here from 2026-08-24 was removed on
+              2026-08-31, Gilbert's call: the buy column reads as too much text. The
+              reason it existed still stands, that landing on an unexpected domain is a
+              trust hit in this market, so if the store handoff ever reads as a surprise
+              in a recording, this is the line to bring back. */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {reassurance.map(([ic, txt]) => (
               <div key={ic} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, ..._sans(16, 'var(--cream-dim)'), lineHeight: 1.55 }}>
-                <_Icon name={ic} size={16} color="var(--gold)" style={{ marginTop: 3, flexShrink: 0 }} />
+                <_Icon name={ic} size={18} sw={2.2} color="var(--cream)" style={{ marginTop: 2, flexShrink: 0 }} />
                 {txt}
               </div>
             ))}
@@ -272,7 +270,7 @@ window.TrustRowSection = function TrustRowSection({ trust }) {
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: 'clamp(36px,5vw,56px) var(--gutter)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 28 }}>
         {trust.map((t, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center' }}>
-            <_Icon name={t.icon} size={26} color="var(--gold)" sw={1.5} />
+            <_Icon name={t.icon} size={26} color="var(--cream)" sw={2.2} />
             <span style={{ ..._sans(16, 'var(--cream)'), fontWeight: 500 }}>{t.label}</span>
           </div>
         ))}

@@ -34,7 +34,22 @@ const A = 'feiri-pdp/assets/lookbook/';
 window.LookbookSection = function LookbookSection() {
   return (
     <window.Section ground="var(--navy-deep)" label="Lookbook" id="lookbook">
-      <h2 className="lb-masthead" style={{ ...sc('clamp(2rem,3.6vw,3.3rem)', 'var(--cream)'), lineHeight: 1.1, textAlign: 'center', marginInline: 'auto' }}>Fashion Lookbook</h2>
+      {/* Demoted from an h2 masthead to an eyebrow on 2026-08-31. Owners now sits
+          directly above this and carries the block's single headline, "The FEIRI man
+          does not dress down because of his size", which is the only line on the page
+          naming who this is for. "Fashion Lookbook" is a category label that tells a
+          buyer nothing the pictures have not, so it marks the continuation instead of
+          competing for the heading. The wrapper keeps .lb-masthead, which owns the
+          640px max-width and the 40 to 64px gap down to the first plate. */}
+      {/* F2 fix, 2026-08-31. The demotion put --gold #8A6D2E at 12px on this section's
+          #F4EFE6 ground, measuring 4.26:1 against the 4.5:1 AA floor for normal text.
+          #82662B on the same ground measures 4.72:1. Scoped to this instance rather than
+          changed on the --gold token, because --gold is also used on dark grounds where
+          darkening it would reduce contrast instead of improving it. The token-level fix
+          belongs with F1, which is Gilbert's and dated 2026-09-11. */}
+      <div className="lb-masthead" style={{ textAlign: 'center', marginInline: 'auto' }}>
+        <Eyebrow center color="#82662B">Fashion Lookbook</Eyebrow>
+      </div>
       <div className="feiri-lookbook">
         <Chapter label="Chapter One" colour="Blue &amp; Cream" />
 

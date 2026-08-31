@@ -206,7 +206,7 @@ window.VideoSection = function VideoSection() {
    rather than as a fifth card. */
 window.FeaturesSection = function FeaturesSection({ features }) {
   return (
-    <Section ground="var(--ink-black)" label="Features">
+    <Section ground="var(--ink-black)" label="Features" id="features">
       <div style={{ textAlign: 'center', maxWidth: 640, margin: '0 auto 60px' }}>
         <Eyebrow center color="var(--gold)">The details</Eyebrow>
         <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18 }}>Four things that go wrong on a big-size shirt, and what we did about each one</h2>
@@ -225,10 +225,69 @@ window.FeaturesSection = function FeaturesSection({ features }) {
           </div>
         ))}
       </div>
-      <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.66, textAlign: 'center', maxWidth: 660, margin: '44px auto 0' }}>
-        Cotton knit goes baggy at the hem and the elbows when it is washed hot and tumble dried. Wash this one cold on a gentle cycle, inside out, do not tumble dry, and use a cool iron on the reverse if it needs one. Done that way it keeps the shape it arrived in.
-      </p>
+      {/* Care footnote removed 2026-08-31 on Gilbert's call. It was washing instructions
+          sitting under four blocks about fit, and the resequence made that misplacement
+          obvious by putting the grid at position 3. Nothing was lost: FAQ answer 6 already
+          carries the same instruction, in the place a buyer goes looking for it. The one
+          clause unique to this paragraph, why hot washing does the damage, moved into that
+          answer rather than being deleted with it. */}
     </Section>
+  );
+};
+
+/* The three failures, anchored to the photograph. Coordinates are percentages of the
+   square plate, so they hold at every rendered width without recalculation.
+   The strings are the copy's own three failures, word for word, so the picture and the
+   paragraph beside it argue one list rather than two.
+
+   The labels are HTML, not burned into the JPEG. Baked-in type would render at roughly
+   6px on a 390px phone, where the image slot is 350px wide, which is where most of this
+   page's traffic reads it. */
+const PROBLEM_POINTS = [
+  { n: 1, label: 'Collar goes soft',                    ax: 51.0, ay: 22.0, lx: 25, ly: 13, side: 'left'  },
+  { n: 2, label: 'Shoulder seam ends up down your arm', ax: 66.5, ay: 31.0, lx: 77, ly: 25, side: 'right' },
+  { n: 3, label: 'Hem rides up when you sit',           ax: 45.0, ay: 47.0, lx: 77, ly: 47, side: 'right' },
+];
+
+window.ProblemFitFigure = function ProblemFitFigure() {
+  return (
+    <figure className="feiri-problem" style={{ margin: 0 }}>
+      <div className="feiri-problem-frame">
+        <img
+          className="feiri-problem-img"
+          src="feiri-pdp/assets/problem-fit-1206.jpg"
+          srcSet="feiri-pdp/assets/problem-fit-640.jpg 640w, feiri-pdp/assets/problem-fit-768.jpg 768w, feiri-pdp/assets/problem-fit-1206.jpg 1206w"
+          sizes="(min-width: 901px) 47vw, (min-width: 700px) 620px, calc(100vw - 40px)"
+          alt="A man seated in a grey polo that has been sized up rather than cut for his frame. The collar has lost its shape, the shoulder seam sits partway down his arm, and the hem has ridden up over his waist."
+        />
+        {/* Leader lines. The frame is locked to 1:1, so a 0-100 viewBox maps
+            straight onto the percentage anchors above with no distortion. */}
+        <svg className="feiri-problem-lines" viewBox="0 0 100 100" aria-hidden="true">
+          {PROBLEM_POINTS.map(p => (
+            <g key={p.n}>
+              <line x1={p.ax} y1={p.ay} x2={p.side === 'left' ? p.lx + 2.5 : p.lx - 2.5} y2={p.ly}
+                stroke="#7C6128" strokeWidth="0.35" strokeLinecap="round" opacity="0.75" />
+              <circle cx={p.ax} cy={p.ay} r="0.9" fill="#7C6128" />
+            </g>
+          ))}
+        </svg>
+        {PROBLEM_POINTS.map(p => (
+          <span key={p.n} className={`feiri-problem-label is-${p.side}`}
+            style={{ left: `${p.lx}%`, top: `${p.ly}%` }}>{p.label}</span>
+        ))}
+        {/* The numbers only appear below 760px, where there is no room to anchor a
+            label beside the figure. Above it they would just repeat the label. */}
+        {PROBLEM_POINTS.map(p => (
+          <span key={p.n} className="feiri-problem-num" style={{ left: `${p.ax}%`, top: `${p.ay}%` }}
+            aria-hidden="true">{p.n}</span>
+        ))}
+      </div>
+      <ol className="feiri-problem-list">
+        {PROBLEM_POINTS.map(p => (
+          <li key={p.n}><span>{p.n}</span>{p.label}</li>
+        ))}
+      </ol>
+    </figure>
   );
 };
 
@@ -239,9 +298,7 @@ window.StandardSection = function StandardSection() {
   return (
     <Section ground="var(--ink-black)" label="The Standard">
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,0.95fr) minmax(0,1.05fr)', gap: 'clamp(32px,5vw,72px)', alignItems: 'center' }} className="feiri-2col">
-        <div style={{ borderRadius: 14, overflow: 'hidden', background: '#000', boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}>
-          <img src="feiri-pdp/assets/front-blue.jpg" alt="The FEIRI fit" style={{ width: '100%', display: 'block' }} />
-        </div>
+        <window.ProblemFitFigure />
         <div>
           <Eyebrow color="var(--gold)">The FEIRI standard</Eyebrow>
           <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px' }}>Most big-size shirts are small shirts stretched bigger.</h2>
@@ -279,7 +336,7 @@ window.CompareSection = function CompareSection({ compare }) {
     <Section ground="var(--navy-deep)" label="Us vs Them">
       <div style={{ textAlign: 'center', maxWidth: 620, margin: '0 auto 52px' }}>
         <Eyebrow center color="var(--gold)">Side by side</Eyebrow>
-        <h2 style={{ ...sc('clamp(1.9rem,3.2vw,2.8rem)', 'var(--cream)'), marginTop: 18 }}>FEIRI compared to a shirt that was just sized up</h2>
+        <h2 style={{ ...sc('clamp(1.9rem,3.2vw,2.8rem)', 'var(--cream)'), marginTop: 18 }}>FEIRI compared to a polo that was just sized up</h2>
       </div>
       <div style={{ maxWidth: 880, margin: '0 auto', border: '1px solid var(--hair)', borderRadius: 14, overflow: 'hidden', background: 'var(--panel)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 130px 130px' }} className="feiri-compare-head">
