@@ -244,9 +244,12 @@ window.FeaturesSection = function FeaturesSection({ features }) {
    6px on a 390px phone, where the image slot is 350px wide, which is where most of this
    page's traffic reads it. */
 const PROBLEM_POINTS = [
-  { n: 1, label: 'Collar goes soft',                    ax: 51.0, ay: 22.0, lx: 25, ly: 13, side: 'left'  },
-  { n: 2, label: 'Shoulder seam ends up down your arm', ax: 66.5, ay: 31.0, lx: 77, ly: 25, side: 'right' },
-  { n: 3, label: 'Hem rides up when you sit',           ax: 45.0, ay: 47.0, lx: 77, ly: 47, side: 'right' },
+  { n: 1, label: 'Collar goes soft',                    ax: 51.0, ay: 22.0, lx: 25, ly: 13, side: 'left',
+    mx: 27, my: 7,  mside: 'left'  },
+  { n: 2, label: 'Shoulder seam ends up down your arm', ax: 66.5, ay: 31.0, lx: 77, ly: 25, side: 'right',
+    mx: 73, my: 11, mside: 'right' },
+  { n: 3, label: 'Hem rides up when you sit',           ax: 45.0, ay: 47.0, lx: 77, ly: 47, side: 'right',
+    mx: 28, my: 40, mside: 'left'  },
 ];
 
 window.ProblemFitFigure = function ProblemFitFigure() {
@@ -262,7 +265,10 @@ window.ProblemFitFigure = function ProblemFitFigure() {
         />
         {/* Leader lines. The frame is locked to 1:1, so a 0-100 viewBox maps
             straight onto the percentage anchors above with no distortion. */}
-        <svg className="feiri-problem-lines" viewBox="0 0 100 100" aria-hidden="true">
+        {/* Two leader sets, one per breakpoint. The mobile anchors put the labels in the
+            empty backdrop at top-left, top-right and mid-left, which is the only clear
+            ground on a 350px frame. CSS shows one set and hides the other. */}
+        <svg className="feiri-problem-lines is-wide" viewBox="0 0 100 100" aria-hidden="true">
           {PROBLEM_POINTS.map(p => (
             <g key={p.n}>
               <line x1={p.ax} y1={p.ay} x2={p.side === 'left' ? p.lx + 2.5 : p.lx - 2.5} y2={p.ly}
@@ -271,22 +277,24 @@ window.ProblemFitFigure = function ProblemFitFigure() {
             </g>
           ))}
         </svg>
+        <svg className="feiri-problem-lines is-narrow" viewBox="0 0 100 100" aria-hidden="true">
+          {PROBLEM_POINTS.map(p => (
+            <g key={p.n}>
+              <line x1={p.ax} y1={p.ay} x2={p.mside === 'left' ? p.mx + 2 : p.mx - 2} y2={p.my}
+                stroke="#7C6128" strokeWidth="0.5" strokeLinecap="round" opacity="0.8" />
+              <circle cx={p.ax} cy={p.ay} r="1.2" fill="#7C6128" />
+            </g>
+          ))}
+        </svg>
         {PROBLEM_POINTS.map(p => (
-          <span key={p.n} className={`feiri-problem-label is-${p.side}`}
+          <span key={p.n} className={`feiri-problem-label is-wide is-${p.side}`}
             style={{ left: `${p.lx}%`, top: `${p.ly}%` }}>{p.label}</span>
         ))}
-        {/* The numbers only appear below 760px, where there is no room to anchor a
-            label beside the figure. Above it they would just repeat the label. */}
         {PROBLEM_POINTS.map(p => (
-          <span key={p.n} className="feiri-problem-num" style={{ left: `${p.ax}%`, top: `${p.ay}%` }}
-            aria-hidden="true">{p.n}</span>
+          <span key={p.n} className={`feiri-problem-label is-narrow is-${p.mside}`}
+            style={{ left: `${p.mx}%`, top: `${p.my}%` }}>{p.label}</span>
         ))}
       </div>
-      <ol className="feiri-problem-list">
-        {PROBLEM_POINTS.map(p => (
-          <li key={p.n}><span>{p.n}</span>{p.label}</li>
-        ))}
-      </ol>
     </figure>
   );
 };
@@ -299,10 +307,14 @@ window.StandardSection = function StandardSection() {
     <Section ground="var(--ink-black)" label="The Standard">
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,0.95fr) minmax(0,1.05fr)', gap: 'clamp(32px,5vw,72px)', alignItems: 'center' }} className="feiri-2col">
         <window.ProblemFitFigure />
-        <div>
-          <Eyebrow color="var(--gold)">The FEIRI standard</Eyebrow>
-          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px' }}>Most big-size shirts are small shirts stretched bigger.</h2>
-          <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 0, maxWidth: 520 }}>
+        {/* Eyebrow and headline centred 2026-08-31 on Gilbert's call, to match the
+            Features block above. The body paragraph stays left-aligned: it is 70 words,
+            and centred long-form copy gives both edges a ragged rag, which is harder to
+            read than the consistency is worth. Same split Features already uses. */}
+        <div className="feiri-standard-copy">
+          <Eyebrow center color="var(--gold)">The FEIRI standard</Eyebrow>
+          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px', textAlign: 'center' }}>Most big-size shirts are small shirts stretched bigger.</h2>
+          <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 0, maxWidth: 520, marginInline: 'auto' }}>
             One pattern gets drawn for a medium, then every measurement grows by the same percentage to make the big sizes. Bodies do not change shape that way. That is why the hem rides up when you sit, why the shoulder seam ends up somewhere down your arm, and why the collar goes soft after a few washes.
             <br /><br />
             <strong style={{ color: 'var(--cream)' }}>We do not size up. We start the pattern at 3XL</strong> and work upward from there, so the shape is right at the size you actually wear.

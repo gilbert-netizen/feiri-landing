@@ -168,25 +168,15 @@
       letter-spacing: 0.09em; text-transform: uppercase; line-height: 1.35;
       color: #7C6128; max-width: 20.5%; pointer-events: none; }
     .feiri-problem-label.is-left  { transform: translate(-100%, -50%); text-align: right; }
-    .feiri-problem-num { position: absolute; display: none; transform: translate(-50%, -50%);
-      width: 22px; height: 22px; border-radius: 999px; background: #82662B; color: #FFF;
-      font-family: var(--font-sans); font-size: 12px; font-weight: 700;
-      align-items: center; justify-content: center; line-height: 1; }
-    .feiri-problem-list { display: none; }
+    .feiri-problem .is-narrow { display: none; }
 
-    /* Below 760px there is no room to anchor a label beside the figure: the frame is
-       350px wide at 390px, so the two right-hand labels would sit on the man. The dots
-       carry numbers instead and the words move underneath, full size and readable. */
+    /* Below 760px the labels stay ON the photograph, in the empty backdrop: top-left,
+       top-right and mid-left. They are HTML, so at 350px they set at 11px and stay
+       readable, where type baked into the JPEG would have rendered near 6px. */
     @media (max-width: 759px) {
-      .feiri-problem-lines, .feiri-problem-label { display: none; }
-      .feiri-problem-num { display: inline-flex; }
-      .feiri-problem-list { display: block; list-style: none; margin: 20px 0 0; padding: 0; }
-      .feiri-problem-list li { display: flex; align-items: flex-start; gap: 10px;
-        font-family: var(--font-sans); font-size: 16px; line-height: 1.45;
-        color: var(--cream-dim); padding: 7px 0; }
-      .feiri-problem-list li span { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 999px;
-        background: #82662B; color: #FFF; font-size: 12px; font-weight: 700;
-        display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+      .feiri-problem .is-wide { display: none; }
+      .feiri-problem .is-narrow { display: block; }
+      .feiri-problem-label.is-narrow { font-size: 11px; letter-spacing: 0.06em; max-width: 27%; line-height: 1.3; }
     }
 
     /* --- The Lookbook --- */
@@ -307,6 +297,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.22ab2a50.js"></script>
+  <script src="feiri-pdp/app.7057c854.js"></script>
 </body>
 </html>
