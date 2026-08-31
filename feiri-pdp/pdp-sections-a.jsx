@@ -305,15 +305,20 @@ window.ProblemFitFigure = function ProblemFitFigure() {
 window.StandardSection = function StandardSection() {
   return (
     <Section ground="var(--ink-black)" label="The Standard">
+      {/* Headline hoisted above the photograph and the eyebrow removed, 2026-08-31,
+          Gilbert's call. The read is now claim, picture, explanation: the sentence says
+          what is wrong, the labelled plate shows it on a man, then the paragraph gives
+          the reason. Previously the picture arrived first and had to carry the argument
+          on its own, and the eyebrow spent a line saying nothing the headline does not.
+          It is hoisted OUT of the grid rather than moved within it, so the order holds
+          at both breakpoints instead of only in the stacked one. */}
+      <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '0 auto clamp(26px,3.2vw,42px)', maxWidth: 720, textAlign: 'center' }}>Most big-size shirts are small shirts stretched bigger.</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,0.95fr) minmax(0,1.05fr)', gap: 'clamp(32px,5vw,72px)', alignItems: 'center' }} className="feiri-2col">
         <window.ProblemFitFigure />
-        {/* Eyebrow and headline centred 2026-08-31 on Gilbert's call, to match the
-            Features block above. The body paragraph stays left-aligned: it is 70 words,
-            and centred long-form copy gives both edges a ragged rag, which is harder to
-            read than the consistency is worth. Same split Features already uses. */}
+        {/* The body paragraph stays left-aligned: it is 70 words, and centred long-form
+            copy gives both edges a ragged rag, which is harder to read than the
+            consistency is worth. Same split Features already uses. */}
         <div className="feiri-standard-copy">
-          <Eyebrow center color="var(--gold)">The FEIRI standard</Eyebrow>
-          <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), margin: '18px 0 14px', textAlign: 'center' }}>Most big-size shirts are small shirts stretched bigger.</h2>
           <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.65, marginBottom: 0, maxWidth: 520, marginInline: 'auto' }}>
             One pattern gets drawn for a medium, then every measurement grows by the same percentage to make the big sizes. Bodies do not change shape that way. That is why the hem rides up when you sit, why the shoulder seam ends up somewhere down your arm, and why the collar goes soft after a few washes.
             <br /><br />
