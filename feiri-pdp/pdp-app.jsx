@@ -2,6 +2,9 @@
 // FEIRI PDP — app shell, chrome, state, tweaks, assembly.
 const { sc, sans, Icon, Mono, money } = window;
 const { useTweaks } = window;
+// pdp-sections-a registers Btn on window and runs before this file, per the load
+// order in build/build.mjs. Same pattern as pdp-sections-b's `Btn2`.
+const Btn = window.Btn;
 const D = window.PDP_DATA;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -16,7 +19,7 @@ const MOODS = {
 
 function Footer() {
   return (
-    <footer style={{ background: 'var(--panel-2)', borderTop: '1px solid var(--hair)' }}>
+    <footer id="site-footer" style={{ background: 'var(--panel-2)', borderTop: '1px solid var(--hair)' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: 'clamp(56px,7vw,88px) var(--gutter) 40px' }}>
         <div>
           <img src="feiri-pdp/assets/lockup-navy.svg" alt="FEIRI Milano" style={{ height: 48, marginBottom: 18 }} />
@@ -67,12 +70,19 @@ function AnnouncementBar() {
 // carries a WhatsApp link directly under the button. So it earns its place in the
 // middle of the page, where a man is deciding, and gets out of the way at the two
 // points where he is acting.
-function WhatsAppFab() {
+// Was two identical IntersectionObservers once the sticky bar arrived, both watching
+// the same elements for the same answer. One observer, one answer, both consumers.
+// The footer joined the list on 2026-09-04: without it the sticky bar sits over the
+// footer for the whole of the last screen, covering the payment row and the company line.
+function useChromeHidden() {
   // Starts hidden: the hero is on screen at load, so anything else is a flash.
   const [hidden, setHidden] = React.useState(true);
-
   React.useEffect(() => {
-    const targets = [document.getElementById('buy'), document.querySelector('.feiri-hero-section')].filter(Boolean);
+    const targets = [
+      document.getElementById('buy'),
+      document.querySelector('.feiri-hero-section'),
+      document.getElementById('site-footer'),
+    ].filter(Boolean);
     if (!targets.length || typeof IntersectionObserver === 'undefined') { setHidden(false); return; }
     const onScreen = new Map();
     const io = new IntersectionObserver((entries) => {
@@ -82,11 +92,38 @@ function WhatsAppFab() {
     targets.forEach(t => io.observe(t));
     return () => io.disconnect();
   }, []);
+  return hidden;
+}
 
+function WhatsAppFab({ hidden, raised }) {
   return (
-    <a className={'feiri-wa-fab' + (hidden ? ' is-hidden' : '')} href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" aria-label="Message FEIRI Milano on WhatsApp" aria-hidden={hidden} tabIndex={hidden ? -1 : 0}>
+    <a className={'feiri-wa-fab' + (hidden ? ' is-hidden' : '') + (raised ? ' is-raised' : '')} href="https://wa.me/message/RBOA6UZAMVSWC1" target="_blank" rel="noopener" aria-label="Message FEIRI Milano on WhatsApp" aria-hidden={hidden} tabIndex={hidden ? -1 : 0}>
       <Icon name="whatsapp" size={27} color="#FFFFFF" />
     </a>
+  );
+}
+
+// The persistent way to buy. See the CSS note for the measurement that produced it:
+// the buy block starts at 70.6% of a 21,414px page on a phone, and most visitors
+// never got that far.
+//
+// It says exactly what the buy button says, because a second CTA with its own wording
+// is a second offer. Size chosen: "Buy your 5XL. R1,899", and it goes straight to the
+// store with the variant. No size chosen: "Select your size", and it scrolls to the
+// block where he picks one. Same handler, same words, one page.
+function StickyBuyBar({ product, color, size, onAdd, hidden }) {
+  return (
+    <div className={'feiri-sticky' + (hidden ? ' is-hidden' : '')} aria-hidden={hidden}>
+      <div className="feiri-sticky-meta">
+        <p className="feiri-sticky-price">{money(product.price)}</p>
+        <p className="feiri-sticky-sub">{color.name}{size ? ` · ${size}` : ''}</p>
+      </div>
+      {/* `visibility: hidden` on the wrapper takes this out of the tab order and out of
+          hit-testing on its own, which is how the WhatsApp FAB already does it. */}
+      <Btn variant="accent" size="md" onClick={onAdd} className="feiri-sticky-cta">
+        {size ? `Buy your ${size}` : 'Select your size'}
+      </Btn>
+    </div>
   );
 }
 
@@ -105,6 +142,20 @@ function App() {
   const [bag, setBag] = React.useState(0);
   const [toast, setToast] = React.useState(false);
   const buyRef = React.useRef(null);
+  const chromeHidden = useChromeHidden();
+
+  // One lightbox for the whole page: the hero photograph and the featured review's
+  // photographs both open it. `images` is a plain array of srcs, `index` is null when
+  // it is closed.
+  const [lb, setLb] = React.useState({ images: [], index: null });
+  const closeLb = React.useCallback(() => setLb(s => ({ ...s, index: null })), []);
+  const setLbIndex = React.useCallback((i) => setLb(s => ({ ...s, index: i })), []);
+  // The hero photograph leads, then the rest of that colourway. Black & Sand lists its
+  // hero inside `gallery` and Cream & Blue does not, so filter rather than assume.
+  const openHeroGallery = React.useCallback((c) => {
+    setLb({ images: [c.hero, ...(c.gallery || []).filter(g => g !== c.hero)], index: 0 });
+  }, []);
+  const openPhotos = React.useCallback((images, index) => setLb({ images, index }), []);
 
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
 
@@ -172,12 +223,12 @@ function App() {
     <div data-theme="dark" style={rootStyle}>
       <AnnouncementBar />
       <main>
-        <window.HeroSection product={D.product} color={color} onBuy={scrollToFeatures} />
+        <window.HeroSection product={D.product} color={color} onBuy={scrollToFeatures} onOpenGallery={openHeroGallery} />
         <window.StandardSection />
         <window.FeaturesSection features={D.features} />
         <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
         <window.CompareSection compare={D.compare} />
-        <window.OwnersSection />
+        <window.OwnersSection review={D.featuredReview} onOpenPhoto={openPhotos} />
         <window.LookbookSection />
         <window.TrustSection />
         <window.VideoSection />
@@ -190,7 +241,9 @@ function App() {
         <window.CrossSellSection product={D.product} color={color} setColor={setColor} onBuy={goToProduct} />
       </main>
       <Footer />
-      <WhatsAppFab />
+      <StickyBuyBar product={D.product} color={color} size={size} onAdd={onAdd} hidden={chromeHidden} />
+      <WhatsAppFab hidden={chromeHidden} raised={!chromeHidden} />
+      <window.Lightbox images={lb.images} index={lb.index} onClose={closeLb} onIndex={setLbIndex} />
       <Toast show={toast} label={`Added. ${color.name}, ${size || ''}`} />
     </div>
   );
@@ -207,6 +260,10 @@ function App() {
     'FeaturesSection', 'StandardSection', 'HeritageSection', 'CompareSection', 'TestimonialsSection',
     'UrgencySection', 'BuySection', 'TrustRowSection', 'GuaranteeSection',
     'FAQSection', 'CrossSellSection', 'PDP_DATA', 'useTweaks',
+    // Lightbox comes from pdp-parts, Btn from pdp-sections-a. Listed for the same
+    // reason as the rest: if this pass fires before those IIFEs have run, rendering
+    // them throws "Element type is invalid".
+    'Lightbox', 'Btn',
   ];
   const ready = required.every(k => typeof window[k] !== 'undefined');
   if (!ready) { requestAnimationFrame(mountWhenReady); return; }

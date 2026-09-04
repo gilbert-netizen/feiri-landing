@@ -20,6 +20,12 @@ const ICONS = {
   scissors: '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>',
   'rotate-ccw': '<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>',
   search: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+  // Added 2026-09-04 for the lightbox. Icon() renders ICONS[name] || '' — a name
+  // that is not in this map produces a silent empty <svg>, so a missing arrow is an
+  // invisible button rather than an error. Check the name is here before using it.
+  'chevron-left': '<polyline points="15 18 9 12 15 6"/>',
+  'chevron-right': '<polyline points="9 18 15 12 9 6"/>',
+  maximize: '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>',
   user: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
   'shopping-bag': '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',
   instagram: '<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>',
@@ -99,5 +105,77 @@ window.Marquee = function Marquee({ items, ground = 'var(--navy-deep)', color = 
 // en-US grouping on purpose: the store and every hardcoded line on the page write
 // R1,899. en-ZA renders 'R 1 899', which disagreed with the rest of the page.
 window.money = (n) => 'R' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+
+// Lightbox. Added 2026-09-04 to answer a measured dead click: Clarity's week to
+// 2026-09-04 recorded 18 taps on the hero photograph (the second most-tapped element
+// on the page, 4.63% of all taps) against an <img> with no handler on it. A man
+// looking at a R1,899 garment taps the picture to look closer, and nothing happened.
+//
+// Shared deliberately: the hero uses it for the colourway gallery and the featured
+// review uses it for the buyer's own photographs, so tapping any photograph on this
+// page does the one thing a tap on a photograph should do.
+window.Lightbox = function Lightbox({ images, index, onClose, onIndex }) {
+  const closeRef = React.useRef(null);
+  const open = index !== null && index >= 0 && images && images.length > 0;
+
+  React.useEffect(() => {
+    if (!open) return;
+    const previouslyFocused = document.activeElement;
+    // Focus the close control so Esc and Tab have somewhere sane to start, and so a
+    // screen reader lands inside the dialog rather than behind it.
+    if (closeRef.current) closeRef.current.focus();
+    const onKey = (e) => {
+      if (e.key === 'Escape') { onClose(); return; }
+      if (images.length < 2) return;
+      if (e.key === 'ArrowRight') onIndex((index + 1) % images.length);
+      if (e.key === 'ArrowLeft') onIndex((index - 1 + images.length) % images.length);
+    };
+    // The page behind must not scroll while this is up. Restoring the exact previous
+    // value rather than clearing it, in case something else ever sets it.
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+      if (previouslyFocused && previouslyFocused.focus) previouslyFocused.focus();
+    };
+  }, [open, index, images, onClose, onIndex]);
+
+  if (!open) return null;
+  const many = images.length > 1;
+  const arrow = (dir) => (
+    <button
+      type="button"
+      aria-label={dir === 1 ? 'Next photograph' : 'Previous photograph'}
+      onClick={(e) => { e.stopPropagation(); onIndex((index + dir + images.length) % images.length); }}
+      className="feiri-lb-arrow"
+      style={{ [dir === 1 ? 'right' : 'left']: 'clamp(8px,2vw,20px)' }}
+    >
+      <window.Icon name={dir === 1 ? 'chevron-right' : 'chevron-left'} size={26} color="#FAF0D6" />
+    </button>
+  );
+
+  return (
+    <div className="feiri-lb" role="dialog" aria-modal="true" aria-label="Photograph" onClick={onClose}>
+      <button ref={closeRef} type="button" aria-label="Close" onClick={onClose} className="feiri-lb-close">
+        <window.Icon name="x" size={24} color="#FAF0D6" />
+      </button>
+      {many && arrow(-1)}
+      <img
+        src={images[index]}
+        alt=""
+        className="feiri-lb-img"
+        onClick={(e) => e.stopPropagation()}
+      />
+      {many && arrow(1)}
+      {many && (
+        <div className="feiri-lb-count" style={{ ...window.sans(13, 'rgba(250,240,214,0.8)') }}>
+          {index + 1} / {images.length}
+        </div>
+      )}
+    </div>
+  );
+};
 
 Object.assign(window, { _F });

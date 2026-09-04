@@ -278,6 +278,164 @@
       .feiri-wa-fab { transition: none; }
       .feiri-wa-fab:hover, .feiri-wa-fab:active { transform: none; }
     }
+    /* Lifted clear of the sticky buy bar when that bar is up. Both appear under the
+       same condition, so without this the FAB sits on top of the buy button — the
+       exact collision QC measured on 2026-08-24, where a thumb on the right of the
+       CTA opened WhatsApp instead. */
+    .feiri-wa-fab.is-raised { bottom: calc(var(--feiri-sticky-h, 74px) + 14px); }
+    @media (min-width: 721px) {
+      .feiri-wa-fab.is-raised { bottom: calc(var(--feiri-sticky-h, 74px) + 20px); }
+    }
+
+    /* --- Hero: the photograph is tappable ---
+       Fills the media box and carries no z-index on purpose. .feiri-hero-copy and the
+       CTA block are later siblings of .feiri-hero-media and are positioned, so DOM
+       order keeps them above this. Adding a z-index here would steal taps from the
+       "See how it fits" button. */
+    .feiri-hero-tap {
+      position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+      padding: 0; margin: 0; border: 0; background: transparent;
+      cursor: zoom-in; -webkit-tap-highlight-color: transparent;
+    }
+    .feiri-hero-tap:focus-visible { outline: 3px solid var(--gold); outline-offset: -6px; }
+    .feiri-hero-tap-pill {
+      position: absolute; right: 14px; bottom: 14px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 14px; border-radius: 999px;
+      background: rgba(6,18,26,0.58);
+      -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+      border: 1px solid rgba(250,240,214,0.28);
+      font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+      color: #FAF0D6; letter-spacing: 0.03em; white-space: nowrap;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .feiri-hero-tap:hover .feiri-hero-tap-pill { background: rgba(6,18,26,0.76); transform: translateY(-1px); }
+    @media (min-width: 721px) {
+      .feiri-hero-tap-pill { right: 22px; bottom: 22px; }
+    }
+
+    /* --- Lightbox --- */
+    .feiri-lb {
+      position: fixed; inset: 0; z-index: 90;
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(12px, 4vw, 48px);
+      background: rgba(6,18,26,0.94);
+      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+      animation: feiri-lb-in .18s ease-out;
+    }
+    @keyframes feiri-lb-in { from { opacity: 0; } to { opacity: 1; } }
+    .feiri-lb-img {
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto; object-fit: contain;
+      border-radius: 10px; display: block;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    /* Dark scrim rather than a light one. These controls sit ON the photograph at
+       390px, and most of this product's photography is shot on a white studio wall,
+       where a translucent cream button is invisible. Dark reads on both grounds. */
+    .feiri-lb-close, .feiri-lb-arrow {
+      position: absolute; display: inline-flex; align-items: center; justify-content: center;
+      width: 46px; height: 46px; border-radius: 999px; cursor: pointer;
+      background: rgba(6,18,26,0.66); border: 1px solid rgba(250,240,214,0.38);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      transition: background .18s ease;
+    }
+    .feiri-lb-close:hover, .feiri-lb-arrow:hover { background: rgba(6,18,26,0.84); }
+    .feiri-lb-close:focus-visible, .feiri-lb-arrow:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .feiri-lb-close { top: clamp(12px, 3vw, 26px); right: clamp(12px, 3vw, 26px); }
+    .feiri-lb-arrow { top: 50%; transform: translateY(-50%); }
+    .feiri-lb-count { position: absolute; bottom: clamp(14px, 3vw, 28px); left: 50%; transform: translateX(-50%); }
+    @media (prefers-reduced-motion: reduce) {
+      .feiri-lb { animation: none; }
+      .feiri-lb-close, .feiri-lb-arrow, .feiri-hero-tap-pill { transition: none; }
+      .feiri-hero-tap:hover .feiri-hero-tap-pill { transform: none; }
+    }
+
+    /* --- The featured review, inside the owners grid ---
+       Full width at every breakpoint. The grid runs 6 / 3 / 2 columns, so a single
+       column is ~180px on desktop and ~175px at 390px, and review copy does not
+       survive being set that narrow. */
+    .feiri-owner-review {
+      grid-column: 1 / -1; margin: 0 0 8px;
+      background: var(--panel); border: 1px solid var(--hair);
+      border-radius: 12px; padding: clamp(22px, 3.4vw, 34px);
+    }
+    .feiri-owner-review-head {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .feiri-owner-review-verified {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+    }
+    /* The card is full-bleed across the grid, but the prose must not be. At 1440 the
+       card is 1240px wide, which sets this review at roughly 130 characters a line.
+       Capping the measure leaves the card wide and the reading comfortable. */
+    .feiri-owner-review-body { margin: 16px 0 0; padding: 0; border: 0; max-width: 70ch; }
+    .feiri-owner-review-photos { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .feiri-owner-review-photos button {
+      padding: 0; border: 1px solid var(--hair); border-radius: 9px; overflow: hidden;
+      cursor: zoom-in; background: #000; width: 84px; height: 112px; flex: 0 0 auto;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .feiri-owner-review-photos button:hover { transform: translateY(-2px); border-color: var(--gold); }
+    .feiri-owner-review-photos button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .feiri-owner-review-photos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .feiri-owner-review-foot {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--hair);
+    }
+    @media (min-width: 861px) {
+      .feiri-owner-review-photos button { width: 96px; height: 128px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .feiri-owner-review-photos button { transition: none; }
+      .feiri-owner-review-photos button:hover { transform: none; }
+    }
+
+    /* --- Sticky buy bar ---
+       Added 2026-09-04. Measured cause: at 390px this page is 21,414px tall and the
+       buy block does not start until 15,116px, which is 70.6% of the document. Clarity
+       for the week to 2026-09-04 put most visitors under 50% depth and only 11 to 14%
+       at the bottom, so the majority never had a purchase control on screen at all.
+       It stands down over the hero, over the buy block itself and over the footer. */
+    .feiri-sticky {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px var(--gutter);
+      padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      background: var(--panel-2); border-top: 1px solid var(--hair);
+      box-shadow: 0 -10px 30px rgba(20,24,28,0.13);
+      transition: transform .28s ease, opacity .28s ease, visibility .28s ease;
+    }
+    .feiri-sticky.is-hidden {
+      opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(100%);
+    }
+    .feiri-sticky-meta { min-width: 0; flex: 1 1 auto; }
+    .feiri-sticky-price {
+      font-family: var(--font-serif); font-variant: small-caps; font-weight: 600;
+      font-size: 21px; line-height: 1.1; color: var(--cream); margin: 0;
+    }
+    /* --cream-dim, not --muted. Measured 2026-09-04: --muted (rgba(20,24,28,0.5)) on
+       --panel-2 is 3.27:1 and fails the 4.5:1 AA floor for body text. --cream-dim
+       clears it. 🚩 --muted carries text in several older places on this page and
+       fails there too; those are logged as a defect rather than changed here. */
+    .feiri-sticky-sub {
+      font-family: var(--font-sans); font-size: 13px; color: var(--cream-dim);
+      margin: 2px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .feiri-sticky-cta {
+      flex: 0 0 auto; max-width: 62%;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    @media (min-width: 721px) {
+      .feiri-sticky { gap: 22px; padding: 14px var(--gutter); }
+      .feiri-sticky-price { font-size: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .feiri-sticky { transition: none; }
+    }
   </style>
 
   <!-- React 18 production (self-hosted; no third-party CDN on the critical path) -->
@@ -297,6 +455,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.e64ca251.js"></script>
+  <script src="feiri-pdp/app.d42916d8.js"></script>
 </body>
 </html>

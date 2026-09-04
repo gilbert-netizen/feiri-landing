@@ -56,7 +56,7 @@ const Btn = window.Btn;
    Layout: image and copy are separated (stacked on mobile, two columns on desktop)
    because the old overlay hid the garment behind the headline, and the garment sitting
    properly on a bigger man IS the argument. */
-window.HeroSection = function HeroSection({ product, color, onBuy }) {
+window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery }) {
   const lines = [
     'Made only in 3XL to 6XL.',
     'A polo that does not ride up when you sit and a seam that sits on your shoulder, not down your arm.',
@@ -65,9 +65,31 @@ window.HeroSection = function HeroSection({ product, color, onBuy }) {
     <section data-screen-label="Hero" className="feiri-hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>
       <div className="feiri-hero-media">
         {product.colors.map(c => (
-          <img key={c.key} src={c.hero} alt="" className="feiri-hero-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
+          /* alt was empty until 2026-09-04. This is the product, not decoration, and on
+             a metered connection in this market the alt text is what he actually reads
+             when the photograph does not arrive. */
+          <img key={c.key} src={c.hero} alt={`${product.name} in ${c.name}, worn`} className="feiri-hero-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
         ))}
         <div className="feiri-hero-scrim-bottom" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
+        {/* The hero photograph was the second most-tapped element on the page in the
+            week to 2026-09-04 (18 taps, 4.63%) and had no handler on it. It opens the
+            colourway's gallery now.
+
+            Deliberately the LAST child of .feiri-hero-media and carrying no z-index:
+            .feiri-hero-copy and the CTA block are later siblings of the media and also
+            positioned, so DOM order keeps them painting above this. Give this a
+            z-index and it starts eating taps meant for "See how it fits". */}
+        <button
+          type="button"
+          className="feiri-hero-tap"
+          onClick={() => onOpenGallery(color)}
+          aria-label={`Look closer at the ${color.name} polo`}
+        >
+          <span className="feiri-hero-tap-pill" aria-hidden="true">
+            <Icon name="maximize" size={15} color="#FAF0D6" />
+            <span>Look closer</span>
+          </span>
+        </button>
       </div>
       <div className="feiri-hero-copy" style={{ position: 'absolute', top: 'clamp(72px,13vw,132px)', right: 'var(--gutter)', maxWidth: 420, textAlign: 'right' }}>
         <h1 className="feiri-hero-heading" style={{ ...sc('clamp(1.9rem,3vw,2.75rem)', '#14181C'), marginBottom: 14 }}>{lines[0]}</h1>
@@ -119,7 +141,7 @@ function useRevealOnScroll() {
 // Sells the life rather than certifying the photographs. "The FEIRI man" is a label a
 // cold reader has never met, so the headline defines him in the same breath by the
 // thing he no longer does, and the body gives a stranger three concrete occasions.
-window.OwnersSection = function OwnersSection() {
+window.OwnersSection = function OwnersSection({ review, onOpenPhoto }) {
   const owners = [
     { src: 'feiri-pdp/assets/owners/o1.jpg', tag: 'The Ivy Luxe' },
     { src: 'feiri-pdp/assets/owners/o5.jpg', tag: 'Cape Winelands' },
@@ -139,6 +161,61 @@ window.OwnersSection = function OwnersSection() {
         </p>
       </div>
       <div className="feiri-owners-grid" ref={gridRef}>
+        {/* The featured review, added 2026-09-04 on Gilbert's brief ("could we not make
+            one of the cards a review card"). It leads the grid rather than closing it:
+            Clarity's week to 2026-09-04 showed only 11 to 14% of visitors reach the
+            bottom of this page, so proof that sits last is proof most of them never see.
+
+            It spans the full grid width at every breakpoint. The grid is 6 / 3 / 2
+            columns, so a single-column tile is roughly 180px wide on desktop and 175px
+            on a 390px phone, and a review does not survive being set that narrow.
+
+            This section already claims "worn by the FEIRI man". This is the one piece of
+            evidence on the page where that man says it himself and shows his own
+            photographs, so it belongs here rather than in the Testimonials grid, where
+            it would be one more text card among seven. */}
+        {review && (
+          <figure className="feiri-owner-review feiri-reveal">
+            <div className="feiri-owner-review-head">
+              <Stars value={5} size={15} />
+              {review.verified && (
+                <span className="feiri-owner-review-verified">
+                  <Icon name="check-circle" size={14} color="var(--gold)" />
+                  <span>Verified buyer</span>
+                </span>
+              )}
+            </div>
+            <h3 style={{ ...sc(24, 'var(--cream)'), margin: '14px 0 0' }}>{review.title}</h3>
+            <blockquote className="feiri-owner-review-body">
+              {review.body.split('\n\n').map((para, i) => (
+                <p key={i} style={{ ...sans(17, 'var(--cream)'), lineHeight: 1.62, margin: i === 0 ? 0 : '14px 0 0' }}>
+                  {i === 0 ? '“' : ''}{para}{i === review.body.split('\n\n').length - 1 ? '”' : ''}
+                </p>
+              ))}
+            </blockquote>
+            {review.photos && review.photos.length > 0 && (
+              <div className="feiri-owner-review-photos">
+                {review.photos.map((p, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => onOpenPhoto(review.photos.map(x => x.full), i)}
+                    aria-label={`Open photograph ${i + 1} of ${review.photos.length} from this buyer`}
+                  >
+                    <img src={p.thumb} alt={`Photograph ${i + 1} of ${review.photos.length}, sent in by the buyer who left this review`} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
+            {/* The owner cards put a monogram in their caption. It was here too and came
+                out: at the 14px that fits this row the lockup is unreadable, so it was
+                noise standing where the attribution should be. */}
+            <figcaption className="feiri-owner-review-foot">
+              <span style={{ ...sans(15, 'var(--cream)'), fontWeight: 600 }}>{review.name}</span>
+              <span style={{ ...sans(13, 'var(--cream-dim)') }}>· {review.location}</span>
+            </figcaption>
+          </figure>
+        )}
         {owners.map((o, i) => (
           <figure key={i} className="feiri-owner-card feiri-reveal" style={{ margin: 0, position: 'relative', borderRadius: 11, overflow: 'hidden', border: '1px solid var(--hair)', background: '#000', boxShadow: '0 18px 44px rgba(0,0,0,0.45)', transitionDelay: `${(i % 3) * 280}ms` }}>
             <div style={{ aspectRatio: '3 / 4', overflow: 'hidden' }}>

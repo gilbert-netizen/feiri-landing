@@ -71,8 +71,20 @@ window.PDP_DATA = {
   // 7 — Testimonials. VERBATIM customer words. Do not edit these to satisfy the
   // no-em-dash rule; that rule governs copy we write, and gate 7 (facts right)
   // outranks it. Getting real names and cities is an open item.
+  // "Out of this world" used to sit here as testimonials[0]. It was moved to
+  // `featuredReview` below on 2026-09-04 and is now rendered once, in the Owners
+  // grid, in full and with the buyer's own two photographs.
+  //
+  // 🚩 It was also CONDENSED here, despite the VERBATIM instruction above. Three
+  // things had been cut, and one of them was the strongest line in all seven
+  // reviews: "If there's any hesitation to click purchase...trust me just do it."
+  // That is an objection handler in a buyer's own voice and the page was throwing
+  // it away. The text in `featuredReview` is the Fera record word for word, pulled
+  // from the store's own review API on 2026-09-04 (review frev_3jU9gCsy).
+  //
+  // The count stays at 7 and stays honest: 6 in this grid plus the featured one.
+  // **Do not "fix" this back to 7 entries here** — that reintroduces the duplicate.
   testimonials: [
-    { name: 'Anonymous', body: 'I’m not exaggerating, the confidence this top brings out of you is crazy. I’ve never had a better fitment in all my life. The quality goes crazy, you feel it instantly when you pick it up. As a fellow big guy, we deserve to be stylish too.', size: 'South Africa', title: 'Out of this world' },
     { name: 'Kabelo S.', body: 'I’ve never felt this confident in clothes before.', size: 'Johannesburg', title: '' },
     { name: 'Thabo K.', body: 'Luxury clothing that actually fits my body properly.', size: 'Durban', title: '' },
     { name: 'Sipho M.', body: 'Finally a brand that understands bigger guys. The fit is perfect.', size: 'Cape Town', title: '' },
@@ -85,6 +97,36 @@ window.PDP_DATA = {
     // a tidied one.
     { name: 'Big Jim', body: 'Im sooooo in love with my Shirt! Definately recommend.', size: 'Verified buyer', title: '' },
   ],
+
+  // 7b — The featured review. VERBATIM, from Fera review `frev_3jU9gCsy`, read from
+  // the store's own public review API on 2026-09-04. is_verified: true, rated 5,
+  // submitted 2026-06-17, on the Black & Sand polo.
+  //
+  // It earns a card of its own for one reason: it is the only review on the brand
+  // that answers the page's central question in a buyer's own words ("I've never had
+  // a better fitment in all my life") AND comes with photographs of the man wearing
+  // it. Everything else on this page arguing that the polo fits is the seller talking.
+  //
+  // The two photographs are his, downloaded from Fera and served from our own origin
+  // rather than hotlinked: a third-party CDN on the critical path is exactly what
+  // build.mjs exists to avoid, and this market pays for its own data.
+  // Originals were 2316x3088 at 1.5MB and 2.1MB. Served at 900x1200, with a separate
+  // 400px thumbnail so the card costs ~93KB and the full file loads only on a tap.
+  //
+  // Fera returns no customer name or location on this record, so "Anonymous" and
+  // "South Africa" are Fera's own display values, matching the store. Do not invent
+  // a name for him.
+  featuredReview: {
+    title: 'Out of this world',
+    body: 'I’m not even exaggerating about my summary, the confidence this top brings out of You is crazy. I’ve never had a better fitment in all my life. The quality goes crazy you feel it instantly when you pick it up.\n\nIf there’s any hesitation to click purchase…trust me just do it. As a fellow Big Guy we deserve to be stylish too.\n\n@Feiri I can’t wait to see what you guys bring out next cause I need more.',
+    name: 'Anonymous',
+    location: 'South Africa',
+    verified: true,
+    photos: [
+      { thumb: 'feiri-pdp/assets/reviews/owner-review-1-thumb.jpg', full: 'feiri-pdp/assets/reviews/owner-review-1.jpg' },
+      { thumb: 'feiri-pdp/assets/reviews/owner-review-2-thumb.jpg', full: 'feiri-pdp/assets/reviews/owner-review-2.jpg' },
+    ],
+  },
 
   // 10 — trust row. Delivery figures are the store's own.
   trust: [
