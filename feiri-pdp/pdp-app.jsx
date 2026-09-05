@@ -164,13 +164,17 @@ function App() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
-  // The hero button says "See how it fits", and until 2026-08-31 it scrolled to the
-  // Lookbook because the Lookbook was the next gallery down. The resequence moved the
-  // Lookbook below Compare, five sections deeper, so the same button would now jump a
-  // cold visitor clean over the entire fit argument. It points at Features instead,
-  // which is the section that actually answers the promise on the button.
-  const scrollToFeatures = () => {
-    const el = document.getElementById('features');
+  // The hero button says "See how it fits". It pointed at the Lookbook until 2026-08-31,
+  // then at Features. On 2026-09-04 the proof deck replaced Features and took #features
+  // off the page with it, which would have left the most-tapped element on the page
+  // (57 taps, 14.65% of all taps in the week to 2026-09-04) scrolling to an element that
+  // no longer exists and silently doing nothing.
+  //
+  // It points at #proof, which is now the section that actually answers the promise on
+  // the button, and it falls back to #features so the button still works if the Features
+  // grid is ever restored.
+  const scrollToProof = () => {
+    const el = document.getElementById('proof') || document.getElementById('features');
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
     return;
   };
@@ -223,12 +227,21 @@ function App() {
     <div data-theme="dark" style={rootStyle}>
       <AnnouncementBar />
       <main>
-        <window.HeroSection product={D.product} color={color} onBuy={scrollToFeatures} onOpenGallery={openHeroGallery} />
+        <window.HeroSection product={D.product} color={color} onBuy={scrollToProof} onOpenGallery={openHeroGallery} />
         <window.StandardSection />
-        <window.FeaturesSection features={D.features} />
+        {/* The proof deck REPLACES the Features grid here, on Gilbert's brief 2026-09-04.
+            FeaturesSection and D.features are deliberately left in place, defined and
+            unrendered, so the four blocks and their measurements (9cm collar rib, 93cm
+            body, 57cm shoulder, 25cm armhole) are one line from coming back. Do not
+            delete them without reading 06-builds/2026-09-04-scope-proof-deck.md first.
+
+            StandardSection stays. It names the problem; the deck answers it. It was also
+            rebuilt three times in the week to 2026-08-31, and removing it now would throw
+            away the ability to read that work. */}
+        <window.ProofDeckSection proof={D.proof} review={D.featuredReview} measure={D.measure} onOpenPhoto={openPhotos} />
         <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
         <window.CompareSection compare={D.compare} />
-        <window.OwnersSection review={D.featuredReview} onOpenPhoto={openPhotos} />
+        <window.OwnersSection />
         <window.LookbookSection />
         <window.TrustSection />
         <window.VideoSection />
@@ -259,7 +272,7 @@ function App() {
     'Section', 'HeroSection', 'OwnersSection', 'TrustSection', 'VideoSection', 'LookbookSection',
     'FeaturesSection', 'StandardSection', 'HeritageSection', 'CompareSection', 'TestimonialsSection',
     'UrgencySection', 'BuySection', 'TrustRowSection', 'GuaranteeSection',
-    'FAQSection', 'CrossSellSection', 'PDP_DATA', 'useTweaks',
+    'FAQSection', 'CrossSellSection', 'ProofDeckSection', 'PDP_DATA', 'useTweaks',
     // Lightbox comes from pdp-parts, Btn from pdp-sections-a. Listed for the same
     // reason as the rest: if this pass fires before those IIFEs have run, rendering
     // them throws "Element type is invalid".

@@ -3,16 +3,12 @@
 const { sc: _sc, sans: _sans, Icon: _Icon, Stars: _Stars, Eyebrow: _Eyebrow, Mono: _Mono, Section: _Section, money: _money } = window;
 const Btn2 = window.Btn;
 
-// Measured flat, in centimetres, 1cm to 2cm tolerance. Source: the FEIRI size guide
-// on the Shopify PDP, verified 2026-08-10. These five decide the purchase; the full
-// guide (armhole, bicep, cuff, neck) stays on the store.
-const MEASURE = [
-  ['Chest, flat', 76, 80, 84, 88],
-  ['Body length', 91, 93, 95, 97],
-  ['Shoulder', 54, 57, 60, 63],
-  ['Sleeve length', 26, 27, 28, 29],
-  ['Hem, flat', 70, 74, 78, 82],
-];
+// Moved into pdp-data.jsx on 2026-09-04. The proof deck renders the same table, and two
+// hardcoded copies of the numbers a man buys on is exactly how they drift apart.
+// pdp-data loads before this file, so reading it at module level is safe.
+// These five decide the purchase; the full guide (armhole, bicep, cuff, neck) stays on
+// the store.
+const MEASURE = window.PDP_DATA.measure;
 
 /* 8 — FINAL RELEASE. Installs the last rung (my size is the one that runs out)
    immediately before the buy box. No counter: the old one was hardcoded to 27 for

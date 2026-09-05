@@ -141,7 +141,7 @@ function useRevealOnScroll() {
 // Sells the life rather than certifying the photographs. "The FEIRI man" is a label a
 // cold reader has never met, so the headline defines him in the same breath by the
 // thing he no longer does, and the body gives a stranger three concrete occasions.
-window.OwnersSection = function OwnersSection({ review, onOpenPhoto }) {
+window.OwnersSection = function OwnersSection() {
   const owners = [
     { src: 'feiri-pdp/assets/owners/o1.jpg', tag: 'The Ivy Luxe' },
     { src: 'feiri-pdp/assets/owners/o5.jpg', tag: 'Cape Winelands' },
@@ -161,61 +161,6 @@ window.OwnersSection = function OwnersSection({ review, onOpenPhoto }) {
         </p>
       </div>
       <div className="feiri-owners-grid" ref={gridRef}>
-        {/* The featured review, added 2026-09-04 on Gilbert's brief ("could we not make
-            one of the cards a review card"). It leads the grid rather than closing it:
-            Clarity's week to 2026-09-04 showed only 11 to 14% of visitors reach the
-            bottom of this page, so proof that sits last is proof most of them never see.
-
-            It spans the full grid width at every breakpoint. The grid is 6 / 3 / 2
-            columns, so a single-column tile is roughly 180px wide on desktop and 175px
-            on a 390px phone, and a review does not survive being set that narrow.
-
-            This section already claims "worn by the FEIRI man". This is the one piece of
-            evidence on the page where that man says it himself and shows his own
-            photographs, so it belongs here rather than in the Testimonials grid, where
-            it would be one more text card among seven. */}
-        {review && (
-          <figure className="feiri-owner-review feiri-reveal">
-            <div className="feiri-owner-review-head">
-              <Stars value={5} size={15} />
-              {review.verified && (
-                <span className="feiri-owner-review-verified">
-                  <Icon name="check-circle" size={14} color="var(--gold)" />
-                  <span>Verified buyer</span>
-                </span>
-              )}
-            </div>
-            <h3 style={{ ...sc(24, 'var(--cream)'), margin: '14px 0 0' }}>{review.title}</h3>
-            <blockquote className="feiri-owner-review-body">
-              {review.body.split('\n\n').map((para, i) => (
-                <p key={i} style={{ ...sans(17, 'var(--cream)'), lineHeight: 1.62, margin: i === 0 ? 0 : '14px 0 0' }}>
-                  {i === 0 ? '“' : ''}{para}{i === review.body.split('\n\n').length - 1 ? '”' : ''}
-                </p>
-              ))}
-            </blockquote>
-            {review.photos && review.photos.length > 0 && (
-              <div className="feiri-owner-review-photos">
-                {review.photos.map((p, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => onOpenPhoto(review.photos.map(x => x.full), i)}
-                    aria-label={`Open photograph ${i + 1} of ${review.photos.length} from this buyer`}
-                  >
-                    <img src={p.thumb} alt={`Photograph ${i + 1} of ${review.photos.length}, sent in by the buyer who left this review`} loading="lazy" />
-                  </button>
-                ))}
-              </div>
-            )}
-            {/* The owner cards put a monogram in their caption. It was here too and came
-                out: at the 14px that fits this row the lockup is unreadable, so it was
-                noise standing where the attribution should be. */}
-            <figcaption className="feiri-owner-review-foot">
-              <span style={{ ...sans(15, 'var(--cream)'), fontWeight: 600 }}>{review.name}</span>
-              <span style={{ ...sans(13, 'var(--cream-dim)') }}>· {review.location}</span>
-            </figcaption>
-          </figure>
-        )}
         {owners.map((o, i) => (
           <figure key={i} className="feiri-owner-card feiri-reveal" style={{ margin: 0, position: 'relative', borderRadius: 11, overflow: 'hidden', border: '1px solid var(--hair)', background: '#000', boxShadow: '0 18px 44px rgba(0,0,0,0.45)', transitionDelay: `${(i % 3) * 280}ms` }}>
             <div style={{ aspectRatio: '3 / 4', overflow: 'hidden' }}>
@@ -308,6 +253,155 @@ window.FeaturesSection = function FeaturesSection({ features }) {
           carries the same instruction, in the place a buyer goes looking for it. The one
           clause unique to this paragraph, why hot washing does the damage, moved into that
           answer rather than being deleted with it. */}
+    </Section>
+  );
+};
+
+/* 3b — THE PROOF DECK. Added 2026-09-04, and it REPLACES the Features grid.
+
+   Why it exists: Clarity for the 5 days to 2026-09-04 put most visitors under 50% scroll
+   depth on a 21,414px page whose buy block starts at 70.6%. The argument was all below
+   the point where they stop. This moves what decides the purchase up to position 3.
+
+   Why it replaces rather than adds: six more cards above the buy block would have pushed
+   #buy deeper and made the measured problem worse while looking like an improvement. The
+   page must not get longer. That is checked, not assumed, in the QC sheet.
+
+   Order is the three questions in the order he asks them: what is different about it,
+   what size am I, and does a man like me say it worked. */
+window.ProofDeckSection = function ProofDeckSection({ proof, review, measure, onOpenPhoto }) {
+  const sizes = ['3XL', '4XL', '5XL', '6XL'];
+  return (
+    <Section ground="var(--ink-black)" label="Proof" id="proof">
+      <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 44px' }}>
+        <Eyebrow center color="var(--gold)">Before you pick a size</Eyebrow>
+        <h2 style={{ ...sc('clamp(2rem,3.4vw,3rem)', 'var(--cream)'), marginTop: 18, lineHeight: 1.14 }}>
+          Made only in 3XL to 6XL, so your real size is the right size.
+        </h2>
+      </div>
+
+      {/* A — the garment, with the three things that are built differently.
+          Labels are HTML over the photograph, never baked into the JPEG: at 390px the
+          frame is 350px wide and burned-in type lands near 6px. Established 2026-08-31
+          on the Standard plate. */}
+      <figure className="feiri-proof-figure">
+        <div className="feiri-proof-frame">
+          <img src="feiri-pdp/assets/proof-standing.jpg"
+            alt="A man in the Black and Sand polo, side on, the shoulder seam sitting on his shoulder and the hem sitting below his waist."
+            className="feiri-proof-img" />
+          {/* preserveAspectRatio="none" so the 0-100 viewBox maps straight onto the
+              percentage anchors on a frame that is not square. Straight lines survive
+              that stretch; stroke width would not, hence non-scaling-stroke. */}
+          <svg className="feiri-proof-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            {proof.points.map(p => (
+              <line key={p.n} x1={p.ax} y1={p.ay}
+                x2={p.side === 'left' ? p.lx + 15 : p.lx - 1} y2={p.ly + 2}
+                stroke="#7C6128" strokeWidth="1" vectorEffect="non-scaling-stroke"
+                strokeLinecap="round" opacity="0.7" />
+            ))}
+          </svg>
+          {/* Dots are HTML, not SVG circles, so the stretched viewBox cannot turn them
+              into ellipses. They show at every width and carry the number on mobile. */}
+          {proof.points.map(p => (
+            <span key={p.n} className="feiri-proof-dot" style={{ left: `${p.ax}%`, top: `${p.ay}%` }} aria-hidden="true">{p.n}</span>
+          ))}
+          {proof.points.map(p => (
+            <span key={p.n} className={`feiri-proof-label is-${p.side}`} style={{ left: `${p.lx}%`, top: `${p.ly}%` }}>{p.label}</span>
+          ))}
+        </div>
+        {/* Below 861px the labels cannot sit beside a 350px figure without landing on the
+            man, so they become a numbered list under it. Same words, same numbers. */}
+        <ol className="feiri-proof-list">
+          {proof.points.map(p => (
+            <li key={p.n}><span aria-hidden="true">{p.n}</span><p style={{ ...sans(16, 'var(--cream)'), lineHeight: 1.55, margin: 0 }}>{p.label}</p></li>
+          ))}
+        </ol>
+      </figure>
+
+      {/* B — the size question, answered where he is asking it rather than 12,000px down.
+          Live text, never a picture of a table: a five column table baked into a JPEG is
+          unreadable at 350px and this is the one thing the anxious buyer needs most. */}
+      <div className="feiri-proof-card feiri-proof-size">
+        <h3 style={{ ...sc(24, 'var(--cream)'), margin: '0 0 10px' }}>Find your size. Do not take one size up.</h3>
+        <p style={{ ...sans(17, 'var(--cream-dim)'), lineHeight: 1.6, margin: '0 0 22px', maxWidth: '62ch' }}>
+          This pattern starts at 3XL and is drawn for a broader frame, so your real size is the right
+          size. Take a polo you already own, lay it flat, and measure it. If it is shorter than the
+          body length below, you have just found the reason it rides up when you sit.
+        </p>
+        <div className="feiri-proof-table-wrap">
+          <table className="feiri-proof-table">
+            <thead>
+              <tr><th scope="col">Measured flat</th>{sizes.map(s => <th key={s} scope="col">{s}</th>)}</tr>
+            </thead>
+            <tbody>
+              {measure.map(row => (
+                <tr key={row[0]}>
+                  <th scope="row">{row[0]}</th>
+                  {row.slice(1).map((v, i) => <td key={i}>{v}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ ...sans(14, 'var(--cream-dim)'), margin: '14px 0 0' }}>
+          Centimetres, measured flat, 1cm to 2cm tolerance. Whichever chest number is closest to your
+          own polo is your size.
+        </p>
+      </div>
+
+      {/* C — the proof, from the one review that answers the page's central question in a
+          buyer's own words and comes with his own photographs. Moved here from the Owners
+          grid on 2026-09-04: proof placed at position 6 is proof most of this page's
+          visitors never reach. It renders once, here. */}
+      {review && (
+        <figure className="feiri-owner-review feiri-proof-card">
+          <div className="feiri-owner-review-head">
+            <Stars value={5} size={15} />
+            {review.verified && (
+              <span className="feiri-owner-review-verified">
+                <Icon name="check-circle" size={14} color="var(--gold)" />
+                <span>Verified buyer</span>
+              </span>
+            )}
+          </div>
+          <h3 style={{ ...sc(24, 'var(--cream)'), margin: '14px 0 0' }}>{review.title}</h3>
+          <blockquote className="feiri-owner-review-body">
+            {review.body.split('\n\n').map((para, i, all) => (
+              <p key={i} style={{ ...sans(17, 'var(--cream)'), lineHeight: 1.62, margin: i === 0 ? 0 : '14px 0 0' }}>
+                {i === 0 ? '“' : ''}{para}{i === all.length - 1 ? '”' : ''}
+              </p>
+            ))}
+          </blockquote>
+          {review.photos && review.photos.length > 0 && (
+            <div className="feiri-owner-review-photos">
+              {review.photos.map((p, i) => (
+                <button key={i} type="button"
+                  onClick={() => onOpenPhoto(review.photos.map(x => x.full), i)}
+                  aria-label={`Open photograph ${i + 1} of ${review.photos.length} from this buyer`}>
+                  <img src={p.thumb} alt={`Photograph ${i + 1} of ${review.photos.length}, sent in by the buyer who left this review`} loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+          <figcaption className="feiri-owner-review-foot">
+            <span style={{ ...sans(15, 'var(--cream)'), fontWeight: 600 }}>{review.name}</span>
+            <span style={{ ...sans(13, 'var(--cream-dim)') }}>· {review.location}</span>
+          </figcaption>
+        </figure>
+      )}
+
+      {/* D — the supporting details. One line each, each naming what its photograph
+          proves rather than what the thing is called. */}
+      <div className="feiri-proof-details">
+        {proof.details.map((d, i) => (
+          <figure key={i} className="feiri-proof-detail">
+            <div className="feiri-proof-detail-media">
+              <img src={d.img} alt={d.alt} loading="lazy" />
+            </div>
+            <figcaption style={{ ...sans(16, 'var(--cream)'), lineHeight: 1.55 }}>{d.line}</figcaption>
+          </figure>
+        ))}
+      </div>
     </Section>
   );
 };

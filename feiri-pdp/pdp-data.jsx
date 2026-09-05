@@ -56,6 +56,66 @@ window.PDP_DATA = {
       body: 'When a pattern has been stretched, the shoulder seam ends up somewhere down your arm and the sleeve drags every time you move. A 4XL FEIRI is 57cm across the shoulders and 25cm through the armhole, so the seam sits where your shoulder actually is and the sleeve is not tight around your arm.' },
   ],
 
+  // 4b — The proof deck. Added 2026-09-04 on Gilbert's brief, and it REPLACES the
+  // Features grid rather than adding to it. That distinction is the whole point:
+  // Clarity for the 5 days to 2026-09-04 showed most visitors never pass 50% depth,
+  // and #buy already sat at 70.6% of a 21,414px page. Adding six cards above the buy
+  // block without removing anything would have pushed it deeper and made the measured
+  // problem worse while feeling like an improvement.
+  //
+  // The deck answers, in order, the three things a man asks before he can buy:
+  // what is different about it, what size am I, and does a man like me say it worked.
+  //
+  // Every line here is a failure he has lived through, not an attribute. The labels it
+  // replaced read "Sand and black", "Structured collar" and "100% Cotton fabric", which
+  // named what the thing IS while the photograph was already showing him that.
+  // 🚩 "100% Cotton" was also dropped on purpose: the store makes no composition claim
+  // anywhere, so it was unverifiable. Copy Law gate 7.
+  proof: {
+    // Anchors are percentages of the standing photograph, so they hold at every width.
+    // Read off a 10% grid laid over the actual crop, not estimated.
+    // Above 760px each label sits in the clear backdrop with an SVG leader. Below it,
+    // the labels become numbered dots plus a list underneath, which is the pattern the
+    // Standard plate already proved on 2026-08-31. Type baked into the JPEG would
+    // render near 6px at 390px and is banned on this page for that reason.
+    // Read off a 5% grid laid over the actual crop on 2026-09-04. The man occupies
+    // x 27 to 58, so the clear ground is x 0-26 on the left and x 59-100 on the right.
+    // 1 and 3 sit left, 2 sits right. The shoulder label cannot go right: a leader from
+    // the shoulder to the right-hand margin runs straight across his face.
+    points: [
+      { n: 1, ax: 33, ay: 30, lx: 1,  ly: 21, side: 'left',
+        label: 'The seam sits on your shoulder, not halfway down your arm.' },
+      { n: 2, ax: 50, ay: 50, lx: 64, ly: 45, side: 'right',
+        label: 'The monogram is knitted in, not printed on, so it cannot peel.' },
+      { n: 3, ax: 35, ay: 90, lx: 1,  ly: 82, side: 'left',
+        label: 'Long enough in the body that it does not ride up when you sit.' },
+    ],
+    // The three supporting details. One line each, each naming what its photograph proves.
+    details: [
+      { img: 'feiri-pdp/assets/proof-collar.jpg',
+        alt: 'The collar and buttoned placket of the Black and Sand polo, close up.',
+        line: 'The placket is reinforced, so the buttons do not strain across your chest.' },
+      { img: 'feiri-pdp/assets/seated-hem-blue.jpg',
+        alt: 'A man seated in the Cream and Blue polo, the hem still sitting flat over his waist.',
+        line: 'Seated, the hem stays where you put it.' },
+      { img: 'feiri-pdp/assets/duo.jpg',
+        alt: 'Two men standing together, one in Cream and Blue, one in Black and Sand.',
+        line: 'Two colourways. Both cut from the same 3XL pattern.' },
+    ],
+  },
+
+  // Measured flat, in centimetres, 1cm to 2cm tolerance. Source: the FEIRI size guide on
+  // the Shopify PDP, verified 2026-08-10. Moved here from pdp-sections-b on 2026-09-04
+  // because two sections now render it: the buy block and the proof deck. One copy, so
+  // they cannot drift apart.
+  measure: [
+    ['Chest, flat', 76, 80, 84, 88],
+    ['Body length', 91, 93, 95, 97],
+    ['Shoulder', 54, 57, 60, 63],
+    ['Sleeve length', 26, 27, 28, 29],
+    ['Hem, flat', 70, 74, 78, 82],
+  ],
+
   // 5 — The standard array was deleted 2026-08-12. StandardSection now carries the
   // mechanism argument on its own, and the three items repeated the feature blocks.
 
