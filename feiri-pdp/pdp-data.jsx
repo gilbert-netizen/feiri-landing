@@ -38,6 +38,62 @@ window.PDP_DATA = {
     // live inventory. 6XL is the only genuinely scarce size (15 per colourway).
   },
 
+  // 1b — The hero strip. Supplied by Gilbert 2026-09-05 and REPLACING the photographs
+  // that were in the hero, on his instruction. This is the scrolling section of the
+  // header, which is where Clarity recorded 18 taps on a picture that did nothing.
+  //
+  // Every caption names what ITS photograph proves. That is the whole job of a caption
+  // in a gallery: the reader can already see what the thing looks like, so the words
+  // have to add the claim the picture is evidence for. The labels these replace on the
+  // original composite read "Sand and black", "Structured collar" and "100% Cotton
+  // fabric", all of which named what the thing IS.
+  //
+  // 🚩 "100% Cotton" is deliberately absent. The store makes no composition claim on
+  // any surface, so it cannot be verified. Copy Law gate 7.
+  //
+  // 🚩 Slide 6 is a rendered card, not a picture of one. A five column measurement
+  // table baked into a JPEG and scaled into a 390px slot is unreadable, and it is the
+  // single thing the fit-anxious buyer needs most. Slide 7 IS a supplied image, on
+  // Gilbert's call, and its aspect (0.80) matches the mobile slot exactly.
+  //
+  // 🚩 Provenance: six of these files came from ChatGPT and are AI-processed. See the
+  // note in 01-context/qc-facts.md before any of them is treated as a photograph of
+  // the actual garment.
+  heroStrip: [
+    { type: 'image', src: 'feiri-pdp/assets/hero/01-standing.jpg',
+      alt: 'A man wearing the Black and Sand polo, standing, photographed against a cream backdrop.',
+      caption: 'Cut for a broader frame, not sized up from a medium.' },
+    { type: 'image', src: 'feiri-pdp/assets/hero/02-shoulder.jpg',
+      alt: 'The polo seen side on, with close crops of the collar, the shoulder and the knitted fabric.',
+      caption: 'The seam sits on your shoulder, not halfway down your arm.' },
+    { type: 'image', src: 'feiri-pdp/assets/hero/03-collar.jpg',
+      alt: 'The polo on a wooden hanger, the collar standing up on its own, the FEIRI Milano label and a 5XL size tab visible.',
+      caption: 'The collar holds its shape with nothing inside it.' },
+    { type: 'image', src: 'feiri-pdp/assets/hero/04-seated.jpg',
+      alt: 'A man seated in a leather armchair wearing the Black and Sand polo, the hem still sitting flat.',
+      caption: 'Seated, the hem stays where you put it.' },
+    { type: 'image', src: 'feiri-pdp/assets/hero/05-colourways.jpg',
+      alt: 'Both colourways folded side by side, Cream and Blue beside Black and Sand.',
+      caption: 'Two colourways. Both cut from the same 3XL pattern.' },
+    { type: 'size' },
+    { type: 'image', src: 'feiri-pdp/assets/hero/07-review.jpg',
+      alt: 'A five star review headed Out of this world, from a verified buyer in South Africa, with two photographs he sent in.',
+      caption: null },
+  ],
+
+  // Measured flat, in centimetres, 1cm to 2cm tolerance. Source: the FEIRI size guide on
+  // the Shopify PDP, verified 2026-08-10. Moved here from pdp-sections-b on 2026-09-05
+  // because two places now render it, the buy block and the hero strip's size slide.
+  // One copy, so they cannot drift apart. These five decide the purchase; the full guide
+  // (armhole, bicep, cuff, neck) stays on the store.
+  measure: [
+    ['Chest, flat', 76, 80, 84, 88],
+    ['Body length', 91, 93, 95, 97],
+    ['Shoulder', 54, 57, 60, 63],
+    ['Sleeve length', 26, 27, 28, 29],
+    ['Hem, flat', 70, 74, 78, 82],
+  ],
+
   // 4 — Features. Each block opens on the failure he has already lived through,
   // then gives a number he can check with a tape measure. `pos` reframes the 4:3
   // crop when the centre of the photo is not the part that proves the claim.

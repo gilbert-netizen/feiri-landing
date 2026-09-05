@@ -315,23 +315,88 @@
     /* Dots sit over the photograph's own ground, which is a white studio wall on every
        frame, so they are ink rather than cream. pointer-events:none or they swallow a
        swipe that starts on them. */
+    /* Caption, dots and pill in one bar so they cannot collide. The whole bar is
+       pointer-events:none: anything here that accepted a pointer would swallow a swipe
+       that started on it. */
+    .feiri-hero-bar {
+      position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 14px;
+      padding: 40px 14px 12px;
+      background: linear-gradient(0deg, rgba(250,248,242,0.97) 18%, rgba(250,248,242,0.82) 52%, rgba(250,248,242,0) 100%);
+    }
+    .feiri-hero-bar.is-bare { background: none; padding-top: 12px; }
+    .feiri-hero-caption {
+      margin: 0; max-width: 74%;
+      font-family: var(--font-sans); font-size: 16px; line-height: 1.4;
+      color: var(--cream); font-weight: 500;
+    }
     .feiri-hero-dots {
-      position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px;
-      display: flex; gap: 7px; pointer-events: none;
+      display: flex; gap: 7px; flex: 0 0 auto; padding-bottom: 4px;
     }
     .feiri-hero-dot {
       width: 7px; height: 7px; border-radius: 999px;
       background: rgba(20,24,28,0.28); transition: background .2s ease, transform .2s ease;
     }
     .feiri-hero-dot.is-on { background: rgba(20,24,28,0.88); transform: scale(1.15); }
-    @media (min-width: 721px) { .feiri-hero-dots { bottom: 22px; } }
+    @media (min-width: 721px) {
+      .feiri-hero-bar { padding: 56px 22px 20px; }
+      .feiri-hero-caption { font-size: 18px; max-width: 72%; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .feiri-hero-strip { scroll-behavior: auto; }
       .feiri-hero-dot { transition: none; }
       .feiri-hero-dot.is-on { transform: none; }
     }
+
+    /* The size slide. Rendered, not a picture of a table: five columns baked into a
+       JPEG and scaled into a 390px slot is unreadable, and this is the one thing the
+       fit-anxious buyer needs most. Styled to sit with the lander, not against it. */
+    .feiri-hero-sizecard {
+      background: var(--panel-2); cursor: default;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px 16px;
+    }
+    .feiri-hero-sizecard-inner { width: 100%; max-width: 560px; }
+    .feiri-hero-sizecard-eyebrow {
+      margin: 0 0 8px; font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+    }
+    .feiri-hero-sizecard-head {
+      margin: 0 0 10px; font-family: var(--font-serif); font-variant: small-caps;
+      font-weight: 600; letter-spacing: 0.02em; line-height: 1.1; color: var(--cream);
+      font-size: clamp(1.35rem, 3.4vw, 2rem);
+    }
+    .feiri-hero-sizecard-lede {
+      margin: 0 0 16px; font-family: var(--font-sans); font-size: 16px; line-height: 1.5;
+      color: var(--cream-dim);
+    }
+    .feiri-hero-sizetable { width: 100%; border-collapse: collapse; }
+    .feiri-hero-sizetable th, .feiri-hero-sizetable td {
+      font-family: var(--font-sans); font-size: 16px; text-align: right;
+      padding: 9px 6px; border-bottom: 1px solid var(--hair); color: var(--cream);
+    }
+    /* 16px on the size headers, not smaller. The store's own size table had exactly
+       this defect and it was fixed on 2026-08-20, 12px to 16px. The size a man reads
+       off is not decoration. */
+    .feiri-hero-sizetable thead th {
+      font-size: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--gold); border-bottom: 1px solid var(--hair-strong);
+    }
+    .feiri-hero-sizetable th[scope="row"], .feiri-hero-sizetable thead th:first-child {
+      text-align: left; font-weight: 500; color: var(--cream-dim);
+    }
+    .feiri-hero-sizetable tbody tr:last-child th,
+    .feiri-hero-sizetable tbody tr:last-child td { border-bottom: 0; }
+    .feiri-hero-sizecard-note {
+      margin: 12px 0 0; font-family: var(--font-sans); font-size: 14px; line-height: 1.45;
+      color: var(--cream-dim);
+    }
+    @media (min-width: 721px) {
+      .feiri-hero-sizecard { padding: 40px 32px; }
+      .feiri-hero-sizetable th, .feiri-hero-sizetable td { padding: 13px 8px; font-size: 17px; }
+    }
     .feiri-hero-tap-pill {
-      position: absolute; right: 14px; bottom: 14px;
+      position: absolute; right: 14px; top: 14px;
       display: inline-flex; align-items: center; gap: 7px;
       padding: 9px 14px; border-radius: 999px;
       background: rgba(6,18,26,0.58);
@@ -344,7 +409,7 @@
     }
     .feiri-hero-media:hover .feiri-hero-tap-pill { background: rgba(6,18,26,0.76); }
     @media (min-width: 721px) {
-      .feiri-hero-tap-pill { right: 22px; bottom: 22px; }
+      .feiri-hero-tap-pill { right: 22px; top: 22px; }
     }
 
     /* --- Lightbox --- */
@@ -487,6 +552,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.eff95e02.js"></script>
+  <script src="feiri-pdp/app.a902284a.js"></script>
 </body>
 </html>

@@ -6,13 +6,7 @@ const Btn2 = window.Btn;
 // Measured flat, in centimetres, 1cm to 2cm tolerance. Source: the FEIRI size guide
 // on the Shopify PDP, verified 2026-08-10. These five decide the purchase; the full
 // guide (armhole, bicep, cuff, neck) stays on the store.
-const MEASURE = [
-  ['Chest, flat', 76, 80, 84, 88],
-  ['Body length', 91, 93, 95, 97],
-  ['Shoulder', 54, 57, 60, 63],
-  ['Sleeve length', 26, 27, 28, 29],
-  ['Hem, flat', 70, 74, 78, 82],
-];
+const MEASURE = window.PDP_DATA.measure;
 
 /* 8 — FINAL RELEASE. Installs the last rung (my size is the one that runs out)
    immediately before the buy box. No counter: the old one was hardcoded to 27 for

@@ -154,9 +154,16 @@ function App() {
   // hero inside `gallery` and Cream & Blue does not, so filter rather than assume.
   // `index` is the slide the hero strip was on, so the lightbox opens on the photograph
   // he was actually looking at rather than resetting him to the first one.
-  const openHeroGallery = React.useCallback((c, index = 0) => {
-    setLb({ images: [c.hero, ...(c.gallery || []).filter(g => g !== c.hero)], index });
-  }, []);
+  // The hero strip is its own set now (D.heroStrip), so the lightbox opens THAT list and
+  // the index carries straight across: slide 3 in the strip is slide 3 in the lightbox.
+  // The size card has no image, so it is skipped and the indexes are remapped rather
+  // than left with a hole in them.
+  const heroPhotos = React.useMemo(() => (D.heroStrip || []).filter(s => s.type === 'image'), []);
+  const openHeroGallery = React.useCallback((stripIndex = 0) => {
+    const src = (D.heroStrip || [])[stripIndex] && D.heroStrip[stripIndex].src;
+    const i = Math.max(0, heroPhotos.findIndex(p => p.src === src));
+    setLb({ images: heroPhotos.map(p => p.src), index: i });
+  }, [heroPhotos]);
   const openPhotos = React.useCallback((images, index) => setLb({ images, index }), []);
 
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
@@ -225,7 +232,7 @@ function App() {
     <div data-theme="dark" style={rootStyle}>
       <AnnouncementBar />
       <main>
-        <window.HeroSection product={D.product} color={color} onBuy={scrollToFeatures} onOpenGallery={openHeroGallery} />
+        <window.HeroSection product={D.product} color={color} onBuy={scrollToFeatures} onOpenGallery={openHeroGallery} strip={D.heroStrip} measure={D.measure} />
         <window.StandardSection />
         <window.FeaturesSection features={D.features} />
         <window.TestimonialsSection testimonials={D.testimonials} rating={D.product.rating} reviews={D.product.reviews} />
