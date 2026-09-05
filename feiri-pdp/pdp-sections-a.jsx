@@ -173,8 +173,16 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
                     {s.points.map(pt => (
                       <span key={pt.n} className="feiri-hero-point" style={{ left: `${pt.ax}%`, top: `${pt.ay}%` }} aria-hidden="true">{pt.n}</span>
                     ))}
+                    {/* Two wordings, one position. Wide screens get the full sentence;
+                        below 861px the margin beside a 350px frame is about 95px, which
+                        no full sentence survives, so the short form shows there instead.
+                        Both carry their number so the label and the dot stay tied. */}
                     {s.points.map(pt => (
-                      <span key={'l' + pt.n} className={`feiri-hero-uspl is-${pt.side}`} style={{ left: `${pt.lx}%`, top: `${pt.ly}%` }}>{pt.label}</span>
+                      <span key={'l' + pt.n} className={`feiri-hero-uspl is-${pt.side}`} style={{ left: `${pt.lx}%`, top: `${pt.ly}%` }}>
+                        <b className="feiri-hero-uspl-n" aria-hidden="true">{pt.n}</b>
+                        <span className="feiri-hero-uspl-long">{pt.label}</span>
+                        <span className="feiri-hero-uspl-short">{pt.short || pt.label}</span>
+                      </span>
                     ))}
                   </span>
                 )}
@@ -221,7 +229,10 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
         {/* And the pill only offers a closer look at slides that HAVE one. On the size
             card it would be pointing at a table that is already full size, and the card
             is a div, so tapping it does nothing. */}
-        {activeSlide && activeSlide.type === 'image' && (
+        {/* The pill stands down on the annotated slide. Its corner is the only clear
+            ground label 1 has, and three numbered labels already say the picture is
+            worth reading. The slide is still tappable. */}
+        {activeSlide && activeSlide.type === 'image' && !activeSlide.points && (
           <span className="feiri-hero-tap-pill" aria-hidden="true">
             <Icon name="maximize" size={15} color="#FAF0D6" />
             <span>Look closer</span>

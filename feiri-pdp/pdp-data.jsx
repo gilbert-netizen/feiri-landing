@@ -90,11 +90,11 @@ window.PDP_DATA = {
       alt: 'The polo seen side on, with close crops of the collar, the shoulder and the knitted fabric.',
       caption: null,
       points: [
-        { n: 1, ax: 72, ay: 28, lx: 72, ly: 13, side: 'right',
+        { n: 1, short: 'Seam on your shoulder, not down your arm.', ax: 72, ay: 28, lx: 72, ly: 3,  side: 'right',
           label: 'The seam sits on your shoulder, not halfway down your arm.' },
-        { n: 2, ax: 21, ay: 33, lx: 1,  ly: 4,  side: 'left',
+        { n: 2, short: 'Buttons that do not strain.', ax: 21, ay: 33, lx: 1,  ly: 4,  side: 'left',
           label: 'The placket is reinforced, so the buttons do not strain.' },
-        { n: 3, ax: 28, ay: 72, lx: 2,  ly: 84, side: 'left',
+        { n: 3, short: 'Knitted in, so it cannot peel.', ax: 28, ay: 72, lx: 2,  ly: 84, side: 'left',
           label: 'The monogram is knitted in, not printed on, so it cannot peel.' },
       ] },
     // 🚩 This was the hanger shot, whose caption read "the collar holds its shape with
@@ -104,17 +104,23 @@ window.PDP_DATA = {
     // rib. Shooting the real hanger shot is worth five minutes and would earn the
     // stronger line back.
     { type: 'image', src: 'feiri-pdp/assets/hero/03-collar.jpg',
-      alt: 'A close view of the collar, placket and buttons on the Cream and Blue polo.',
+      alt: 'The Cream and Blue polo folded, the collar standing with the FEIRI Milano label and size tab visible.',
       caption: 'A knitted rib collar, built not to curl at the points.' },
     { type: 'image', src: 'feiri-pdp/assets/hero/04-seated.jpg',
-      alt: 'A man seated in a leather armchair wearing the Cream and Blue polo, the hem still sitting flat over his waist.',
-      caption: 'Seated, the hem stays where you put it.' },
+      alt: 'A man seated in a leather armchair wearing the Black and Sand polo, the shoulder seam sitting square and the hem flat.',
+      caption: 'Seated, the shoulder holds and the hem stays put.' },
     { type: 'image', src: 'feiri-pdp/assets/hero/05-colourways.jpg',
-      alt: 'Two men standing together, one in Cream and Blue and one in Black and Sand.',
+      alt: 'Two men standing together, one in Cream and Blue and one in Black and Sand, both in navy trousers.',
       caption: 'Two colourways. Both cut from the same 3XL pattern.' },
     { type: 'size' },
     { type: 'image', src: 'feiri-pdp/assets/hero/07-review.jpg',
       alt: 'A five star review headed Out of this world, from a verified buyer in South Africa, with two photographs he sent in.',
+      caption: null },
+    // Gilbert's pick, 2026-09-05. The review text and attribution are correct: Thabo K.,
+    // Durban, "Luxury clothing that actually fits my body properly", checked against the
+    // Fera record. See the sheet for two things baked into it that are not.
+    { type: 'image', src: 'feiri-pdp/assets/hero/08-review-thabo.jpg',
+      alt: 'A five star review from Thabo K. in Durban reading "Luxury clothing that actually fits my body properly", shown over the polo.',
       caption: null },
   ],
 

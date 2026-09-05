@@ -424,8 +424,26 @@
     /* Below 861px there is no margin wide enough to hold a sentence beside a 350px
        frame without it landing on the man, so the labels move to the bar as a
        numbered list and only the dots stay on the photograph. */
+    /* The labels stay ON the creative at every width now, on Gilbert's call. Below
+       861px they use the short wording and drop to 12px, because the clear margin beside
+       a 350px frame is roughly 95px on the right and 70px on the left, and a full
+       sentence does not survive that. The numbered list on the bar is retired here so the
+       same three claims are not made twice on one slide. */
+    .feiri-hero-uspl-short { display: none; }
     @media (max-width: 860px) {
-      .feiri-hero-uspl, .feiri-hero-lines { display: none; }
+      .feiri-hero-uspl-long { display: none; }
+      .feiri-hero-uspl-short { display: inline; }
+      .feiri-hero-uspl { font-size: 12px; line-height: 1.28; }
+      .feiri-hero-uspl.is-right { max-width: 36%; }
+      .feiri-hero-uspl.is-left  { max-width: 25%; }
+      .feiri-hero-bar.is-list .feiri-hero-usplist { display: none; }
+      .feiri-hero-bar.is-list { background: none; padding-top: 12px; }
+    }
+    .feiri-hero-uspl-n {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 15px; height: 15px; border-radius: 999px; margin-right: 5px;
+      background: #7C6128; color: #FAF0D6; font-size: 10px; font-weight: 700;
+      vertical-align: 1px;
     }
     @media (min-width: 861px) {
       .feiri-hero-uspl.is-left { max-width: 21%; }
@@ -631,6 +649,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.5732b5ba.js"></script>
+  <script src="feiri-pdp/app.ad01b763.js"></script>
 </body>
 </html>
