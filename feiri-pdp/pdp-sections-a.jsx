@@ -61,35 +61,79 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
     'Made only in 3XL to 6XL.',
     'A polo that does not ride up when you sit and a seam that sits on your shoulder, not down your arm.',
   ];
+  // The hero photograph leads, then the rest of that colourway. Black & Sand lists its
+  // own hero inside `gallery` and Cream & Blue does not, so filter rather than assume.
+  // Same list the lightbox opens, so slide 3 in the strip is slide 3 in the lightbox.
+  const slides = React.useMemo(
+    () => [color.hero, ...(color.gallery || []).filter(g => g !== color.hero)],
+    [color]
+  );
+  const stripRef = React.useRef(null);
+  const [active, setActive] = React.useState(0);
+
+  // Back to the first photograph when the colourway changes, or the strip keeps the
+  // old scroll offset and opens on whichever slide happened to be there.
+  React.useEffect(() => {
+    setActive(0);
+    if (stripRef.current) stripRef.current.scrollTo({ left: 0, behavior: 'auto' });
+  }, [color.key]);
+
+  // Index from scroll offset rather than an IntersectionObserver: one read, no
+  // callbacks queued behind the rendering steps, and it is exact at every snap point.
+  const onStripScroll = React.useCallback((e) => {
+    const el = e.currentTarget;
+    const w = el.clientWidth || 1;
+    const i = Math.round(el.scrollLeft / w);
+    setActive(prev => (prev === i ? prev : Math.max(0, Math.min(i, slides.length - 1))));
+  }, [slides.length]);
+
   return (
     <section data-screen-label="Hero" className="feiri-hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--ink-black)' }}>
       <div className="feiri-hero-media">
-        {product.colors.map(c => (
-          /* alt was empty until 2026-09-04. This is the product, not decoration, and on
-             a metered connection in this market the alt text is what he actually reads
-             when the photograph does not arrive. */
-          <img key={c.key} src={c.hero} alt={`${product.name} in ${c.name}, worn`} className="feiri-hero-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'right center', opacity: c.key === color.key ? 1 : 0, transition: 'opacity .7s ease' }} />
-        ))}
-        <div className="feiri-hero-scrim-bottom" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
         {/* The hero photograph was the second most-tapped element on the page in the
-            week to 2026-09-04 (18 taps, 4.63%) and had no handler on it. It opens the
-            colourway's gallery now.
+            week to 2026-09-04 (18 taps, 4.63% of every tap) against a single <img> with
+            no handler on it. Men were trying to look at the garment and nothing happened.
 
-            Deliberately the LAST child of .feiri-hero-media and carrying no z-index:
-            .feiri-hero-copy and the CTA block are later siblings of the media and also
-            positioned, so DOM order keeps them painting above this. Give this a
-            z-index and it starts eating taps meant for "See how it fits". */}
-        <button
-          type="button"
-          className="feiri-hero-tap"
-          onClick={() => onOpenGallery(color)}
-          aria-label={`Look closer at the ${color.name} polo`}
+            So the hero image is a swipeable strip now, not one picture. This is safe in
+            both layouts and neither one lets it near the CTA: above 721px the media is
+            its own grid column (column 1, rows 1 to 2) beside the copy, and below 721px
+            the section is display:block and the media is its own 58vh band above the
+            copy. Its height is fixed at 92vh and 58vh respectively, so the hero fold
+            arithmetic recorded in CLAUDE.md is untouched by this.
+
+            Tapping any slide opens that same slide in the lightbox. */}
+        <div
+          className="feiri-hero-strip"
+          ref={stripRef}
+          onScroll={onStripScroll}
+          role="group"
+          aria-label={`${color.name} photographs, swipe to see more`}
         >
-          <span className="feiri-hero-tap-pill" aria-hidden="true">
-            <Icon name="maximize" size={15} color="#FAF0D6" />
-            <span>Look closer</span>
-          </span>
-        </button>
+          {slides.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              className="feiri-hero-slide"
+              onClick={() => onOpenGallery(color, i)}
+              aria-label={`Open photograph ${i + 1} of ${slides.length} of the ${color.name} polo`}
+            >
+              {/* alt was empty until 2026-09-04. This is the product, not decoration,
+                  and on a metered connection in this market the alt text is what he
+                  actually reads when the photograph does not arrive. */}
+              <img src={src} alt={`${product.name} in ${color.name}, photograph ${i + 1} of ${slides.length}`}
+                className="feiri-hero-img" loading={i === 0 ? 'eager' : 'lazy'} />
+            </button>
+          ))}
+        </div>
+        <div className="feiri-hero-scrim-bottom" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
+        {/* Indicator and pill are pointer-events:none so neither eats a swipe. */}
+        <div className="feiri-hero-dots" aria-hidden="true">
+          {slides.map((_, i) => <span key={i} className={'feiri-hero-dot' + (i === active ? ' is-on' : '')} />)}
+        </div>
+        <span className="feiri-hero-tap-pill" aria-hidden="true">
+          <Icon name="maximize" size={15} color="#FAF0D6" />
+          <span>Look closer</span>
+        </span>
       </div>
       <div className="feiri-hero-copy" style={{ position: 'absolute', top: 'clamp(72px,13vw,132px)', right: 'var(--gutter)', maxWidth: 420, textAlign: 'right' }}>
         <h1 className="feiri-hero-heading" style={{ ...sc('clamp(1.9rem,3vw,2.75rem)', '#14181C'), marginBottom: 14 }}>{lines[0]}</h1>

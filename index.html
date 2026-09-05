@@ -292,12 +292,44 @@
        CTA block are later siblings of .feiri-hero-media and are positioned, so DOM
        order keeps them above this. Adding a z-index here would steal taps from the
        "See how it fits" button. */
-    .feiri-hero-tap {
-      position: absolute; inset: 0; display: block; width: 100%; height: 100%;
-      padding: 0; margin: 0; border: 0; background: transparent;
+    /* The hero image is a swipeable strip. It fills the media box, which is its own
+       grid column above 721px and its own 58vh band below it, so it is nowhere near
+       the CTA and cannot eat a tap meant for "See how it fits". */
+    .feiri-hero-strip {
+      position: absolute; inset: 0;
+      display: flex; overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; -ms-overflow-style: none;
+      overscroll-behavior-x: contain;
+    }
+    .feiri-hero-strip::-webkit-scrollbar { display: none; }
+    .feiri-hero-slide {
+      flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always;
+      display: block; height: 100%; width: 100%;
+      padding: 0; margin: 0; border: 0; background: #fff;
       cursor: zoom-in; -webkit-tap-highlight-color: transparent;
     }
-    .feiri-hero-tap:focus-visible { outline: 3px solid var(--gold); outline-offset: -6px; }
+    .feiri-hero-slide:focus-visible { outline: 3px solid var(--gold); outline-offset: -6px; }
+    .feiri-hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Dots sit over the photograph's own ground, which is a white studio wall on every
+       frame, so they are ink rather than cream. pointer-events:none or they swallow a
+       swipe that starts on them. */
+    .feiri-hero-dots {
+      position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px;
+      display: flex; gap: 7px; pointer-events: none;
+    }
+    .feiri-hero-dot {
+      width: 7px; height: 7px; border-radius: 999px;
+      background: rgba(20,24,28,0.28); transition: background .2s ease, transform .2s ease;
+    }
+    .feiri-hero-dot.is-on { background: rgba(20,24,28,0.88); transform: scale(1.15); }
+    @media (min-width: 721px) { .feiri-hero-dots { bottom: 22px; } }
+    @media (prefers-reduced-motion: reduce) {
+      .feiri-hero-strip { scroll-behavior: auto; }
+      .feiri-hero-dot { transition: none; }
+      .feiri-hero-dot.is-on { transform: none; }
+    }
     .feiri-hero-tap-pill {
       position: absolute; right: 14px; bottom: 14px;
       display: inline-flex; align-items: center; gap: 7px;
@@ -307,9 +339,10 @@
       border: 1px solid rgba(250,240,214,0.28);
       font-family: var(--font-sans); font-size: 13px; font-weight: 600;
       color: #FAF0D6; letter-spacing: 0.03em; white-space: nowrap;
-      transition: background .2s ease, transform .2s ease;
+      pointer-events: none;
+      transition: background .2s ease;
     }
-    .feiri-hero-tap:hover .feiri-hero-tap-pill { background: rgba(6,18,26,0.76); transform: translateY(-1px); }
+    .feiri-hero-media:hover .feiri-hero-tap-pill { background: rgba(6,18,26,0.76); }
     @media (min-width: 721px) {
       .feiri-hero-tap-pill { right: 22px; bottom: 22px; }
     }
@@ -348,7 +381,6 @@
     @media (prefers-reduced-motion: reduce) {
       .feiri-lb { animation: none; }
       .feiri-lb-close, .feiri-lb-arrow, .feiri-hero-tap-pill { transition: none; }
-      .feiri-hero-tap:hover .feiri-hero-tap-pill { transform: none; }
     }
 
     /* --- The featured review, inside the owners grid ---
@@ -455,6 +487,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.d42916d8.js"></script>
+  <script src="feiri-pdp/app.eff95e02.js"></script>
 </body>
 </html>

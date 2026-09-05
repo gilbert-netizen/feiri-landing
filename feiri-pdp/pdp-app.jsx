@@ -152,8 +152,10 @@ function App() {
   const setLbIndex = React.useCallback((i) => setLb(s => ({ ...s, index: i })), []);
   // The hero photograph leads, then the rest of that colourway. Black & Sand lists its
   // hero inside `gallery` and Cream & Blue does not, so filter rather than assume.
-  const openHeroGallery = React.useCallback((c) => {
-    setLb({ images: [c.hero, ...(c.gallery || []).filter(g => g !== c.hero)], index: 0 });
+  // `index` is the slide the hero strip was on, so the lightbox opens on the photograph
+  // he was actually looking at rather than resetting him to the first one.
+  const openHeroGallery = React.useCallback((c, index = 0) => {
+    setLb({ images: [c.hero, ...(c.gallery || []).filter(g => g !== c.hero)], index });
   }, []);
   const openPhotos = React.useCallback((images, index) => setLb({ images, index }), []);
 
