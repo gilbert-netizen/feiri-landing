@@ -56,6 +56,17 @@ const Btn = window.Btn;
    Layout: image and copy are separated (stacked on mobile, two columns on desktop)
    because the old overlay hid the garment behind the headline, and the garment sitting
    properly on a bigger man IS the argument. */
+// Every hero slide ships at 500, 800, 1100 and its full 1400. Without this a DPR2
+// phone was pulling the 1400px file for a 390px slot, which is roughly three times
+// the bytes it can use. `sizes` mirrors the layout: below 721px the media is the
+// full viewport width, above it the media is its own grid column at about 51vw.
+const HERO_WIDTHS = [500, 800, 1100];
+const HERO_SIZES = '(min-width: 721px) 51vw, 100vw';
+function heroSrcSet(src) {
+  const stem = src.replace(/\.jpg$/, '');
+  return HERO_WIDTHS.map(w => `${stem}-${w}.jpg ${w}w`).concat(`${src} 1400w`).join(', ');
+}
+
 window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery, strip, measure }) {
   const lines = [
     'Made only in 3XL to 6XL.',
@@ -68,6 +79,15 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
   const stripRef = React.useRef(null);
   const [active, setActive] = React.useState(0);
   const activeSlide = slides[active];
+  // 🚩 `loading="lazy"` does not hold inside a horizontal scroller. Chrome fetched three
+  // slides on first paint and **WebKit fetched all seven, 2.27MB**, because every slide is
+  // inside the viewport vertically. Measured 2026-09-05.
+  //
+  // So the images are windowed instead: a slide only carries an <img> when it is the
+  // active one or its immediate neighbour. Everything else is an empty box of the same
+  // size. The neighbour is always mounted, so a swipe never lands on a blank slide, and
+  // first paint is two images on every engine rather than three or seven.
+  const near = React.useCallback((i) => Math.abs(i - active) <= 1, [active]);
   const goTo = React.useCallback((i) => {
     const el = stripRef.current; if (!el) return;
     const k = Math.max(0, Math.min(i, slides.length - 1));
@@ -148,7 +168,11 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
                 {/* alt was empty until 2026-09-04. This is the product, not decoration,
                     and on a metered connection in this market the alt text is what he
                     actually reads when the photograph does not arrive. */}
-                {!s.points && <img src={s.src} alt={s.alt} className="feiri-hero-img" loading={i === 0 ? 'eager' : 'lazy'} />}
+                {!s.points && (near(i)
+                  ? <img src={s.src} srcSet={heroSrcSet(s.src)} sizes={HERO_SIZES} alt={s.alt}
+                      className="feiri-hero-img" decoding="async"
+                      loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} />
+                  : <span className="feiri-hero-img feiri-hero-hold" aria-hidden="true" />)}
                 {s.points && (
                   /* The annotated slide gets its own frame, locked to the file's aspect
                      ratio and centred. Two reasons, both found by measurement:
@@ -158,7 +182,10 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
                      the features out from under anchors expressed as percentages.
                      Inside this frame a percentage is a percentage of the photograph. */
                   <span className="feiri-hero-frame">
-                    <img src={s.src} alt={s.alt} className="feiri-hero-img is-contain" loading="lazy" />
+                    {near(i)
+                      ? <img src={s.src} srcSet={heroSrcSet(s.src)} sizes={HERO_SIZES} alt={s.alt}
+                          className="feiri-hero-img is-contain" decoding="async" loading="lazy" />
+                      : <span className="feiri-hero-img is-contain feiri-hero-hold" aria-hidden="true" />}
                     {/* preserveAspectRatio="none" so a 0-100 viewBox maps onto the
                         percentage anchors on a frame that is not square. Straight lines
                         survive that stretch, stroke width would not. */}

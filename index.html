@@ -40,8 +40,14 @@
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/tokens/base.css" />
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/styles.css" />
 
-  <!-- Hero image is the Largest Contentful Paint element on desktop -->
-  <link rel="preload" as="image" href="feiri-pdp/assets/hero-standing-blue.jpg" fetchpriority="high" />
+  <!-- The first hero slide is the LCP element. It was preloading
+       assets/hero-standing-blue.jpg long after that stopped being the hero, which spent
+       critical-path bandwidth on a file that never paints. imagesrcset/imagesizes so the
+       preload picks the same rung the <img> will, rather than forcing the 1400. -->
+  <link rel="preload" as="image" href="feiri-pdp/assets/hero/01-standing.jpg"
+        imagesrcset="feiri-pdp/assets/hero/01-standing-500.jpg 500w, feiri-pdp/assets/hero/01-standing-800.jpg 800w, feiri-pdp/assets/hero/01-standing-1100.jpg 1100w, feiri-pdp/assets/hero/01-standing.jpg 1400w"
+        imagesizes="(min-width: 721px) 51vw, 100vw"
+        fetchpriority="high" />
 
   <style>
 :root {
@@ -312,6 +318,9 @@
     }
     .feiri-hero-slide:focus-visible { outline: 3px solid var(--gold); outline-offset: -6px; }
     .feiri-hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Stand-in for a slide that is not near the active one, so the strip keeps its
+       geometry and the scroll positions stay put while its image is not loaded. */
+    .feiri-hero-hold { display: block; width: 100%; height: 100%; background: var(--panel-2); }
     /* Dots sit over the photograph's own ground, which is a white studio wall on every
        frame, so they are ink rather than cream. pointer-events:none or they swallow a
        swipe that starts on them. */
@@ -649,6 +658,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.ad01b763.js"></script>
+  <script src="feiri-pdp/app.cb16c38a.js"></script>
 </body>
 </html>

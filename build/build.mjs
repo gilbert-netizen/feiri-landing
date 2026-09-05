@@ -151,8 +151,14 @@ function renderIndexHtml({ appHref, reactHref, reactDomHref }) {
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/tokens/base.css" />
   <link rel="stylesheet" href="_ds/feiri-milano-design-system-bb8c6b6f-e41a-4fd0-946a-846f0e814636/styles.css" />
 
-  <!-- Hero image is the Largest Contentful Paint element on desktop -->
-  <link rel="preload" as="image" href="feiri-pdp/assets/hero-standing-blue.jpg" fetchpriority="high" />
+  <!-- The first hero slide is the LCP element. It was preloading
+       assets/hero-standing-blue.jpg long after that stopped being the hero, which spent
+       critical-path bandwidth on a file that never paints. imagesrcset/imagesizes so the
+       preload picks the same rung the <img> will, rather than forcing the 1400. -->
+  <link rel="preload" as="image" href="feiri-pdp/assets/hero/01-standing.jpg"
+        imagesrcset="feiri-pdp/assets/hero/01-standing-500.jpg 500w, feiri-pdp/assets/hero/01-standing-800.jpg 800w, feiri-pdp/assets/hero/01-standing-1100.jpg 1100w, feiri-pdp/assets/hero/01-standing.jpg 1400w"
+        imagesizes="(min-width: 721px) 51vw, 100vw"
+        fetchpriority="high" />
 
   <style>
 __INLINE_STYLE__
