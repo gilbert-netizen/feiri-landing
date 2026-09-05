@@ -56,12 +56,23 @@ window.PDP_DATA = {
   // single thing the fit-anxious buyer needs most. Slide 7 IS a supplied image, on
   // Gilbert's call, and its aspect (0.80) matches the mobile slot exactly.
   //
-  // 🚩 Provenance: six of these files came from ChatGPT and are AI-processed. See the
-  // note in 01-context/qc-facts.md before any of them is treated as a photograph of
-  // the actual garment.
+  // 🚩 PROVENANCE, settled 2026-09-05. The first cut of this strip used AI-generated
+  // files supplied as product photography. They were compared against the real 6000x4000
+  // shoot and REJECTED on two countable differences: the real garment has FOUR-hole
+  // buttons and the AI renders show two, and the jacquard monogram does not repeat
+  // identically between motifs the way a knitted pattern must.
+  //
+  // Every slide below is now a real photograph from KHAKI DESIGN, BLUE DESIGN or
+  // BOTH MODELS, at 1400x1750 from 4000x6000 and 6000x4000 masters. Slide 2 is a
+  // composite BUILT FROM REAL FRAMES (IMG_8050 with detail plates from 8081, 8077 and
+  // 8164), not a generated one.
+  //
+  // **Do not put a generated image of this garment back on this page.** The brand's one
+  // recorded problem is returns from expectation mismatch, returns are paid both ways,
+  // and product representation is a CPA matter rather than a copy one.
   heroStrip: [
     { type: 'image', src: 'feiri-pdp/assets/hero/01-standing.jpg',
-      alt: 'A man wearing the Black and Sand polo, standing, photographed against a cream backdrop.',
+      alt: 'A man wearing the Black and Sand polo, standing, photographed in the studio.',
       caption: 'Cut for a broader frame, not sized up from a medium.' },
     // The three USPs live ON this image, which is why Gilbert supplied it without text.
     // Anchors and label boxes are percentages read off a 5% grid laid over the actual
@@ -86,14 +97,20 @@ window.PDP_DATA = {
         { n: 3, ax: 28, ay: 72, lx: 2,  ly: 84, side: 'left',
           label: 'The monogram is knitted in, not printed on, so it cannot peel.' },
       ] },
+    // 🚩 This was the hanger shot, whose caption read "the collar holds its shape with
+    // nothing inside it". That is the strongest collar proof on the brand and there is
+    // NO real frame of it anywhere in the shoot folders. The caption changed with the
+    // photograph rather than surviving it: this frame shows the rib, so it claims the
+    // rib. Shooting the real hanger shot is worth five minutes and would earn the
+    // stronger line back.
     { type: 'image', src: 'feiri-pdp/assets/hero/03-collar.jpg',
-      alt: 'The polo on a wooden hanger, the collar standing up on its own, the FEIRI Milano label and a 5XL size tab visible.',
-      caption: 'The collar holds its shape with nothing inside it.' },
+      alt: 'A close view of the collar, placket and buttons on the Cream and Blue polo.',
+      caption: 'A knitted rib collar, built not to curl at the points.' },
     { type: 'image', src: 'feiri-pdp/assets/hero/04-seated.jpg',
-      alt: 'A man seated in a leather armchair wearing the Black and Sand polo, the hem still sitting flat.',
+      alt: 'A man seated in a leather armchair wearing the Cream and Blue polo, the hem still sitting flat over his waist.',
       caption: 'Seated, the hem stays where you put it.' },
     { type: 'image', src: 'feiri-pdp/assets/hero/05-colourways.jpg',
-      alt: 'Both colourways folded side by side, Cream and Blue beside Black and Sand.',
+      alt: 'Two men standing together, one in Cream and Blue and one in Black and Sand.',
       caption: 'Two colourways. Both cut from the same 3XL pattern.' },
     { type: 'size' },
     { type: 'image', src: 'feiri-pdp/assets/hero/07-review.jpg',
