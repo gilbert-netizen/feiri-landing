@@ -62,9 +62,15 @@ const Btn = window.Btn;
 // full viewport width, above it the media is its own grid column at about 51vw.
 const HERO_WIDTHS = [500, 800, 1100];
 const HERO_SIZES = '(min-width: 721px) 51vw, 100vw';
+// 03-collar is the exception: its only source is 1080x1080, so its master is 864 wide
+// and there is no 1100 or 1400 rung to offer. Declaring rungs that 404 would cost a
+// request and get nothing back.
+const HERO_MASTER = { 'feiri-pdp/assets/hero/03-collar.jpg': 864 };
 function heroSrcSet(src) {
   const stem = src.replace(/\.jpg$/, '');
-  return HERO_WIDTHS.map(w => `${stem}-${w}.jpg ${w}w`).concat(`${src} 1400w`).join(', ');
+  const master = HERO_MASTER[src] || 1400;
+  return HERO_WIDTHS.filter(w => w < master).map(w => `${stem}-${w}.jpg ${w}w`)
+    .concat(`${src} ${master}w`).join(', ');
 }
 
 window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery, strip, measure }) {

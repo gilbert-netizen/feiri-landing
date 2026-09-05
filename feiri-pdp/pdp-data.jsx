@@ -104,7 +104,12 @@ window.PDP_DATA = {
     // rib. Shooting the real hanger shot is worth five minutes and would earn the
     // stronger line back.
     { type: 'image', src: 'feiri-pdp/assets/hero/03-collar.jpg',
-      alt: 'The Cream and Blue polo folded, the collar standing with the FEIRI Milano label and size tab visible.',
+      // Creative 5, Gilbert's pick over the hanger shot. Checked before use: four-hole
+      // buttons, correct FEIRI Milano neck label, and a monogram that repeats.
+      // 🚩 It is 1080x1080 and there is no larger version, so the master here is 864x1080.
+      // That is an effective DPR of 2.2 at the 390px slot and 1.18 at the 734px desktop
+      // column, where it will read slightly soft. Accepted, on a mobile-dominant page.
+      alt: 'The Cream and Blue polo folded on a shelf, the collar standing with the FEIRI Milano label visible.',
       caption: 'A knitted rib collar, built not to curl at the points.' },
     { type: 'image', src: 'feiri-pdp/assets/hero/04-seated.jpg',
       alt: 'A man seated in a leather armchair wearing the Black and Sand polo, the shoulder seam sitting square and the hem flat.',
@@ -115,12 +120,6 @@ window.PDP_DATA = {
     { type: 'size' },
     { type: 'image', src: 'feiri-pdp/assets/hero/07-review.jpg',
       alt: 'A five star review headed Out of this world, from a verified buyer in South Africa, with two photographs he sent in.',
-      caption: null },
-    // Gilbert's pick, 2026-09-05. The review text and attribution are correct: Thabo K.,
-    // Durban, "Luxury clothing that actually fits my body properly", checked against the
-    // Fera record. See the sheet for two things baked into it that are not.
-    { type: 'image', src: 'feiri-pdp/assets/hero/08-review-thabo.jpg',
-      alt: 'A five star review from Thabo K. in Durban reading "Luxury clothing that actually fits my body properly", shown over the polo.',
       caption: null },
   ],
 
