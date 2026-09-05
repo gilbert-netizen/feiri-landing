@@ -63,9 +63,29 @@ window.PDP_DATA = {
     { type: 'image', src: 'feiri-pdp/assets/hero/01-standing.jpg',
       alt: 'A man wearing the Black and Sand polo, standing, photographed against a cream backdrop.',
       caption: 'Cut for a broader frame, not sized up from a medium.' },
+    // The three USPs live ON this image, which is why Gilbert supplied it without text.
+    // Anchors and label boxes are percentages read off a 5% grid laid over the actual
+    // crop on 2026-09-05, so they hold at every rendered width.
+    //   the man occupies x 27-72   |  collar crop x 10-39, y 30-49
+    //   shoulder crop x 58-89, y 26-43  |  knit crop x 10-46, y 57-77
+    // Clear ground: top-right x 60-100 y 0-24, top-left x 0-20 y 0-28,
+    // bottom x 0-48 y 80-100. Each label sits in one of those and nowhere else.
+    //
+    // Below 861px there is no margin wide enough to hold a sentence beside a 350px
+    // frame, so the labels become numbered dots on the image plus a numbered list on
+    // the bar. Same words, same numbers. This is the pattern the Standard plate proved
+    // on 2026-08-31, and it exists because type baked into the JPEG would land near 6px.
     { type: 'image', src: 'feiri-pdp/assets/hero/02-shoulder.jpg',
       alt: 'The polo seen side on, with close crops of the collar, the shoulder and the knitted fabric.',
-      caption: 'The seam sits on your shoulder, not halfway down your arm.' },
+      caption: null,
+      points: [
+        { n: 1, ax: 72, ay: 28, lx: 72, ly: 13, side: 'right',
+          label: 'The seam sits on your shoulder, not halfway down your arm.' },
+        { n: 2, ax: 21, ay: 33, lx: 1,  ly: 4,  side: 'left',
+          label: 'The placket is reinforced, so the buttons do not strain.' },
+        { n: 3, ax: 28, ay: 72, lx: 2,  ly: 84, side: 'left',
+          label: 'The monogram is knitted in, not printed on, so it cannot peel.' },
+      ] },
     { type: 'image', src: 'feiri-pdp/assets/hero/03-collar.jpg',
       alt: 'The polo on a wooden hanger, the collar standing up on its own, the FEIRI Milano label and a 5XL size tab visible.',
       caption: 'The collar holds its shape with nothing inside it.' },

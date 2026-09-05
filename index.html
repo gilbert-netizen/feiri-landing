@@ -395,6 +395,85 @@
       .feiri-hero-sizecard { padding: 40px 32px; }
       .feiri-hero-sizetable th, .feiri-hero-sizetable td { padding: 13px 8px; font-size: 17px; }
     }
+
+    /* --- The three USPs, rendered onto the supplied composite --- */
+    /* Locked to 02-shoulder.jpg's own 1123x1401. Inside this box a percentage anchor is
+       a percentage of the photograph, at every viewport, with no cover-crop drift. */
+    .feiri-hero-frame {
+      position: relative; display: block; height: 100%; margin-inline: auto;
+      aspect-ratio: 1123 / 1401; max-width: 100%;
+    }
+    .feiri-hero-img.is-contain { object-fit: contain; }
+    .feiri-hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .feiri-hero-point {
+      position: absolute; transform: translate(-50%, -50%);
+      width: 21px; height: 21px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #7C6128; color: #FAF0D6;
+      font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+      box-shadow: 0 2px 8px rgba(20,24,28,0.35);
+    }
+    .feiri-hero-uspl {
+      position: absolute; font-family: var(--font-sans); font-size: 15px; line-height: 1.35;
+      color: var(--cream); text-align: left;
+    }
+    /* 28%, not 36%: at 36 the box ran from x62 to x98 and clipped the man's head,
+       which starts at x65. Measured, not guessed. */
+    .feiri-hero-uspl.is-right { max-width: 27%; }
+    .feiri-hero-uspl.is-left  { max-width: 20%; }
+    /* Below 861px there is no margin wide enough to hold a sentence beside a 350px
+       frame without it landing on the man, so the labels move to the bar as a
+       numbered list and only the dots stay on the photograph. */
+    @media (max-width: 860px) {
+      .feiri-hero-uspl, .feiri-hero-lines { display: none; }
+    }
+    @media (min-width: 861px) {
+      .feiri-hero-uspl.is-left { max-width: 21%; }
+      .feiri-hero-uspl { font-size: 16px; }
+    }
+    .feiri-hero-usplist { list-style: none; margin: 0; padding: 0; max-width: 100%; }
+    .feiri-hero-usplist li { display: flex; gap: 9px; align-items: flex-start; margin-top: 8px; }
+    .feiri-hero-usplist li:first-child { margin-top: 0; }
+    .feiri-hero-usplist li > span {
+      flex: 0 0 auto; width: 19px; height: 19px; border-radius: 999px;
+      background: #7C6128; color: #FAF0D6;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-sans); font-size: 11px; font-weight: 700; margin-top: 2px;
+    }
+    .feiri-hero-usplist li > p {
+      margin: 0; font-family: var(--font-sans); font-size: 15px; line-height: 1.35;
+      color: var(--cream);
+    }
+    .feiri-hero-bar.is-list { padding-top: 64px; }
+    @media (min-width: 861px) {
+      .feiri-hero-bar.is-list .feiri-hero-usplist { display: none; }
+      /* The labels are on the photograph at this width, so the bar holds nothing and
+         its scrim was washing out the last line of label 3. */
+      .feiri-hero-bar.is-list { background: none; padding-top: 12px; }
+    }
+
+    /* --- Strip arrows. Without them the strip has no visible control on a desktop
+       pointer, and a gallery nobody knows to scroll is a gallery of one picture. --- */
+    .feiri-hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 42px; height: 42px; border-radius: 999px; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(250,248,242,0.92); color: var(--cream);
+      border: 1px solid var(--hair-strong);
+      box-shadow: 0 4px 14px rgba(20,24,28,0.18);
+      transition: background .18s ease, opacity .18s ease;
+    }
+    .feiri-hero-arrow.is-prev { left: 12px; }
+    .feiri-hero-arrow.is-next { right: 12px; }
+    .feiri-hero-arrow:hover { background: #fff; }
+    .feiri-hero-arrow:disabled { opacity: 0; pointer-events: none; }
+    .feiri-hero-arrow:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    @media (min-width: 721px) {
+      .feiri-hero-arrow { width: 48px; height: 48px; }
+      .feiri-hero-arrow.is-prev { left: 18px; }
+      .feiri-hero-arrow.is-next { right: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .feiri-hero-arrow { transition: none; } }
     .feiri-hero-tap-pill {
       position: absolute; right: 14px; top: 14px;
       display: inline-flex; align-items: center; gap: 7px;
@@ -409,7 +488,7 @@
     }
     .feiri-hero-media:hover .feiri-hero-tap-pill { background: rgba(6,18,26,0.76); }
     @media (min-width: 721px) {
-      .feiri-hero-tap-pill { right: 22px; top: 22px; }
+      .feiri-hero-tap-pill { right: 78px; top: 22px; }
     }
 
     /* --- Lightbox --- */
@@ -552,6 +631,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.a902284a.js"></script>
+  <script src="feiri-pdp/app.3b843462.js"></script>
 </body>
 </html>

@@ -68,6 +68,11 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
   const stripRef = React.useRef(null);
   const [active, setActive] = React.useState(0);
   const activeSlide = slides[active];
+  const goTo = React.useCallback((i) => {
+    const el = stripRef.current; if (!el) return;
+    const k = Math.max(0, Math.min(i, slides.length - 1));
+    el.scrollTo({ left: el.clientWidth * k, behavior: 'smooth' });
+  }, [slides.length]);
 
   // Index from scroll offset rather than an IntersectionObserver: one read, no
   // callbacks queued behind the rendering steps, and it is exact at every snap point.
@@ -143,20 +148,72 @@ window.HeroSection = function HeroSection({ product, color, onBuy, onOpenGallery
                 {/* alt was empty until 2026-09-04. This is the product, not decoration,
                     and on a metered connection in this market the alt text is what he
                     actually reads when the photograph does not arrive. */}
-                <img src={s.src} alt={s.alt} className="feiri-hero-img" loading={i === 0 ? 'eager' : 'lazy'} />
+                {!s.points && <img src={s.src} alt={s.alt} className="feiri-hero-img" loading={i === 0 ? 'eager' : 'lazy'} />}
+                {s.points && (
+                  /* The annotated slide gets its own frame, locked to the file's aspect
+                     ratio and centred. Two reasons, both found by measurement:
+                     the labels are absolutely positioned, and without a positioned
+                     ancestor of their own they resolved against the SCROLL CONTAINER
+                     and rendered off-screen on slide 1; and a cover-cropped image moves
+                     the features out from under anchors expressed as percentages.
+                     Inside this frame a percentage is a percentage of the photograph. */
+                  <span className="feiri-hero-frame">
+                    <img src={s.src} alt={s.alt} className="feiri-hero-img is-contain" loading="lazy" />
+                    {/* preserveAspectRatio="none" so a 0-100 viewBox maps onto the
+                        percentage anchors on a frame that is not square. Straight lines
+                        survive that stretch, stroke width would not. */}
+                    <svg className="feiri-hero-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                      {s.points.map(pt => (
+                        <line key={pt.n} x1={pt.ax} y1={pt.ay}
+                          x2={pt.side === 'left' ? pt.lx + 6 : pt.lx + 2} y2={pt.ly + 5}
+                          stroke="#7C6128" strokeWidth="1" vectorEffect="non-scaling-stroke"
+                          strokeLinecap="round" opacity="0.75" />
+                      ))}
+                    </svg>
+                    {s.points.map(pt => (
+                      <span key={pt.n} className="feiri-hero-point" style={{ left: `${pt.ax}%`, top: `${pt.ay}%` }} aria-hidden="true">{pt.n}</span>
+                    ))}
+                    {s.points.map(pt => (
+                      <span key={'l' + pt.n} className={`feiri-hero-uspl is-${pt.side}`} style={{ left: `${pt.lx}%`, top: `${pt.ly}%` }}>{pt.label}</span>
+                    ))}
+                  </span>
+                )}
               </button>
             )
           ))}
         </div>
         <div className="feiri-hero-scrim-bottom" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(6,18,26,0.5) 0%, rgba(6,18,26,0) 34%)' }} />
+        {/* Added 2026-09-05. Without these the strip has no visible control on a
+            desktop pointer: there is nothing to swipe with, and dots alone read as an
+            indicator rather than an invitation. Gilbert could not reach slide 6 and he
+            knew it was there. */}
+        {slides.length > 1 && [-1, 1].map(dir => (
+          <button key={dir} type="button"
+            className={'feiri-hero-arrow is-' + (dir === 1 ? 'next' : 'prev')}
+            onClick={() => goTo(active + dir)}
+            disabled={dir === 1 ? active >= slides.length - 1 : active <= 0}
+            aria-label={dir === 1 ? 'Next photograph' : 'Previous photograph'}>
+            <Icon name={dir === 1 ? 'chevron-right' : 'chevron-left'} size={22} color="currentColor" />
+          </button>
+        ))}
         {/* Caption, dots and pill all sit in one bar so they cannot collide, and the
             whole bar is pointer-events:none so none of it swallows a swipe. The caption
             says what THIS photograph proves; it changes with the slide. */}
         {/* The bar's scrim exists to hold a caption off a photograph. On the size card
             there is no caption and the scrim was just fogging the last line of the
             footnote, so it only paints when there is something to hold. */}
-        <div className={'feiri-hero-bar' + (activeSlide && activeSlide.caption ? '' : ' is-bare')}>
-          <p className="feiri-hero-caption">{activeSlide && activeSlide.caption ? activeSlide.caption : ''}</p>
+        <div className={'feiri-hero-bar'
+          + (activeSlide && (activeSlide.caption || activeSlide.points) ? '' : ' is-bare')
+          + (activeSlide && activeSlide.points ? ' is-list' : '')}>
+          {activeSlide && activeSlide.points ? (
+            <ol className="feiri-hero-usplist">
+              {activeSlide.points.map(pt => (
+                <li key={pt.n}><span aria-hidden="true">{pt.n}</span><p>{pt.label}</p></li>
+              ))}
+            </ol>
+          ) : (
+            <p className="feiri-hero-caption">{activeSlide && activeSlide.caption ? activeSlide.caption : ''}</p>
+          )}
           <div className="feiri-hero-dots" aria-hidden="true">
             {slides.map((_, i) => <span key={i} className={'feiri-hero-dot' + (i === active ? ' is-on' : '')} />)}
           </div>
