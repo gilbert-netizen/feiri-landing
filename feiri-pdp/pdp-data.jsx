@@ -140,17 +140,17 @@ window.PDP_DATA = {
   // then gives a number he can check with a tape measure. `pos` reframes the 4:3
   // crop when the centre of the photo is not the part that proves the claim.
   features: [
-    { img: 'feiri-pdp/assets/detail-blue.jpg', title: 'The collar does not go soft and curl',
+    { img: 'feiri-pdp/assets/detail-blue.jpg', title: 'The collar does not go soft and curl', alt: 'The knitted rib collar, photographed close up',
       body: 'A cheap polo collar loses its shape after a few washes. The points start to curl, and the shirt starts looking old long before it is worn out. This collar is a knitted rib 9cm deep, built to sit flat on the fortieth wear the way it did on the first.' },
-    { img: 'feiri-pdp/assets/seated-hem-blue.jpg', title: 'It stays down when you sit',
+    { img: 'feiri-pdp/assets/seated-hem-blue.jpg', title: 'It stays down when you sit', alt: 'The polo worn seated, with the hem staying in place',
       body: 'Shirts cut for smaller men are too short in the body, so the hem climbs the moment you sit down or reach across a table. Then you spend the evening pulling it back into place. A 4XL FEIRI measures 93cm from the top of the shoulder straight down to the hem, laid flat. Go and measure the polo you wear most, the same way. If it is shorter than 93cm, that is why it rides up.' },
-    { img: 'feiri-pdp/assets/monogram-knit-blue.jpg', title: 'The monogram is knitted in, not printed on top',
+    { img: 'feiri-pdp/assets/monogram-knit-blue.jpg', title: 'The monogram is knitted in, not printed on top', alt: 'The jacquard knitted monogram, photographed close up',
       body: 'Printed logos crack, then peel, usually within a few months of normal washing. Ours is jacquard knitted, which means the pattern is made out of the yarn itself while the fabric is being knitted. You can feel the texture of it with your hand. There is nothing sitting on the surface, so there is nothing that can lift off.' },
     // Swapped 2026-08-15 from profile-black.jpg. That was a full-body side
     // profile, so at 4:3 the shoulder was a small part of the frame and the
     // photograph was not proving the claim the block makes. This one is shot
     // close on the shoulder, the sleeve head and the armhole.
-    { img: 'feiri-pdp/assets/shoulder-black.jpg', title: 'The shoulders are cut for a broader frame',
+    { img: 'feiri-pdp/assets/shoulder-black.jpg', title: 'The shoulders are cut for a broader frame', alt: 'The shoulder seam and armhole, photographed close up',
       body: 'When a pattern has been stretched, the shoulder seam ends up somewhere down your arm and the sleeve drags every time you move. A 4XL FEIRI is 57cm across the shoulders and 25cm through the armhole, so the seam sits where your shoulder actually is and the sleeve is not tight around your arm.' },
   ],
 

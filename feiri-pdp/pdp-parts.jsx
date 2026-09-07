@@ -164,7 +164,7 @@ window.Lightbox = function Lightbox({ images, index, onClose, onIndex }) {
       {many && arrow(-1)}
       <img
         src={images[index]}
-        alt=""
+        alt={`The FEIRI Signature Monogram Polo, photograph ${index + 1} of ${images.length}`}
         className="feiri-lb-img"
         onClick={(e) => e.stopPropagation()}
       />

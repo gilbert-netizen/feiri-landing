@@ -473,7 +473,7 @@ window.FeaturesSection = function FeaturesSection({ features }) {
         {features.map((f, i) => (
           <div key={i} style={{ background: 'var(--panel)', border: '1px solid var(--hair)', borderRadius: 12, overflow: 'hidden' }}>
             <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#000' }}>
-              <img src={f.img} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: f.pos || 'center' }} />
+              <img src={f.img} alt={f.alt || f.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: f.pos || 'center' }} />
             </div>
             <div style={{ padding: '28px 26px 32px' }}>
               <span style={{ ...sans(13, 'var(--gold)'), fontWeight: 700, letterSpacing: '0.14em' }}>0{i + 1}</span>

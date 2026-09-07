@@ -117,6 +117,14 @@ function renderIndexHtml({ appHref, reactHref, reactDomHref }) {
   <title>The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL</title>
   <meta name="description" content="A cotton polo made only in sizes 3XL to 6XL. R1,899, free delivery anywhere in South Africa, and free returns for 14 days if it does not fit." />
 
+  <!-- 2026-09-07 D5/D12: the page had no favicon and no rel="icon" at all, so /favicon.ico
+       404'd on production and the tab showed a blank sheet. monogram.svg is 489x366 and
+       10KB, so it letterboxes and its detail disappears at 16px. This is a purpose-drawn
+       square mark instead: one rect, one path, legible at 16px, and a rel="icon" stops the
+       browser requesting /favicon.ico in the first place. -->
+  <link rel="icon" type="image/svg+xml" href="feiri-pdp/assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="feiri-pdp/assets/favicon.svg" />
+
   <!-- Link preview. WhatsApp is a primary sharing channel in this market. -->
   <meta property="og:type" content="product" />
   <meta property="og:title" content="The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL" />

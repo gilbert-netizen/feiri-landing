@@ -115,12 +115,20 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
   React.useEffect(() => { setActive(0); }, [color.key]);
   const gallery = color.gallery;
   const detailHead = { ..._sans(12, 'var(--muted)'), letterSpacing: '0.18em', textTransform: 'uppercase', margin: '0 0 12px' };
-  // Commit to the cost, never to the mechanism. Returns are handled case by case,
-  // so naming a courier risks a promise FEIRI cannot always keep.
+  // 2026-09-07, Gilbert's call: the delivery and returns lines that stood here were
+  // repeating themselves. "Free delivery anywhere in South Africa" and "Major cities 1
+  // to 3 working days" are both restated VERBATIM in the TrustRow immediately below this
+  // section, and the returns promise is restated there AND carried in full by the
+  // Guarantee section straight after it. Delivery was being read twice inside roughly
+  // 200px, returns three times.
+  //
+  // The BNPL line is the only one carrying information a reader has not already met, so
+  // it is the only one left. Risk reversal still sits beside the buy button, in the
+  // TrustRow's "Free returns for 14 days", so the 2026-08-11 decision holds.
+  //
+  // The line commits to the cost and never to the mechanism.
   const reassurance = [
-    ['truck', 'Free delivery anywhere in South Africa. Major cities 1 to 3 working days, outlying areas 2 to 5. You get a tracking number as soon as it ships.'],
-    ['rotate-ccw', 'If it does not fit, tell us within 14 days and we sort the return out with you. It does not cost you anything, and you get a full refund.'],
-    ['check-circle', 'Or pay it off. Stitch Pay Later splits R1,899 into interest-free instalments from R316.50.'],
+    ['check-circle', 'Or pay it off. Happy Pay splits R1,899 into two interest-free payments, with no deposit up front. Choose Happy Pay at checkout.'],
   ];
   return (
     <Section ground="var(--panel-2)" label="Buy" id="buy">
@@ -132,7 +140,7 @@ window.BuySection = function BuySection({ product, color, setColor, size, setSiz
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10, marginTop: 12 }}>
             {gallery.map((g, i) => (
-              <button key={i} onClick={() => setActive(i)} style={{ padding: 0, border: i === active ? '2px solid var(--gold)' : '1px solid var(--hair)', borderRadius: 7, overflow: 'hidden', cursor: 'pointer', aspectRatio: '1', background: '#000' }}>
+              <button key={i} onClick={() => setActive(i)} aria-label={`Show photograph ${i + 1} of ${gallery.length}`} style={{ padding: 0, border: i === active ? '2px solid var(--gold)' : '1px solid var(--hair)', borderRadius: 7, overflow: 'hidden', cursor: 'pointer', aspectRatio: '1', background: '#000' }}>
                 <img src={g} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </button>
             ))}

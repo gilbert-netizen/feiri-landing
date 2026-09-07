@@ -6,6 +6,14 @@
   <title>The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL</title>
   <meta name="description" content="A cotton polo made only in sizes 3XL to 6XL. R1,899, free delivery anywhere in South Africa, and free returns for 14 days if it does not fit." />
 
+  <!-- 2026-09-07 D5/D12: the page had no favicon and no rel="icon" at all, so /favicon.ico
+       404'd on production and the tab showed a blank sheet. monogram.svg is 489x366 and
+       10KB, so it letterboxes and its detail disappears at 16px. This is a purpose-drawn
+       square mark instead: one rect, one path, legible at 16px, and a rel="icon" stops the
+       browser requesting /favicon.ico in the first place. -->
+  <link rel="icon" type="image/svg+xml" href="feiri-pdp/assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="feiri-pdp/assets/favicon.svg" />
+
   <!-- Link preview. WhatsApp is a primary sharing channel in this market. -->
   <meta property="og:type" content="product" />
   <meta property="og:title" content="The FEIRI Signature Monogram Polo. Made only in sizes 3XL to 6XL" />
@@ -58,8 +66,12 @@
       --panel-2: #F1ECE1;
       --cream: #14181C;
       --cream-dim: rgba(20,24,28,0.72);
-      --muted: rgba(20,24,28,0.5);
-      --gold: #8A6D2E;
+      /* 2026-09-07 D11: was 0.5, measured 3.27:1 on --panel-2 and failing AA.
+         0.65 measures 5.20:1 on the same ground, which is the worst case on this page. */
+      --muted: rgba(20,24,28,0.65);
+      /* 2026-09-07 F1: was #8A6D2E, measured 4.14:1 on the buy-box ground and failing AA.
+         #7E6229 measures 4.86:1. Smallest darkening that clears the gate. */
+      --gold: #7E6229;
       --cobalt: #2C53C9;
       --hair: rgba(20,24,28,0.12);
       --hair-strong: rgba(20,24,28,0.28);
@@ -67,6 +79,17 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    /* 2026-09-07 F3: no reduced-motion guard existed. Covers the Owners reveal, the
+       marquee, and the smooth scroll, without having to find every animated rule. */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
     body {
       margin: 0;
       background: var(--ink-black);
@@ -658,6 +681,6 @@
   <div id="root"></div>
 
   <!-- Prebuilt bundle: JSX compiled at build time, not in the visitor's browser -->
-  <script src="feiri-pdp/app.cb86c4d2.js"></script>
+  <script src="feiri-pdp/app.7fd037b5.js"></script>
 </body>
 </html>
