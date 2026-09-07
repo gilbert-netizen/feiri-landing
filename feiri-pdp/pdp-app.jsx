@@ -33,15 +33,26 @@ function Footer() {
         </div>
         <div style={{ borderTop: '1px solid var(--hair)', marginTop: 48, paddingTop: 26, display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ ...sans(13, 'var(--muted)') }}>© {new Date().getFullYear()} FEIRI Milano · feiri.co.za · Built &amp; powered by V8 Media</span>
-          {/* 2026-09-07: AMEX was claimed and is not offered. Capitec Pay and Samsung Pay
-              are offered and were not claimed. Capitec is the largest issuing relationship
-              in SA. Matches the store footer strip and what checkout renders. flexWrap so
-              six pills do not overflow a 360px phone. */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {['VISA', 'MC', 'Capitec Pay', 'Samsung Pay', 'A Pay', 'G Pay'].map(p => (
-              <span key={p} style={{ ...sans(12, 'var(--cream-dim)'), fontWeight: 600, padding: '5px 10px', border: '1px solid var(--hair)', borderRadius: 5 }}>{p}</span>
-            ))}
-          </div>
+          {/* 2026-09-07, second pass, Gilbert's call: text pills replaced by the real
+              logos. A shopper recognises the Visa and Mastercard marks instantly and has
+              to read "MC" and "A Pay". Recognition is the whole job of a payment strip.
+
+              This is the SAME asset the Shopify store serves in its own footer, copied in
+              and self-hosted rather than hotlinked, so the two surfaces cannot drift apart
+              again. Drift is exactly what F7 was: the page claimed AMEX, which is not
+              offered, and omitted Capitec Pay and Samsung Pay, which are.
+
+              600x50 RGBA with a transparent ground, so it sits on --panel-2 without a white
+              box. Capped at 300px so the 600px master renders at 2x. The 1600px floor on
+              this account is for photography; a flat logo strip at 2x is sharp. */}
+          <img
+            src="feiri-pdp/assets/payment-methods.png"
+            alt="Payment methods accepted: Capitec Pay, Samsung Pay, Mastercard, Visa, Google Pay and Apple Pay"
+            loading="lazy"
+            width="600"
+            height="50"
+            style={{ width: '100%', maxWidth: 300, height: 'auto', display: 'block' }}
+          />
         </div>
       </div>
     </footer>
